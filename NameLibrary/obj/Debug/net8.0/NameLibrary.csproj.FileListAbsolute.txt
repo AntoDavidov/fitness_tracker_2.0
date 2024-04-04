@@ -1,0 +1,12 @@
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\bin\Debug\net8.0\NameLibrary.deps.json
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\bin\Debug\net8.0\NameLibrary.dll
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\bin\Debug\net8.0\NameLibrary.pdb
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\NameLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\NameLibrary.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\NameLibrary.AssemblyInfo.cs
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\NameLibrary.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\NameLibrary.dll
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\refint\NameLibrary.dll
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\NameLibrary.pdb
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\ref\NameLibrary.dll
+C:\Users\User\source\repos\Fitness-Tracker2.0\NameLibrary\obj\Debug\net8.0\NameLibrary.csproj.AssemblyReference.cache

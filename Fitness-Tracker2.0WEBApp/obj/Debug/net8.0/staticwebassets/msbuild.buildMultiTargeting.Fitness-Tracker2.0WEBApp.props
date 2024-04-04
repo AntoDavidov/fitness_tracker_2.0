@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Fitness-Tracker2.0WEBApp.props" />
+</Project>

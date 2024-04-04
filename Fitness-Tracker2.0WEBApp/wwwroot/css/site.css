@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif; /* Use a modern sans-serif font */
+    margin: 0; /* Remove default margin */
+    padding: 0;
+    background: linear-gradient(245.59deg, #f2f2f2 0%, #dddddd 28.53%, #bfbfbf 75.52%); /* Remove default padding */
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+.logo-img {
+    max-width: 100px; /* Adjust the maximum width as needed */
+    height: auto; /* Maintain aspect ratio */
+}

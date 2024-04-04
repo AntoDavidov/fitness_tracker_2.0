@@ -1,0 +1,19 @@
+﻿@page
+@model Fitness_Tracker2._0WEBApp.Pages.LoginModel
+@{
+}
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+<form asp-action="post">
+    <div class="form-group">
+        <label class="form-label" asp-for="Login.Email">Email address</label>
+        <input class="form-control" asp-for="Login.Email">
+    </div>
+    <div class="form-group">
+        <label class="form-label" asp-for="Login.Password">Password</label>
+        <input class="form-control" asp-for="Login.Password" type="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<div class="text-center mt-3">
+    Don't have an account? <a href="/SignUp">Sign Up</a>
+</div>
