@@ -7,13 +7,13 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 {
     public class SignUpModel : PageModel
     {
-        private readonly EmployeeManager employeeManager;
+        private readonly CustomerManager manager1;
         [BindProperty]
-        public Customer Customer { get; set; }
+        public SignupDTO SignupDTO { get; set; }
         
-        public SignUpModel(EmployeeManager manager)
+        public SignUpModel(CustomerManager manager)
         {
-            employeeManager = manager;
+            manager1 = manager;
         }
         public void OnGet()
         {
@@ -23,7 +23,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
         {
             if (ModelState.IsValid)
             {
-                employeeManager.AddCustomer(Customer);
+                manager1.AddCustomer(SignupDTO);
                 return new RedirectToPageResult("Index");
             }
             return Page();

@@ -9,13 +9,12 @@ using ExerciseLibrary;
 
 namespace DBLibrary
 {
-    public class ExerciseDBManager
+    public class ExerciseDBManager : DBDal
     {
-        private string connectionString;
 
         public ExerciseDBManager()
         {
-            connectionString = "Server=mssqlstud.fhict.local;Database=dbi530206_fitnestrak;User Id=dbi530206_fitnestrak;Password=1234;";
+
         }
 
         public bool AddStrengthExerciseToDB(Strength strength)
@@ -38,7 +37,7 @@ namespace DBLibrary
                                                           "VALUES (@ExerciseId, @Muscle, @Repetitions, @Sets, @Weight);";
                     SqlCommand insertStrengthExerciseCommand = new SqlCommand(insertStrengthExerciseQuery, connection);
                     insertStrengthExerciseCommand.Parameters.AddWithValue("@ExerciseId", exerciseId);
-                    insertStrengthExerciseCommand.Parameters.AddWithValue("@Muscle", strength.GetMuscleGroup());
+                    insertStrengthExerciseCommand.Parameters.AddWithValue("@Muscle", strength.GetMuscleGroup().ToString());
                     insertStrengthExerciseCommand.Parameters.AddWithValue("@Repetitions", strength.GetReps());
                     insertStrengthExerciseCommand.Parameters.AddWithValue("@Sets", strength.GetSets());
                     insertStrengthExerciseCommand.Parameters.AddWithValue("@Weight", strength.GetWeight());
@@ -85,45 +84,69 @@ namespace DBLibrary
                 return false;
             }
         }
+        //public List<Exercise> GetAllExercisesFromDB()
+        //{
+        //    List<Exercise> exercises = new List<Exercise>();
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        connection.Open();
+        //        string query = "SELECT * FROM Exercise";
+
+        //        using (SqlCommand cmd = new SqlCommand(query, connection))
+        //        {
+        //            using (SqlDataReader reader = cmd.ExecuteReader())
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    int id = reader.GetInt32(reader.GetOrdinal("id"));
+        //                    string name = reader.GetString(reader.GetOrdinal("name"));
+        //                    string description = reader.GetString(reader.GetOrdinal("description"));
+        //                    string muscleGroupString = reader.GetString(reader.GetOrdinal("muscle"));
+        //                    string exerciseTypeString = reader.GetString(reader.GetOrdinal("exercise_type"));
+
+        //                    MuscleGroup muscleGroup = Enum.Parse<MuscleGroup>(muscleGroupString);
+
+        //                    Exercise exercise;
+        //                    if ()
+        //                    {
+        //                        Strength strengthExercise = new Strength();
+        //                        // Populate additional properties specific to StrengthExercise
+        //                        strengthExercise.GetReps() = reader.GetInt32(reader.GetOrdinal("repetitions"));
+        //                        strengthExercise.Sets = reader.GetInt32(reader.GetOrdinal("sets"));
+        //                        strengthExercise.Weight = reader.GetInt32(reader.GetOrdinal("weight"));
+        //                        exercise = strengthExercise;
+        //                    }
+        //                    else
+        //                    {
+        //                        CardioExercise cardioExercise = new CardioExercise();
+        //                        // Populate additional properties specific to CardioExercise
+        //                        cardioExercise.Duration = reader.GetInt32(reader.GetOrdinal("duration"));
+        //                        exercise = cardioExercise;
+        //                    }
+
+        //                    exercise.Id = id;
+        //                    exercise.Name = name;
+        //                    exercise.Description = description;
+        //                    exercise.MuscleGroup = muscleGroup;
+
+        //                    exercises.Add(exercise);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return exercises;
+        //}
+
     }
 
 
-    
+
 }
-   
 
 
 
-    //public List<Strength> GetAllStrengthExercisesFromDB()
-    //{
-    //    List<Strength> exercises = new List<Strength>();
-    //    using (SqlConnection connection = new SqlConnection(connectionString))
-    //    {
-    //        connection.Open();
-    //        string query = "SELECT * FROM StrengthExercise";
 
-    //        using (SqlCommand cmd = new SqlCommand(query, connection))
-    //        {
-    //            using (SqlDataReader reader = cmd.ExecuteReader())
-    //            {
-    //                while (reader.Read())
-    //                {
-    //                    int id = reader.GetInt32(reader.GetOrdinal("id"));
-    //                    string name = reader.GetString(reader.GetOrdinal("name"));
-    //                    string description = reader.GetString(reader.GetOrdinal("description"));
-    //                    string muscleGroupString = reader.GetString(reader.GetOrdinal("muscle"));
 
-    //                    MuscleGroup muscleGroup = Enum.Parse<MuscleGroup>(muscleGroupString);
-
-    //                    Exercise exercise = new Exercise(id, name, description, muscleGroup);
-    //                    exercises.Add(exercise);
-
-    //                }
-    //            }
-    //        }
-    //    }
-    //    return exercises;
-    //}
 
 
 

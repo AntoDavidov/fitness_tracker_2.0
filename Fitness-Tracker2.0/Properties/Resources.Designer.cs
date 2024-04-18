@@ -129,5 +129,25 @@ namespace Fitness_Tracker2._0.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fitness_Tracker__8_ {
+            get {
+                object obj = ResourceManager.GetObject("Fitness-Tracker (8)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fitness_Tracker__9_ {
+            get {
+                object obj = ResourceManager.GetObject("Fitness-Tracker (9)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

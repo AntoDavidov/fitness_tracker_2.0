@@ -21,36 +21,39 @@ namespace Fitness_Tracker2._0
         {
             InitializeComponent();
             manager = new EmployeeManager();
-            //PopulateListBox();
+            PopulateListBox();
         }
-        //public void PopulateListBox()
-        //{
-        //    lstbEmployees.Items.Clear();
-        //    List<Employee> employees = manager.GetEmployees();
-        //    foreach (Employee employee in employees)
-        //    {
-        //        lstbEmployees.Items.Add(employee.ToString());
-        //    }
+        public void PopulateListBox()
+        {
+            lstbEmployees.Items.Clear();
+            List<Employee> employees = manager.GetEmployees();
+            foreach (Employee employee in employees)
+            {
+                lstbEmployees.Items.Add(employee.ToString());
+            }
 
-        //}
+        }
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
-            string firstName = txtbFirstName.Text;
-            string lastName = txtbLastName.Text;
-            string username = txtbUsername.Text;
-            string password = txtbPassword.Text;
-            string email = txtbEmail.Text;
-            string role = cmbRole.Text;
-            Employee newEmployee = new Employee(firstName, lastName, username, password, email, role);
+            {
+                string firstName = txtbFirstName.Text;
+                string lastName = txtbLastName.Text;
+                string username = txtbUsername.Text;
+                string password = txtbPassword.Text;
+                string email = txtbEmail.Text;
+                string role = cmbRole.Text;
 
-            manager.AddEmployee(newEmployee);
-            //PopulateListBox();
+                Employee newEmployee = new Employee(firstName, lastName, username, password, email, role);
+                manager.AddEmployee(newEmployee);
+                PopulateListBox();
 
 
+            }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
+            
+         //private void btnDelete_Click(object sender, EventArgs e)
+        
             //if (lstbEmployees.SelectedIndex >= 0)
             //{
             //    // Get the selected employee's information
@@ -75,6 +78,6 @@ namespace Fitness_Tracker2._0
             //{
             //    MessageBox.Show("Please select an employee to delete.");
             //}
-        }
+        
     }
 }

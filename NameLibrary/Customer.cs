@@ -27,11 +27,8 @@ namespace NameLibrary
         public Customer() { }
 
         public float GetWeight() { return userWeight; }
-        [Required]
-        public float Weight { get; set; }
 
         public Level GetLevel() { return userLevel; }
-        public string Level { get; set; } // Change property type to string
 
         private Level ParseLevel(string level)
         {

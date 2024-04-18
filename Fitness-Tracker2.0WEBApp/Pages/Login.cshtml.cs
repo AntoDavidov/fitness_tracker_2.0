@@ -11,11 +11,11 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly EmployeeManager manager;
+        private readonly CustomerManager manager;
         [BindProperty]
         public LoginDTO Login { get; set; }
 
-        public LoginModel(EmployeeManager manager)
+        public LoginModel(CustomerManager manager)
         {
             this.manager = manager;
         }   

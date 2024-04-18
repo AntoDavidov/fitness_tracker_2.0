@@ -2,55 +2,54 @@
 @model Fitness_Tracker2._0WEBApp.Pages.SignUpModel
 @{
 }
-@if (Model.Customer != null)
+@if (Model.SignupDTO != null)
 {
-<div>Name: @Model.Customer.FirstName</div>
-<div>Email: @Model.Customer.Email</div>
-<div>Level: @Model.Customer.Level</div>
+<div>Name: @Model.SignupDTO.FirstName</div>
+<div>Email: @Model.SignupDTO.Email</div>
+<div>Level: @Model.SignupDTO.Level</div>
 }
 <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
 <form class="signup-form" method="post">
     <div class="form-left">
         <div class="mb-3">
             <label for="firstName" class="form-label">First Name</label>
-            <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
-            <input asp-for="Customer.FirstName" class="form-control">
+            <span asp-validation-for="SignupDTO.FirstName" class="text-danger"></span>
+            <input asp-for="SignupDTO.FirstName" class="form-control">
         </div>
         <div class="mb-3">
             <label for="lastName" class="form-label">Last Name</label>
-            <span asp-validation-for="Customer.LastName" class="text-danger"></span>
-            <input asp-for="Customer.LastName" class="form-control">
+            <span asp-validation-for="SignupDTO.LastName" class="text-danger"></span>
+            <input asp-for="SignupDTO.LastName" class="form-control">
         </div>
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <span asp-validation-for="Customer.UserName" class="text-danger"></span>
-            <input asp-for="Customer.UserName" class="form-control">
+            <span asp-validation-for="SignupDTO.UserName" class="text-danger"></span>
+            <input asp-for="SignupDTO.UserName" class="form-control">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
-            <span asp-validation-for="Customer.Password" class="text-danger"></span>
-            <input asp-for="Customer.Password" class="form-control" type="password">
+            <span asp-validation-for="SignupDTO.Password" class="text-danger"></span>
+            <input asp-for="SignupDTO.Password" class="form-control" type="password">
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <span asp-validation-for="Customer.Email" class="text-danger"></span>
-            <input asp-for="Customer.Email" class="form-control">
+            <span asp-validation-for="SignupDTO.Email" class="text-danger"></span>
+            <input asp-for="SignupDTO.Email" class="form-control">
         </div>
-        
          <div class="mb-3">
             <label for="level" class="form-label">Level</label>
-            <select class="form-select" id="level" name="Customer.Level">
+            <select class="form-select" id="level" name="SignupDTO.Level">
                 <option selected>Select your level</option>
                 <option value="Beginner">Beginner</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
             </select>
-            <input asp-for="Customer.Level" type="hidden" />
+            <input asp-for="SignupDTO.Level" type="hidden" />
         </div>
         <div class="mb-3">
             <label for="weight" class="form-label">Weight (kg)</label>
-            <span asp-validation-for="Customer.Weight" class="text-danger"></span>
-            <input asp-for="Customer.Weight" class="form-control" type="text"> <!-- Change type to text -->
+            <span asp-validation-for="SignupDTO.Weight" class="text-danger"></span>
+            <input asp-for="SignupDTO.Weight" class="form-control" type="text"> <!-- Change type to text -->
         </div>
         <button type="submit" class="btn btn-red">Submit</button>
     </div>

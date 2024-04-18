@@ -40,12 +40,15 @@
             label2 = new Label();
             label3 = new Label();
             btnDelete = new Button();
-            numericUpDown1 = new NumericUpDown();
-            numericUpDown2 = new NumericUpDown();
-            numericUpDown3 = new NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            nmudReps = new NumericUpDown();
+            nmudSets = new NumericUpDown();
+            nmudWeight = new NumericUpDown();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            ((System.ComponentModel.ISupportInitialize)nmudReps).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmudSets).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmudWeight).BeginInit();
             SuspendLayout();
             // 
             // txtbName
@@ -64,7 +67,7 @@
             btnCreate.FlatStyle = FlatStyle.Flat;
             btnCreate.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
             btnCreate.ForeColor = Color.White;
-            btnCreate.Location = new Point(23, 359);
+            btnCreate.Location = new Point(12, 470);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(164, 47);
             btnCreate.TabIndex = 3;
@@ -170,7 +173,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(23, 412);
+            btnDelete.Location = new Point(208, 470);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(164, 47);
             btnDelete.TabIndex = 12;
@@ -178,26 +181,68 @@
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
-            // numericUpDown1
+            // nmudReps
             // 
-            numericUpDown1.Location = new Point(440, 71);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(111, 27);
-            numericUpDown1.TabIndex = 13;
+            nmudReps.BorderStyle = BorderStyle.None;
+            nmudReps.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            nmudReps.ForeColor = Color.Red;
+            nmudReps.Location = new Point(80, 389);
+            nmudReps.Name = "nmudReps";
+            nmudReps.Size = new Size(144, 24);
+            nmudReps.TabIndex = 13;
             // 
-            // numericUpDown2
+            // nmudSets
             // 
-            numericUpDown2.Location = new Point(431, 128);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(111, 27);
-            numericUpDown2.TabIndex = 14;
+            nmudSets.BorderStyle = BorderStyle.None;
+            nmudSets.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            nmudSets.ForeColor = Color.Red;
+            nmudSets.Location = new Point(292, 389);
+            nmudSets.Name = "nmudSets";
+            nmudSets.Size = new Size(144, 24);
+            nmudSets.TabIndex = 14;
             // 
-            // numericUpDown3
+            // nmudWeight
             // 
-            numericUpDown3.Location = new Point(431, 184);
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(111, 27);
-            numericUpDown3.TabIndex = 15;
+            nmudWeight.BorderStyle = BorderStyle.None;
+            nmudWeight.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            nmudWeight.ForeColor = Color.Red;
+            nmudWeight.Location = new Point(203, 432);
+            nmudWeight.Name = "nmudWeight";
+            nmudWeight.Size = new Size(144, 24);
+            nmudWeight.TabIndex = 15;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            label4.ForeColor = Color.Red;
+            label4.Location = new Point(12, 389);
+            label4.Name = "label4";
+            label4.Size = new Size(62, 22);
+            label4.TabIndex = 16;
+            label4.Text = "Reps:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            label5.ForeColor = Color.Red;
+            label5.Location = new Point(230, 389);
+            label5.Name = "label5";
+            label5.Size = new Size(56, 22);
+            label5.TabIndex = 17;
+            label5.Text = "Sets:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            label6.ForeColor = Color.Red;
+            label6.Location = new Point(113, 431);
+            label6.Name = "label6";
+            label6.Size = new Size(84, 22);
+            label6.TabIndex = 18;
+            label6.Text = "Weight: ";
             // 
             // frmTrainerHomePage
             // 
@@ -205,9 +250,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1078, 529);
-            Controls.Add(numericUpDown3);
-            Controls.Add(numericUpDown2);
-            Controls.Add(numericUpDown1);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(nmudWeight);
+            Controls.Add(nmudSets);
+            Controls.Add(nmudReps);
             Controls.Add(btnDelete);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -222,9 +270,9 @@
             Controls.Add(txtbName);
             Name = "frmTrainerHomePage";
             Text = "Home";
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmudReps).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmudSets).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmudWeight).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -245,8 +293,11 @@
         private Label label2;
         private Label label3;
         private Button btnDelete;
-        private NumericUpDown numericUpDown1;
-        private NumericUpDown numericUpDown2;
-        private NumericUpDown numericUpDown3;
+        private NumericUpDown nmudReps;
+        private NumericUpDown nmudSets;
+        private NumericUpDown nmudWeight;
+        private Label label4;
+        private Label label5;
+        private Label label6;
     }
 }

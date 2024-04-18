@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sUhWh9IsWCaD5Npjqeve8Z5Zm4zNNG26GDgm9NrBWMdFFcBhRpU1qOjJ4vlLgos5Lp2TcPa5CmGT6kkm9P7V+A==",
+  "dgSpecHash": "7T5/akrqUhm2R/rV+Yiujfki3AYW1M/loIi2v87mPanI/S1Qn9B2WYZRFeQiirwjK7+13fCms1225xgVphy1vg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\source\\repos\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj",
+  "projectFilePath": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

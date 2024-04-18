@@ -134,9 +134,9 @@
             lstbEmployees.ForeColor = Color.Red;
             lstbEmployees.FormattingEnabled = true;
             lstbEmployees.ItemHeight = 22;
-            lstbEmployees.Location = new Point(417, 23);
+            lstbEmployees.Location = new Point(572, 12);
             lstbEmployees.Name = "lstbEmployees";
-            lstbEmployees.Size = new Size(520, 506);
+            lstbEmployees.Size = new Size(401, 506);
             lstbEmployees.TabIndex = 7;
             // 
             // panel1
@@ -265,7 +265,6 @@
             btnDelete.TabIndex = 16;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
-            btnDelete.Click += btnDelete_Click;
             // 
             // frmAdminHomePage
             // 

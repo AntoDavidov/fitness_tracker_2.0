@@ -5,18 +5,18 @@ namespace Fitness_Tracker2._0
 {
     public partial class frmLoginPage : Form
     {
-        NameLibrary.User employee;
+        NameLibrary.User user;
+        Employee loggedEmployee;
         EmployeeManager manager;
 
         frmAdminHomePage adminHomePage;
-        frmTrainerHomePage trainerHomePage;
+        frmTrainerUCPage trainerUCPage;
         public frmLoginPage()
         {
             InitializeComponent();
             manager = new EmployeeManager();
             adminHomePage = new frmAdminHomePage();
-            trainerHomePage = new frmTrainerHomePage();
-            employee = new NameLibrary.User("Default", "User", "default", "password", "default@example.com");
+            user = new NameLibrary.User("Default", "User", "default", "password", "default@example.com");
             txtbPassword.PasswordChar = '*';
 
 
@@ -26,7 +26,7 @@ namespace Fitness_Tracker2._0
             string username = txtbUsername.Text;
             string password = txtbPassword.Text;
 
-            Employee loggedInEmployee = manager.GetEmployeeByUsernameAndPassword(username, password);
+            bool loggedIn = manager.VerifyEmployeeCredentials(username, password);
 
             if (username == "default" && password == "password")
             {
@@ -35,14 +35,17 @@ namespace Fitness_Tracker2._0
                 return;
             }
 
-            if (loggedInEmployee != null)
+            if (loggedIn)
             {
-                MessageBox.Show("Welcome " + loggedInEmployee.ToString());
-                string role = loggedInEmployee.Role.Trim(); // Trim because the role was giving unknown
+                MessageBox.Show("Welcome " + username);
+                string role = manager.GetEmployeeRole(username, password)?.Trim();// Trim because the role was giving unknown
 
                 if (role == "TRAINER")
                 {
-                    trainerHomePage.Show();
+                    loggedEmployee = manager.GetEmployeeByUsername(username); // Assuming you have a method to retrieve an employee by username
+                    frmTrainerUCPage trainerUCPage = new frmTrainerUCPage(loggedEmployee); 
+                    trainerUCPage.Show();
+
                 }
                 else if (role == "Nutritionist")
                 {

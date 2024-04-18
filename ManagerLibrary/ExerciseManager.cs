@@ -10,32 +10,28 @@ namespace ManagerLibrary
 {
     public class ExerciseManager
     {
-        private List<Exercise> exercises;
+        private List<Exercise> cashedExercises;
         private ExerciseDBManager exerciseDBManager;
 
         public ExerciseManager()
         {
-            exercises = new List<Exercise>();
             exerciseDBManager = new ExerciseDBManager();
-            InitializeExerciseList();
-        }
-        public void InitializeExerciseList()
-        {
-            new List<Exercise>();
+            cashedExercises = null;
         }
         public void AddStrengthExercise(Strength strengthExercise)
         {
             exerciseDBManager.AddStrengthExerciseToDB(strengthExercise);
-            InitializeExerciseList();
         }
-        public List<Exercise> GetExercises()
-        {
-            return exercises;
-        }
+        //public List<Exercise> GetExercises()
+        //{
+        //    if (cashedExercises == null)
+        //    {
+        //        cashedExercises = exerciseDBManager.GetAllStrengthExercisesFromDB();
+        //    }
+        //}
         public void DeleteExercise(int id)
         {
             exerciseDBManager.DeleteExercise(id);
-            InitializeExerciseList();
         }
 
     }

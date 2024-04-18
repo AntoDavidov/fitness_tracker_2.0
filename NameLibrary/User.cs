@@ -34,23 +34,58 @@ namespace NameLibrary
             this.password = password;
             this.email = email;
         }
-        public User() { }
-        public int ID { get; set; }
-        [Required, MinLength(3, ErrorMessage = "Minimum 3 characters.")]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        [Required, MinLength(5, ErrorMessage ="A username can be from 5 - 30 characters.")]
-        public string UserName { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [Required, EmailAddress]
-        public string Email { get; set; }
+        public User()
+        {
 
-
+        }
+        public int GetId()
+        {
+            return id;
+        }
+        public string GetFirstName()
+        {
+            return firstName;
+        }
+        public void SetFirstName(string firstName)
+        {
+            this.firstName = firstName;
+        }
+        public string GetLastName()
+        {
+            return lastName;
+        }
+        public void SetLastName(string lastName)
+        {
+            this.lastName = lastName;
+        }
+        public string GetUsername()
+        {
+            return username;
+        }
+        public void SetUsername(string username)
+        {
+            this.username = username;
+        }
+        public string GetPassword()
+        {
+            return password;
+        }
+        public void SetPassword(string password)
+        {
+            this.password = password;
+        }
+        public string GetEmail()
+        {
+            return email;
+        }
+        public void SetEmail(string email)
+        {
+            this.email = email;
+        }
         public virtual string ToString()
         {
-            return $"{ID}: {FirstName} {LastName};";
+            return $"{id}: {firstName} {lastName};";
         }
+
     }
 }

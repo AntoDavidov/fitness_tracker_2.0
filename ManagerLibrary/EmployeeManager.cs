@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DBLibrary;
 using NameLibrary;
 
@@ -10,20 +8,30 @@ namespace ManagerLibrary
 {
     public class EmployeeManager
     {
-        //private List<Employee> Employees;
         private EmployeeDBManager employeeDBManager;
+        private List<Employee> cachedEmployees;
 
         public EmployeeManager()
         {
-            //Employees = new List<Employee>();
             employeeDBManager = new EmployeeDBManager();
-            //Employees = employeeDBManager.GetAllEmployeesFromDB();
+            cachedEmployees = null;
         }
+
         public void AddEmployee(Employee employee)
         {
             employeeDBManager.AddEmployeeToDB(employee);
-            //Employees = employeeDBManager.GetAllEmployeesFromDB();
+            cachedEmployees = null;
         }
+        public List<Employee> GetEmployees()
+        {
+            // Lazy loading and caching employees
+            if (cachedEmployees == null)
+            {
+                cachedEmployees = employeeDBManager.GetAllEmployeesFromDB();
+            }
+            return cachedEmployees;
+        }
+
         public bool VerifyUserCredentials(string email, string password)
         {
             try
@@ -36,40 +44,49 @@ namespace ManagerLibrary
                 return false;
             }
         }
-        public bool VerifyCustomer(string username, string password)
+        public bool VerifyEmployeeCredentials(string email, string password)
         {
             try
             {
-                return employeeDBManager.VerifyCustomerCredentials(username, password);
+                return employeeDBManager.VerifyEmployeeCredentials(email, password);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error verifying employee credentials: " + ex.Message);
                 return false;
             }
+        }
+        public string GetEmployeeRole(string username, string password)
+        {
+            return employeeDBManager.GetEmployeeRole(username, password);
+        }
 
-        }
-        public bool VerifyLogin(LoginDTO login)
+        public bool UpdateEmployeeInfo(Employee employee)
         {
-            return employeeDBManager.VerifyCustomerCredentials(login.Email, login.Password);
+            try
+            {
+                return employeeDBManager.UpdateEmployeeInfo(employee);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating employee information: " + ex.Message);
+                return false;
+            }
         }
-        public void AddCustomer(Customer customer)
+        public Employee GetEmployeeByUsername(string username)
         {
-            employeeDBManager.AddCustomerToDB(customer);
+            return employeeDBManager.GetEmployeeByUsername(username);
         }
-        //public List<Employee> GetEmployees()
-        //{
-        //    return Employees;
-        //}
-        //public void DeleteEmployee(int id)
-        //{
-        //    employeeDBManager.DeleteEmployee(id);
-        //    Employees = employeeDBManager.GetAllEmployeesFromDB();
-        //}
+
+        public void DeleteEmployee(int id)
+        {
+            employeeDBManager.DeleteEmployee(id);
+            cachedEmployees = null;
+        }
+
         //public Employee GetEmployeeByUsernameAndPassword(string username, string password)
         //{
-        //    return Employees.FirstOrDefault(emp => emp.UserName == username && emp.Password == password);
+        //    return GetEmployees().FirstOrDefault(emp => emp.GetFirstName() == username && emp.GetPassword() == password);
         //}
-
     }
 }

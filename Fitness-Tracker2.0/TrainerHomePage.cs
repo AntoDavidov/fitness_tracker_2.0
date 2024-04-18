@@ -37,9 +37,9 @@ namespace Fitness_Tracker2._0
             string name = txtbName.Text;
             string description = rchtxtbDescription.Text;
             MuscleGroup muscleGroup;
-            int reps = Convert.ToInt32(numericUpDown1.Value);
-            int sets = Convert.ToInt32(numericUpDown2.Value);
-            double weight = Convert.ToDouble(numericUpDown2.Value);
+            int reps = Convert.ToInt32(nmudReps.Value);
+            int sets = Convert.ToInt32(nmudSets.Value);
+            double weight = Convert.ToDouble(nmudWeight.Value);
 
             if (Enum.TryParse(cmbMuscle.Text, out muscleGroup))
             {

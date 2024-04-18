@@ -5,16 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using NameLibrary;
+using System.Security.Cryptography;
 
 namespace DBLibrary
 {
-    public class EmployeeDBManager
+    public class EmployeeDBManager : DBDal
     {
-        private string connectionString;
-
         public EmployeeDBManager()
         {
-            connectionString = "Server=mssqlstud.fhict.local;Database=dbi530206_fitnestrak;User Id=dbi530206_fitnestrak;Password=1234;";
         }
         public bool AddEmployeeToDB(Employee employee)
         {
@@ -23,15 +21,17 @@ namespace DBLibrary
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+                    string hashedPassword = HashPassword(employee.GetPassword());
+
 
                     // Insert into User table
                     string insertUserQuery = "INSERT INTO [User] (first_name, last_name, username, [password], email) VALUES (@FirstName, @LastName, @Username, @Password, @Email); SELECT SCOPE_IDENTITY();";
                     SqlCommand insertUserCommand = new SqlCommand(insertUserQuery, conn);
-                    insertUserCommand.Parameters.AddWithValue("@FirstName", employee.FirstName);
-                    insertUserCommand.Parameters.AddWithValue("@LastName", employee.LastName);
-                    insertUserCommand.Parameters.AddWithValue("@Username", employee.UserName);
-                    insertUserCommand.Parameters.AddWithValue("@Password", employee.Password);
-                    insertUserCommand.Parameters.AddWithValue("@Email", employee.Email);
+                    insertUserCommand.Parameters.AddWithValue("@FirstName", employee.GetFirstName());
+                    insertUserCommand.Parameters.AddWithValue("@LastName", employee.GetLastName());
+                    insertUserCommand.Parameters.AddWithValue("@Username", employee.GetUsername());
+                    insertUserCommand.Parameters.AddWithValue("@Password", hashedPassword); // Use hashed password
+                    insertUserCommand.Parameters.AddWithValue("@Email", employee.GetEmail());
                     int userId = Convert.ToInt32(insertUserCommand.ExecuteScalar());
 
                     // Insert into Employee table
@@ -48,9 +48,45 @@ namespace DBLibrary
                 Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
-
         }
-        public bool AddCustomerToDB(Customer customer)
+
+
+        public List<Employee> GetAllEmployeesFromDB()
+        {
+            List<Employee> employees = new List<Employee>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"SELECT e.id, u.first_name, u.last_name, u.username, u.password, u.email, e.role
+                FROM Employee e
+                INNER JOIN [User] u ON e.user_id = u.id";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = reader.GetInt32(reader.GetOrdinal("id"));
+                            string firstName = reader.GetString(reader.GetOrdinal("first_name"));
+                            string lastName = reader.GetString(reader.GetOrdinal("last_name"));
+                            string username = reader.GetString(reader.GetOrdinal("username"));
+                            string password = reader.GetString(reader.GetOrdinal("password"));
+                            string email = reader.GetString(reader.GetOrdinal("email"));
+                            string role = reader.GetString(reader.GetOrdinal("role"));
+
+                            Employee employee = new Employee(id, firstName, lastName, username, password, email, role);
+                            employees.Add(employee);
+                        }
+                    }
+                }
+            }
+
+            return employees;
+        }
+        public Employee GetEmployeeByUsername(string username)
         {
             try
             {
@@ -58,66 +94,39 @@ namespace DBLibrary
                 {
                     conn.Open();
 
-                    // Insert into User table
-                    string insertUserQuery = "INSERT INTO [User] (first_name, last_name, username, [password], email) VALUES (@FirstName, @LastName, @Username, @Password, @Email); SELECT SCOPE_IDENTITY();";
-                    SqlCommand insertUserCommand = new SqlCommand(insertUserQuery, conn);
-                    insertUserCommand.Parameters.AddWithValue("@FirstName", customer.FirstName);
-                    insertUserCommand.Parameters.AddWithValue("@LastName", customer.LastName);
-                    insertUserCommand.Parameters.AddWithValue("@Username", customer.UserName);
-                    insertUserCommand.Parameters.AddWithValue("@Password", customer.Password);
-                    insertUserCommand.Parameters.AddWithValue("@Email", customer.Email);
-                    int userId = Convert.ToInt32(insertUserCommand.ExecuteScalar());
+                    string query = "SELECT e.id, u.first_name, u.last_name, u.username, u.password, u.email, e.role " +
+                                   "FROM Employee e INNER JOIN [User] u ON e.user_id = u.id " +
+                                   "WHERE u.username = @Username";
 
-                    // Insert into Customer table
-                    string insertCustomerQuery = "INSERT INTO Customer (user_id, user_weight, member_level) VALUES (@UserId, @UserWeight, @MemberLevel);";
-                    SqlCommand insertCustomerCommand = new SqlCommand(insertCustomerQuery, conn);
-                    insertCustomerCommand.Parameters.AddWithValue("@UserId", userId);
-                    insertCustomerCommand.Parameters.AddWithValue("@UserWeight", customer.Weight);
-                    insertCustomerCommand.Parameters.AddWithValue("@MemberLevel", customer.Level);
-                    insertCustomerCommand.ExecuteNonQuery();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Username", username);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("id"));
+                                string firstName = reader.GetString(reader.GetOrdinal("first_name"));
+                                string lastName = reader.GetString(reader.GetOrdinal("last_name"));
+                                string password = reader.GetString(reader.GetOrdinal("password"));
+                                string email = reader.GetString(reader.GetOrdinal("email"));
+                                string role = reader.GetString(reader.GetOrdinal("role"));
+
+                                // Create and return the Employee object
+                                return new Employee(id, firstName, lastName, username, password, email, role);
+                            }
+                        }
+                    }
                 }
-                return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
+                Console.WriteLine("Error fetching employee by username: " + ex.Message);
             }
+
+            return null; // Return null if no employee found or an error occurred
         }
-
-        //public List<Employee> GetAllEmployeesFromDB()
-        //{
-        //    List<Employee> employees = new List<Employee>();
-
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    {
-        //        conn.Open();
-
-        //        string query = "SELECT * FROM Employee";
-
-        //        using (SqlCommand cmd = new SqlCommand(query, conn))
-        //        {
-        //            using (SqlDataReader reader = cmd.ExecuteReader())
-        //            {
-        //                while (reader.Read())
-        //                {
-        //                    int id = reader.GetInt32(reader.GetOrdinal("id"));
-        //                    string firstName = reader.GetString(reader.GetOrdinal("firstName"));
-        //                    string lastName = reader.GetString(reader.GetOrdinal("lastName"));
-        //                    string username = reader.GetString(reader.GetOrdinal("username"));
-        //                    string password = reader.GetString(reader.GetOrdinal("password"));
-        //                    string email = reader.GetString(reader.GetOrdinal("email"));
-        //                    string role = reader.GetString(reader.GetOrdinal("role"));
-
-        //                    Employee employee = new Employee(id, firstName, lastName, username, password, email, role);
-        //                    employees.Add(employee);
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    return employees;
-        //}
         public bool VerifyUserCredentials(string username, string password)
         {
             try
@@ -142,31 +151,65 @@ namespace DBLibrary
             }
         }
 
-        public bool VerifyCustomerCredentials(string email, string password)
+        
+        public bool VerifyEmployeeCredentials(string username, string password)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-
-                    // Query the customer table to check if the user exists
-                    string query = "SELECT COUNT(*) FROM [User] WHERE email = @email AND password = @password";
+                    string query = "SELECT password FROM [User] WHERE username = @Username";
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@Username", username);
 
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    // Retrieve the hashed password from the database
+                    string hashedPassword = cmd.ExecuteScalar()?.ToString();
 
-                    // If count > 0, the user exists in the customer table
-                    return count > 0;
+                    // If no password was found for the username, return false
+                    if (string.IsNullOrEmpty(hashedPassword))
+                        return false;
+                    bool verified = VerifyPassword(password, hashedPassword);
+                    return verified;
                 }
             }
             catch (Exception ex)
             {
-                // Handle any exceptions
-                Console.WriteLine("Error verifying user credentials: " + ex.Message);
+                Console.WriteLine("Error verifying employee credentials: " + ex.Message);
                 return false;
+            }
+        }
+        public string GetEmployeeRole(string username, string password)
+        {
+            try
+            {
+                string hashedPassword = HashPassword(password);
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = "SELECT e.role FROM Employee e INNER JOIN [User] u ON e.user_id = u.id WHERE u.username = @username AND u.password = @password";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", hashedPassword);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        return result.ToString();
+                    }
+                    else
+                    {
+                        Console.WriteLine("No role found for the employee.");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error fetching employee role: " + ex.Message);
+                return null; // or throw an exception
             }
         }
         public bool DeleteEmployee(int id)
@@ -190,7 +233,48 @@ namespace DBLibrary
             {
                 return false;
             }
-            
+
+        }
+        public bool UpdateEmployeeInfo(Employee employee)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string hashedPassword = HashPassword(employee.GetPassword());
+                    string updateUserInfoQuery = "UPDATE [User] SET first_name = @FirstName, last_name = @LastName, username = @Username, password = @Password, email = @Email WHERE id = @UserId";
+
+                    SqlCommand sqlCommand = new SqlCommand(updateUserInfoQuery, conn);
+                    sqlCommand.Parameters.AddWithValue("@FirstName", employee.GetFirstName());
+                    sqlCommand.Parameters.AddWithValue("@LastName", employee.GetLastName());
+                    sqlCommand.Parameters.AddWithValue("@Username", employee.GetUsername());
+                    sqlCommand.Parameters.AddWithValue("@Password", hashedPassword);
+                    sqlCommand.Parameters.AddWithValue("@Email", employee.GetEmail());
+                    sqlCommand.Parameters.AddWithValue("@UserId", employee.GetId()); // Assuming GetId() method returns the user id
+                    int affectedRows = sqlCommand.ExecuteNonQuery();
+
+                    if (affectedRows > 0)
+                    {
+                        string updateEmployeeInfoQuery = "UPDATE Employee SET role = @Role WHERE user_id = @UserId";
+                        SqlCommand cmd = new SqlCommand(updateEmployeeInfoQuery, conn);
+                        cmd.Parameters.AddWithValue("@Role", employee.Role());
+                        cmd.Parameters.AddWithValue("@UserId", employee.GetId()); // Assuming GetId() method returns the user id
+                        cmd.ExecuteNonQuery();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false; // No rows updated in the User table
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating employee info: " + ex.Message);
+                return false;
+            }
         }
     }
 }

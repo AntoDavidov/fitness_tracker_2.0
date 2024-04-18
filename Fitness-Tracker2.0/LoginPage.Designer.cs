@@ -152,7 +152,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "frmLoginPage";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Login Page";
+            Text = "Log in";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

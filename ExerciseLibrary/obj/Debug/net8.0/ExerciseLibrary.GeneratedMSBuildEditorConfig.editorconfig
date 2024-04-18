@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ExerciseLibrary
-build_property.ProjectDir = C:\Users\User\source\repos\Fitness-Tracker2.0\ExerciseLibrary\
+build_property.ProjectDir = C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -10,3 +10,15 @@ C:\Users\User\source\repos\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\E
 C:\Users\User\source\repos\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\refint\ExerciseLibrary.dll
 C:\Users\User\source\repos\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.pdb
 C:\Users\User\source\repos\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ref\ExerciseLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\bin\Debug\net8.0\ExerciseLibrary.deps.json
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\bin\Debug\net8.0\ExerciseLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\bin\Debug\net8.0\ExerciseLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.AssemblyInfo.cs
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\refint\ExerciseLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ExerciseLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\ExerciseLibrary\obj\Debug\net8.0\ref\ExerciseLibrary.dll
