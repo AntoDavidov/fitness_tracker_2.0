@@ -2,7 +2,9 @@
 @model Fitness_Tracker2._0WEBApp.Pages.LoginModel
 @{
 }
-<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+}
 <form asp-action="post">
     <div class="form-group">
         <label class="form-label" asp-for="Login.Email">Email address</label>
@@ -17,3 +19,4 @@
 <div class="text-center mt-3">
     Don't have an account? <a href="/SignUp">Sign Up</a>
 </div>
+

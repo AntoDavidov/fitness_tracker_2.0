@@ -260,12 +260,21 @@ namespace DBLibrary
                         SqlCommand cmd = new SqlCommand(updateEmployeeInfoQuery, conn);
                         cmd.Parameters.AddWithValue("@Role", employee.Role());
                         cmd.Parameters.AddWithValue("@UserId", employee.GetId()); // Assuming GetId() method returns the user id
-                        cmd.ExecuteNonQuery();
+                        int roleUpdateRows = cmd.ExecuteNonQuery();
 
-                        return true;
+                        if (roleUpdateRows > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Failed to update employee role.");
+                            return false;
+                        }
                     }
                     else
                     {
+                        Console.WriteLine("No rows updated in the User table.");
                         return false; // No rows updated in the User table
                     }
                 }

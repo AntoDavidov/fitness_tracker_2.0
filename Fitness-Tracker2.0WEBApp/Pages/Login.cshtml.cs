@@ -31,14 +31,19 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 return Page();
             }
 
-            if (manager.VerifyLogin(Login))
+            Customer customer = manager.VerifyLogin(Login);
+
+            if (customer != null)
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Email, Login.Email),
+                new Claim(ClaimTypes.Email, customer.GetEmail()),
+                new Claim(ClaimTypes.Name, customer.GetUsername()),
                 };
+
                 var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
+
                 return RedirectToPage("/Index");
             }
             else

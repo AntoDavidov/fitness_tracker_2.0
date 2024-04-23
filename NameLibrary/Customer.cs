@@ -9,16 +9,16 @@ namespace NameLibrary
 {
     public class Customer : User
     {
-        private float userWeight;
+        private double userWeight;
         private Level userLevel;
 
-        public Customer(string firstName, string lastName, string username, string password, string email, float weight, string level) : base(firstName, lastName, username, password, email)
+        public Customer(string firstName, string lastName, string username, string password, string email, double weight, string level) : base(firstName, lastName, username, password, email)
         {
             this.userWeight = weight;
             this.userLevel = ParseLevel(level);
         }
 
-        public Customer(int id, string firstName, string lastName, string username, string password, string email, float weight, string level) : base(id, firstName, lastName, username, password, email)
+        public Customer(int id, string firstName, string lastName, string username, string password, string email, double weight, string level) : base(id, firstName, lastName, username, password, email)
         {
             this.userWeight = weight;
             this.userLevel = ParseLevel(level);
@@ -26,7 +26,7 @@ namespace NameLibrary
 
         public Customer() { }
 
-        public float GetWeight() { return userWeight; }
+        public double GetWeight() { return userWeight; }
 
         public Level GetLevel() { return userLevel; }
 

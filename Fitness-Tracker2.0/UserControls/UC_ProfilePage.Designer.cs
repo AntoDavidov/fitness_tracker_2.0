@@ -47,6 +47,7 @@
             txtbPassword = new TextBox();
             txtbEmail = new TextBox();
             cmbbRole = new ComboBox();
+            txtbConfirmPassword = new TextBox();
             SuspendLayout();
             // 
             // panel6
@@ -214,8 +215,10 @@
             txtbPassword.ForeColor = Color.Red;
             txtbPassword.Location = new Point(150, 191);
             txtbPassword.Name = "txtbPassword";
+            txtbPassword.PasswordChar = '*';
             txtbPassword.Size = new Size(170, 21);
             txtbPassword.TabIndex = 41;
+            txtbPassword.UseSystemPasswordChar = true;
             // 
             // txtbEmail
             // 
@@ -238,11 +241,21 @@
             cmbbRole.Size = new Size(172, 30);
             cmbbRole.TabIndex = 43;
             // 
+            // txtbConfirmPassword
+            // 
+            txtbConfirmPassword.Location = new Point(148, 354);
+            txtbConfirmPassword.Name = "txtbConfirmPassword";
+            txtbConfirmPassword.Size = new Size(172, 27);
+            txtbConfirmPassword.TabIndex = 44;
+            txtbConfirmPassword.UseSystemPasswordChar = true;
+
+            // 
             // ucProfilePage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            Controls.Add(txtbConfirmPassword);
             Controls.Add(cmbbRole);
             Controls.Add(txtbEmail);
             Controls.Add(txtbPassword);
@@ -289,5 +302,6 @@
         private TextBox txtbPassword;
         private TextBox txtbEmail;
         private ComboBox cmbbRole;
+        private TextBox txtbConfirmPassword;
     }
 }

@@ -15,7 +15,7 @@ namespace ManagerLibrary
         {
             customerDBManager = new CustomerDBManager();
         }
-        public bool VerifyLogin(LoginDTO login)
+        public Customer VerifyLogin(LoginDTO login)
         {
             return customerDBManager.VerifyCustomerCredentials(login.Email, login.Password);
         }

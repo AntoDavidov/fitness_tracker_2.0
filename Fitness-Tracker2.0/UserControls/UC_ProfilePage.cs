@@ -10,11 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Fitness_Tracker2._0.UserControls
 {
     public partial class ucProfilePage : UserControl
     {
         private Employee loggedInEmployee;
+
+
         public ucProfilePage(Employee loggedInEmployee)
         {
             InitializeComponent();
@@ -28,7 +31,6 @@ namespace Fitness_Tracker2._0.UserControls
             txtbFirstName.Text = loggedInEmployee.GetFirstName();
             txtbLastName.Text = loggedInEmployee.GetLastName();
             txtbUsername.Text = loggedInEmployee.GetUsername();
-            txtbPassword.Text = loggedInEmployee.GetPassword();
             txtbEmail.Text = loggedInEmployee.GetEmail();
             cmbbRole.Text = loggedInEmployee.Role();
 
@@ -37,27 +39,33 @@ namespace Fitness_Tracker2._0.UserControls
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (txtbPassword.Text != txtbConfirmPassword.Text)
+            {
+                MessageBox.Show("Passwords do not match. Please re-enter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtbPassword.Text = "";
+                txtbConfirmPassword.Text = "";
+                return;
+            }
+
             loggedInEmployee.SetFirstName(txtbFirstName.Text);
             loggedInEmployee.SetLastName(txtbLastName.Text);
             loggedInEmployee.SetUsername(txtbUsername.Text);
-            loggedInEmployee.SetPassword(txtbPassword.Text);
             loggedInEmployee.SetEmail(txtbEmail.Text);
-            // You can update other properties similarly if needed
+            loggedInEmployee.SetPassword(txtbPassword.Text);
 
-            // Call the method to update the employee's information in the database
             EmployeeManager employeeManager = new EmployeeManager();
             bool updateResult = employeeManager.UpdateEmployeeInfo(loggedInEmployee);
 
             if (updateResult)
             {
                 MessageBox.Show("Profile updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                PopulateTextBoxes();
             }
             else
             {
                 MessageBox.Show("Failed to update profile.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PopulateTextBoxes();
             }
-            PopulateTextBoxes();
-
         }
     }
 }
