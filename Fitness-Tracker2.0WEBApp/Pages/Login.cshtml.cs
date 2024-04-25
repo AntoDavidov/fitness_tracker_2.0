@@ -18,16 +18,21 @@ namespace Fitness_Tracker2._0WEBApp.Pages
         public LoginModel(CustomerManager manager)
         {
             this.manager = manager;
+            Login = new LoginDTO();
         }   
         public void OnGet()
         {
+            if(Request.Cookies.ContainsKey(nameof(Login.Email)))
+            {
+                Login.Email = Request.Cookies[nameof(Login.Email)];
+                Login.RememberMe = true;
+            }
 
         }
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
-                // If model state is not valid, return to the login page
                 return Page();
             }
 
@@ -40,10 +45,27 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 new Claim(ClaimTypes.Email, customer.GetEmail()),
                 new Claim(ClaimTypes.Name, customer.GetUsername()),
                 };
+                if (Login.RememberMe)
+                {
+                    CookieOptions cookies = new CookieOptions();
+                    cookies.Expires = DateTime.Now.AddDays(7);
+                    Response.Cookies.Append(nameof(Login.Email), Login.Email, cookies);
+
+                }
+                else
+                {
+                    CookieOptions cookies = new CookieOptions();
+                    cookies.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Append(nameof(Login.Email), Login.Email, cookies);
+
+                }
 
                 var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
 
+                HttpContext.Session.SetString(nameof(Login.Email), Login.Email);
+                
+                //HttpContext.Session.SetObject(nameof(Login), Login);
                 return RedirectToPage("/Index");
             }
             else
@@ -51,6 +73,9 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return Page();
             }
+
+            
+
         }
     }
 }

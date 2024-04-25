@@ -81,7 +81,6 @@ namespace DBLibrary
 
                             if (passwordVerified)
                             {
-                                // Password is correct, create and return the Customer object
                                 return new Customer(id, firstName, lastName, username, dbPassword, userEmail, weight, level);
                             }
                         }
@@ -93,7 +92,7 @@ namespace DBLibrary
                 Console.WriteLine("Error verifying user credentials: " + ex.Message);
             }
 
-            return null; // Return null if login fails or an error occurs
+            return null;
         }
     }
 }

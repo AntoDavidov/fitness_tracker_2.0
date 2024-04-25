@@ -14,9 +14,16 @@
         <label class="form-label" asp-for="Login.Password">Password</label>
         <input class="form-control" asp-for="Login.Password" type="password">
     </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="rememberMe" asp-for="Login.RememberMe">
+        <label class="form-check-label" asp-for="Login.RememberMe">
+            Remember me
+        </label>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 <div class="text-center mt-3">
     Don't have an account? <a href="/SignUp">Sign Up</a>
 </div>
+
 
