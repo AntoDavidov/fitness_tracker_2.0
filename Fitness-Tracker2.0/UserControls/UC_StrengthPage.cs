@@ -17,8 +17,8 @@ namespace Fitness_Tracker2._0.UserControls
         private ExerciseManager exerciseManager;
         public UC_StrengthPage()
         {
-            exerciseManager = new ExerciseManager();
             InitializeComponent();
+            exerciseManager = new ExerciseManager();
         }
 
         private void btnAddExercise_Click(object sender, EventArgs e)

@@ -18,6 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExerciseLibrary\ExerciseLibrary.csproj" />
+    <ProjectReference Include="..\ManagerLibrary\ManagerLibrary.csproj" />
+    <ProjectReference Include="..\NameLibrary\NameLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 

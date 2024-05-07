@@ -18,6 +18,10 @@ namespace DBLibrary
         {
             try
             {
+                if (EmailAlreadyExists(employee.GetEmail()))
+                {
+                    throw new Exception();
+                }
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -46,6 +50,29 @@ namespace DBLibrary
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+        public bool EmailAlreadyExists(string email)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = "SELECT COUNT(*) FROM [User] WHERE email = @Email";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error checking if email exists: " + ex.Message);
                 return false;
             }
         }

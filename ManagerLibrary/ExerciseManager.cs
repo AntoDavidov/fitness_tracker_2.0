@@ -22,6 +22,11 @@ namespace ManagerLibrary
         {
             exerciseDBManager.AddStrengthExerciseToDB(strengthExercise);
         }
+
+        public void AddCardioExercise(Cardio cardioExercise)
+        {
+            exerciseDBManager.AddCardioExerciseToDB(cardioExercise);
+        }
         //public List<Exercise> GetExercises()
         //{
         //    if (cashedExercises == null)

@@ -50,14 +50,12 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                     CookieOptions cookies = new CookieOptions();
                     cookies.Expires = DateTime.Now.AddDays(7);
                     Response.Cookies.Append(nameof(Login.Email), Login.Email, cookies);
-
                 }
                 else
                 {
                     CookieOptions cookies = new CookieOptions();
                     cookies.Expires = DateTime.Now.AddDays(-1);
                     Response.Cookies.Append(nameof(Login.Email), Login.Email, cookies);
-
                 }
 
                 var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -65,7 +63,6 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 
                 HttpContext.Session.SetString(nameof(Login.Email), Login.Email);
                 
-                //HttpContext.Session.SetObject(nameof(Login), Login);
                 return RedirectToPage("/Index");
             }
             else

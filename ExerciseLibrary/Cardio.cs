@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 
 namespace ExerciseLibrary
 {
-    class Cardio : Exercise
+    public class Cardio : Exercise
     {
         private TimeSpan duration;
-        private string equipment;
 
-
-        public Cardio(int id, string name, string description, TimeSpan duriation, string equipment) : base(id, name, description) 
+        public Cardio(int id, string name, string description, TimeSpan duriation) : base(id, name, description) 
         {
             this.duration = duriation;
-            this.equipment = equipment;
         }
-        
+        public Cardio(string name, string description, TimeSpan duriation) : base(name, description)
+        {
+            this.duration = duriation;
+        }
+
+        public TimeSpan GetDuration()
+        {
+            return duration;
+        }
         public override string ToString()
         {
             return base.ToString() + $"Duriation: {duration}";

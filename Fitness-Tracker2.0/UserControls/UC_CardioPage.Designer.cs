@@ -28,54 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel6 = new Panel();
-            panel5 = new Panel();
             panel4 = new Panel();
             panel3 = new Panel();
-            panel2 = new Panel();
             panel1 = new Panel();
-            label6 = new Label();
             label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             listBox1 = new ListBox();
             button2 = new Button();
-            button1 = new Button();
-            numericUpDown3 = new NumericUpDown();
-            numericUpDown2 = new NumericUpDown();
-            numericUpDown1 = new NumericUpDown();
-            comboBox1 = new ComboBox();
-            richTextBox1 = new RichTextBox();
-            textBox1 = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            btnAddExercise = new Button();
+            nudHours = new NumericUpDown();
+            rchtxtbDescription = new RichTextBox();
+            txtbName = new TextBox();
+            nudMinutes = new NumericUpDown();
+            nudSeconds = new NumericUpDown();
+            panel2 = new Panel();
+            panel5 = new Panel();
+            label3 = new Label();
+            label4 = new Label();
+            ((System.ComponentModel.ISupportInitialize)nudHours).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudMinutes).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudSeconds).BeginInit();
             SuspendLayout();
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.Red;
-            panel6.Location = new Point(232, 395);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(150, 1);
-            panel6.TabIndex = 38;
-            // 
-            // panel5
-            // 
-            panel5.BackColor = Color.Red;
-            panel5.Location = new Point(335, 341);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(150, 1);
-            panel5.TabIndex = 37;
             // 
             // panel4
             // 
             panel4.BackColor = Color.Red;
-            panel4.Location = new Point(110, 341);
+            panel4.Location = new Point(153, 285);
             panel4.Name = "panel4";
-            panel4.Size = new Size(150, 1);
+            panel4.Size = new Size(176, 1);
             panel4.TabIndex = 36;
             // 
             // panel3
@@ -86,14 +67,6 @@
             panel3.Size = new Size(170, 1);
             panel3.TabIndex = 35;
             // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Red;
-            panel2.Location = new Point(159, 271);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(170, 1);
-            panel2.TabIndex = 34;
-            // 
             // panel1
             // 
             panel1.BackColor = Color.Red;
@@ -102,49 +75,16 @@
             panel1.Size = new Size(170, 1);
             panel1.TabIndex = 33;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label6.ForeColor = Color.Red;
-            label6.Location = new Point(140, 361);
-            label6.Name = "label6";
-            label6.Size = new Size(78, 22);
-            label6.TabIndex = 32;
-            label6.Text = "Weight:";
-            // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
             label5.ForeColor = Color.Red;
-            label5.Location = new Point(48, 308);
+            label5.Location = new Point(55, 255);
             label5.Name = "label5";
-            label5.Size = new Size(62, 22);
+            label5.Size = new Size(69, 22);
             label5.TabIndex = 31;
-            label5.Text = "Reps:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label4.ForeColor = Color.Red;
-            label4.Location = new Point(273, 310);
-            label4.Name = "label4";
-            label4.Size = new Size(56, 22);
-            label4.TabIndex = 30;
-            label4.Text = "Sets:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            label3.ForeColor = Color.Red;
-            label3.Location = new Point(75, 243);
-            label3.Name = "label3";
-            label3.Size = new Size(78, 22);
-            label3.TabIndex = 29;
-            label3.Text = "Muscle:";
+            label5.Text = "Hours:";
             // 
             // label2
             // 
@@ -193,138 +133,159 @@
             button2.Text = "Delete Exercise";
             button2.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnAddExercise
             // 
-            button1.BackColor = Color.Red;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(373, 28);
-            button1.Name = "button1";
-            button1.Size = new Size(162, 50);
-            button1.TabIndex = 24;
-            button1.Text = "Add Exercise";
-            button1.UseVisualStyleBackColor = false;
+            btnAddExercise.BackColor = Color.Red;
+            btnAddExercise.FlatStyle = FlatStyle.Flat;
+            btnAddExercise.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            btnAddExercise.ForeColor = Color.White;
+            btnAddExercise.Location = new Point(373, 28);
+            btnAddExercise.Name = "btnAddExercise";
+            btnAddExercise.Size = new Size(162, 50);
+            btnAddExercise.TabIndex = 24;
+            btnAddExercise.Text = "Add Exercise";
+            btnAddExercise.UseVisualStyleBackColor = false;
+            btnAddExercise.Click += button1_Click;
             // 
-            // numericUpDown3
+            // nudHours
             // 
-            numericUpDown3.BorderStyle = BorderStyle.None;
-            numericUpDown3.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            numericUpDown3.ForeColor = Color.Red;
-            numericUpDown3.Location = new Point(232, 362);
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(150, 24);
-            numericUpDown3.TabIndex = 23;
+            nudHours.BorderStyle = BorderStyle.None;
+            nudHours.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            nudHours.ForeColor = Color.Red;
+            nudHours.Location = new Point(153, 255);
+            nudHours.Name = "nudHours";
+            nudHours.Size = new Size(176, 24);
+            nudHours.TabIndex = 21;
             // 
-            // numericUpDown2
+            // rchtxtbDescription
             // 
-            numericUpDown2.BorderStyle = BorderStyle.None;
-            numericUpDown2.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            numericUpDown2.ForeColor = Color.Red;
-            numericUpDown2.Location = new Point(335, 311);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(150, 24);
-            numericUpDown2.TabIndex = 22;
+            rchtxtbDescription.BorderStyle = BorderStyle.None;
+            rchtxtbDescription.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            rchtxtbDescription.ForeColor = Color.Red;
+            rchtxtbDescription.Location = new Point(159, 81);
+            rchtxtbDescription.Name = "rchtxtbDescription";
+            rchtxtbDescription.Size = new Size(170, 120);
+            rchtxtbDescription.TabIndex = 19;
+            rchtxtbDescription.Text = "";
             // 
-            // numericUpDown1
+            // txtbName
             // 
-            numericUpDown1.BorderStyle = BorderStyle.None;
-            numericUpDown1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            numericUpDown1.ForeColor = Color.Red;
-            numericUpDown1.Location = new Point(110, 308);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(150, 24);
-            numericUpDown1.TabIndex = 21;
+            txtbName.BorderStyle = BorderStyle.None;
+            txtbName.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            txtbName.ForeColor = Color.Red;
+            txtbName.Location = new Point(159, 28);
+            txtbName.Name = "txtbName";
+            txtbName.Size = new Size(170, 21);
+            txtbName.TabIndex = 18;
             // 
-            // comboBox1
+            // nudMinutes
             // 
-            comboBox1.FlatStyle = FlatStyle.Flat;
-            comboBox1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            comboBox1.ForeColor = Color.Red;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(159, 235);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(170, 30);
-            comboBox1.TabIndex = 20;
+            nudMinutes.BorderStyle = BorderStyle.None;
+            nudMinutes.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            nudMinutes.ForeColor = Color.Red;
+            nudMinutes.Location = new Point(153, 304);
+            nudMinutes.Name = "nudMinutes";
+            nudMinutes.Size = new Size(176, 24);
+            nudMinutes.TabIndex = 37;
             // 
-            // richTextBox1
+            // nudSeconds
             // 
-            richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            richTextBox1.ForeColor = Color.Red;
-            richTextBox1.Location = new Point(159, 81);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(170, 120);
-            richTextBox1.TabIndex = 19;
-            richTextBox1.Text = "";
+            nudSeconds.BorderStyle = BorderStyle.None;
+            nudSeconds.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            nudSeconds.ForeColor = Color.Red;
+            nudSeconds.Location = new Point(153, 351);
+            nudSeconds.Name = "nudSeconds";
+            nudSeconds.Size = new Size(176, 24);
+            nudSeconds.TabIndex = 38;
             // 
-            // textBox1
+            // panel2
             // 
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            textBox1.ForeColor = Color.Red;
-            textBox1.Location = new Point(159, 28);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(170, 21);
-            textBox1.TabIndex = 18;
+            panel2.BackColor = Color.Red;
+            panel2.Location = new Point(153, 334);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(176, 1);
+            panel2.TabIndex = 37;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.Red;
+            panel5.Location = new Point(153, 381);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(176, 1);
+            panel5.TabIndex = 37;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            label3.ForeColor = Color.Red;
+            label3.Location = new Point(55, 306);
+            label3.Name = "label3";
+            label3.Size = new Size(85, 22);
+            label3.TabIndex = 39;
+            label3.Text = "Minutes:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            label4.ForeColor = Color.Red;
+            label4.Location = new Point(55, 353);
+            label4.Name = "label4";
+            label4.Size = new Size(93, 22);
+            label4.TabIndex = 40;
+            label4.Text = "Seconds:";
             // 
             // ucCardioPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            Controls.Add(panel6);
-            Controls.Add(panel5);
-            Controls.Add(panel4);
-            Controls.Add(panel3);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
-            Controls.Add(label6);
-            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
+            Controls.Add(panel5);
+            Controls.Add(panel2);
+            Controls.Add(nudSeconds);
+            Controls.Add(nudMinutes);
+            Controls.Add(panel4);
+            Controls.Add(panel3);
+            Controls.Add(panel1);
+            Controls.Add(label5);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(listBox1);
             Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(numericUpDown3);
-            Controls.Add(numericUpDown2);
-            Controls.Add(numericUpDown1);
-            Controls.Add(comboBox1);
-            Controls.Add(richTextBox1);
-            Controls.Add(textBox1);
+            Controls.Add(btnAddExercise);
+            Controls.Add(nudHours);
+            Controls.Add(rchtxtbDescription);
+            Controls.Add(txtbName);
             Name = "ucCardioPage";
             Size = new Size(1006, 560);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudHours).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudMinutes).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudSeconds).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Panel panel6;
-        private Panel panel5;
         private Panel panel4;
         private Panel panel3;
-        private Panel panel2;
         private Panel panel1;
-        private Label label6;
         private Label label5;
-        private Label label4;
-        private Label label3;
         private Label label2;
         private Label label1;
         private ListBox listBox1;
         private Button button2;
-        private Button button1;
-        private NumericUpDown numericUpDown3;
-        private NumericUpDown numericUpDown2;
-        private NumericUpDown numericUpDown1;
-        private ComboBox comboBox1;
-        private RichTextBox richTextBox1;
-        private TextBox textBox1;
+        private Button btnAddExercise;
+        private NumericUpDown nudHours;
+        private RichTextBox rchtxtbDescription;
+        private TextBox txtbName;
+        private NumericUpDown nudMinutes;
+        private NumericUpDown nudSeconds;
+        private Panel panel2;
+        private Panel panel5;
+        private Label label3;
+        private Label label4;
     }
 }

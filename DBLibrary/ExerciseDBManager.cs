@@ -53,6 +53,36 @@ namespace DBLibrary
                 return false;
             }
         }
+        public bool AddCardioExerciseToDB(Cardio cardio)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Insert into Exercise table
+                    string insertExerciseQuery = "INSERT INTO Exercise ([name], [description]) VALUES (@Name, @Description); SELECT SCOPE_IDENTITY();";
+                    SqlCommand insertExerciseCommand = new SqlCommand(insertExerciseQuery, connection);
+                    insertExerciseCommand.Parameters.AddWithValue("@Name", cardio.GetName());
+                    insertExerciseCommand.Parameters.AddWithValue("@Description", cardio.GetDescription());
+                    int exerciseId = Convert.ToInt32(insertExerciseCommand.ExecuteScalar());
+
+                    string insertCardioExerciseQuery = "INSERT INTO CardioExercise ([exercise_id], [duration]) VALUES (@ExerciseId, @Duration);";
+                    SqlCommand insertCardioExerciseCommand = new SqlCommand(insertCardioExerciseQuery, connection);
+                    insertCardioExerciseCommand.Parameters.AddWithValue("@ExerciseId", exerciseId);
+                    insertCardioExerciseCommand.Parameters.AddWithValue("@Duration", cardio.GetDuration().ToString(@"hh\:mm\:ss"));
+                    insertCardioExerciseCommand.ExecuteNonQuery();
+                }
+                Console.WriteLine("Cardio exercise added successfully.");
+                return true;
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
         public bool DeleteExercise(int id)
         {
             try
