@@ -10,13 +10,15 @@ namespace ManagerLibrary
 {
     public class ExerciseManager
     {
-        private List<Exercise> cashedExercises;
+        private List<Strength> cachedStrengthExercises;
+        private List<Cardio> cachedCardioExercises;
         private ExerciseDBManager exerciseDBManager;
 
         public ExerciseManager()
         {
             exerciseDBManager = new ExerciseDBManager();
-            cashedExercises = null;
+            cachedStrengthExercises = null;
+            cachedCardioExercises = null;
         }
         public void AddStrengthExercise(Strength strengthExercise)
         {
@@ -27,13 +29,28 @@ namespace ManagerLibrary
         {
             exerciseDBManager.AddCardioExerciseToDB(cardioExercise);
         }
-        //public List<Exercise> GetExercises()
-        //{
-        //    if (cashedExercises == null)
-        //    {
-        //        cashedExercises = exerciseDBManager.GetAllStrengthExercisesFromDB();
-        //    }
-        //}
+        public List<Exercise> GetExerciseList()
+        {
+            List<Exercise> allExercises = new List<Exercise>();
+
+            // Fetch Strength exercises
+            if (cachedStrengthExercises == null)
+            {
+                cachedStrengthExercises = exerciseDBManager.GetStrengthExercises();
+            }
+
+            // Fetch Cardio exercises
+            if (cachedCardioExercises == null)
+            {
+                cachedCardioExercises = exerciseDBManager.GetCardioExercises();
+            }
+
+            // Combine Strength and Cardio exercises into a single list
+            allExercises.AddRange(cachedStrengthExercises);
+            allExercises.AddRange(cachedCardioExercises);
+
+            return allExercises;
+        }
         public void DeleteExercise(int id)
         {
             exerciseDBManager.DeleteExercise(id);

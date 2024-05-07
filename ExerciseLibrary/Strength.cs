@@ -32,7 +32,7 @@ namespace ExerciseLibrary
         public MuscleGroup GetMuscleGroup() { return muscleGroup; }
         public override string ToString()
         {
-            return base.ToString() + $"Primary muscle: {muscleGroup}";
+            return base.ToString() + $" Primary muscle: {muscleGroup}";
         }
         public override int CalculateCaloriesBurned(double userWeight)
         {

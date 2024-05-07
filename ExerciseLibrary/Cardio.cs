@@ -25,7 +25,7 @@ namespace ExerciseLibrary
         }
         public override string ToString()
         {
-            return base.ToString() + $"Duriation: {duration}";
+            return base.ToString() + $" Duriation: {duration}";
         }
         public override int CalculateCaloriesBurned(double userWeight)
         {
