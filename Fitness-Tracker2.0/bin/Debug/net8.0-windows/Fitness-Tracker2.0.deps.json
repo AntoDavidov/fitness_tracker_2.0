@@ -104,6 +104,7 @@
       },
       "ExerciseLibrary/1.0.0": {
         "dependencies": {
+          "NameLibrary": "1.0.0",
           "System.Data.SqlClient": "4.8.6"
         },
         "runtime": {

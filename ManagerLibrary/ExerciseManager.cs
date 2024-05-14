@@ -51,10 +51,52 @@ namespace ManagerLibrary
 
             return allExercises;
         }
+        public List<Strength> GetOnlyStrengthExercises()
+        {
+            return exerciseDBManager.GetStrengthExercises();
+        }
+        public List<Cardio> GetOnlyCardioExercises()
+        {
+            return exerciseDBManager.GetCardioExercises();
+        }
+        public bool AddWorkout(Workouts workout)
+        {
+            return exerciseDBManager.AddWorkoutToDB(workout);
+        }
+        public bool AddWorkoutWithoutExercises(Workouts workout)
+        {
+            return exerciseDBManager.AddWorkoutToDBWithoutExercises(workout);
+        }
+        public Strength? GetStrengthExerciseById(int strengthId)
+        {
+            return exerciseDBManager.GetStrengthExerciseById(strengthId);
+        }
+        public Cardio? GetCardioExerciseById(int cardioId)
+        {
+            return exerciseDBManager.GetCardioExerciseById(cardioId);
+        }
+        public Exercise? GetExerciseById(int exerciseId)
+        {
+            return exerciseDBManager.GetExerciseById(exerciseId);
+        }
+        public Workouts? FindWorkout(Workouts workout)
+        {
+            return exerciseDBManager.GetWorkout(workout);
+        }
+        public void AddExerciseToWorkout(Workouts workout, Exercise exercise)
+        {
+            exerciseDBManager.AddExerciseToWorkout(workout.GetId(), exercise.GetId());
+            workout.AddExercise(exercise);
+        }
+        public List<Workouts> GetWorkouts()
+        {
+            return exerciseDBManager.GetAllWorkoutsFromDB();
+        }
         public void DeleteExercise(int id)
         {
             exerciseDBManager.DeleteExercise(id);
         }
+
 
     }
 }

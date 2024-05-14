@@ -110,7 +110,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\NameLibrary.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\NameLibrary.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

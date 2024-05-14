@@ -74,3 +74,4 @@ C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\obj\Debug\net8.0-win
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\obj\Debug\net8.0-windows\Fitness_Tracker2._0.UserControls.UC_Test.resources
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\obj\Debug\net8.0-windows\Fitness_Tracker2._0.UserControls.ucCardioPage.resources
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\obj\Debug\net8.0-windows\Fitness_Tracker2._0.UserControls.ucProfilePage.resources
+C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\obj\Debug\net8.0-windows\Fitness_Tracker2._0.frmTrainerWorkoutCreationPage.resources

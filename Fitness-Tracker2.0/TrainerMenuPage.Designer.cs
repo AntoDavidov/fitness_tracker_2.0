@@ -62,6 +62,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // label1
             // 
@@ -111,7 +112,7 @@
             btnSuggestions.Name = "btnSuggestions";
             btnSuggestions.Size = new Size(218, 65);
             btnSuggestions.TabIndex = 2;
-            btnSuggestions.Text = "Suggestions";
+            btnSuggestions.Text = "Workouts";
             btnSuggestions.UseVisualStyleBackColor = false;
             btnSuggestions.Click += btnSuggestions_Click;
             // 

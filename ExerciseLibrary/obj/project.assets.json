@@ -146,6 +146,19 @@
             "rid": "win"
           }
         }
+      },
+      "NameLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "System.Data.SqlClient": "4.8.6"
+        },
+        "compile": {
+          "bin/placeholder/NameLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NameLibrary.dll": {}
+        }
       }
     }
   },
@@ -462,10 +475,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "NameLibrary/1.0.0": {
+      "type": "project",
+      "path": "../NameLibrary/NameLibrary.csproj",
+      "msbuildProject": "../NameLibrary/NameLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "NameLibrary >= 1.0.0",
       "System.Data.SqlClient >= 4.8.6"
     ]
   },
@@ -501,7 +520,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\NameLibrary.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\NameLibrary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

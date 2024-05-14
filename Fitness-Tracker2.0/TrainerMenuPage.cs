@@ -51,5 +51,12 @@ namespace Fitness_Tracker2._0
             ucProfilePage ucProfilePage = new ucProfilePage(_employee);
             AddUserControl(ucProfilePage);
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            frmLoginPage frmLoginPage = new frmLoginPage();
+            frmLoginPage.Show();
+        }
     }
 }
