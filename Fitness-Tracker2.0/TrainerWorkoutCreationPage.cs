@@ -132,6 +132,11 @@ namespace Fitness_Tracker2._0
         {
             PopulateExercisesListBox();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
 }
