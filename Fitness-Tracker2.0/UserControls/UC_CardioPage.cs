@@ -46,7 +46,7 @@ namespace Fitness_Tracker2._0.UserControls
         private void PopulateListBox()
         {
             lstbExercises.Items.Clear();
-            foreach(Cardio cardio in exerciseManager.GetOnlyCardioExercises())
+            foreach (Cardio cardio in exerciseManager.GetOnlyCardioExercises())
             {
                 lstbExercises.Items.Add(cardio.ToString());
             }
@@ -54,7 +54,7 @@ namespace Fitness_Tracker2._0.UserControls
 
         private void btnDeleteExercise_Click(object sender, EventArgs e)
         {
-            if(lstbExercises.SelectedIndex == -1)
+            if (lstbExercises.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a cardio exercise to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -63,13 +63,26 @@ namespace Fitness_Tracker2._0.UserControls
             Cardio cardioExercise = exerciseManager.GetOnlyCardioExercises()[lstbExercises.SelectedIndex];
             DialogResult result = MessageBox.Show("Are you sure you want to delete this exercise? The selected exercise is going to be removed from" +
                 "every workout that is associated with!", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if(result == DialogResult.Yes)
+            if (result == DialogResult.Yes)
             {
                 exerciseManager.DeleteCardioExercise(cardioExercise);
                 lstbExercises.Items.Remove(lstbExercises.SelectedIndex);
 
             }
             PopulateListBox();
+        }
+
+        private void txtbSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchedString = txtbSearch.Text;
+            lstbExercises.Items.Clear();
+            foreach(Cardio cardio in exerciseManager.GetOnlyCardioExercises())
+            {
+                if (cardio.GetName().ToLower().StartsWith(searchedString))
+                {
+                    lstbExercises.Items.Add(cardio.ToString());
+                }
+            }
         }
     }
 }

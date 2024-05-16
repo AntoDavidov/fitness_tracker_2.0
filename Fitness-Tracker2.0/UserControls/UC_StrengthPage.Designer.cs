@@ -49,6 +49,9 @@
             panel4 = new Panel();
             panel5 = new Panel();
             panel6 = new Panel();
+            label7 = new Label();
+            txtbSearch = new TextBox();
+            panel7 = new Panel();
             ((System.ComponentModel.ISupportInitialize)nmudReps).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmudSets).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmudWeight).BeginInit();
@@ -152,9 +155,9 @@
             lstbExercises.ForeColor = Color.Red;
             lstbExercises.FormattingEnabled = true;
             lstbExercises.ItemHeight = 22;
-            lstbExercises.Location = new Point(539, 29);
+            lstbExercises.Location = new Point(539, 117);
             lstbExercises.Name = "lstbExercises";
-            lstbExercises.Size = new Size(398, 484);
+            lstbExercises.Size = new Size(398, 396);
             lstbExercises.TabIndex = 8;
             // 
             // label1
@@ -271,11 +274,43 @@
             panel6.Size = new Size(150, 1);
             panel6.TabIndex = 17;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            label7.ForeColor = Color.Red;
+            label7.Location = new Point(564, 46);
+            label7.Name = "label7";
+            label7.Size = new Size(79, 22);
+            label7.TabIndex = 18;
+            label7.Text = "Search:";
+            // 
+            // txtbSearch
+            // 
+            txtbSearch.BorderStyle = BorderStyle.None;
+            txtbSearch.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            txtbSearch.Location = new Point(649, 47);
+            txtbSearch.Name = "txtbSearch";
+            txtbSearch.Size = new Size(250, 21);
+            txtbSearch.TabIndex = 19;
+            txtbSearch.TextChanged += textBox1_TextChanged;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.Red;
+            panel7.Location = new Point(649, 74);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(250, 1);
+            panel7.TabIndex = 16;
+            // 
             // UC_StrengthPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            Controls.Add(panel7);
+            Controls.Add(txtbSearch);
+            Controls.Add(label7);
             Controls.Add(panel6);
             Controls.Add(panel5);
             Controls.Add(panel4);
@@ -299,6 +334,7 @@
             Controls.Add(txtbName);
             Name = "UC_StrengthPage";
             Size = new Size(999, 589);
+            Load += UC_StrengthPage_Load;
             ((System.ComponentModel.ISupportInitialize)nmudReps).EndInit();
             ((System.ComponentModel.ISupportInitialize)nmudSets).EndInit();
             ((System.ComponentModel.ISupportInitialize)nmudWeight).EndInit();
@@ -329,5 +365,8 @@
         private Panel panel4;
         private Panel panel5;
         private Panel panel6;
+        private Label label7;
+        private TextBox txtbSearch;
+        private Panel panel7;
     }
 }

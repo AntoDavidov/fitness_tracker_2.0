@@ -70,5 +70,23 @@ namespace Fitness_Tracker2._0.UserControls
                 PopulateExerciseListbox();
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string searchingString = txtbSearch.Text;
+            lstbExercises.Items.Clear();
+            foreach (Strength strength in exerciseManager.GetOnlyStrengthExercises())
+            {
+                if (strength.GetName().ToLower().StartsWith(searchingString))
+                {
+                    lstbExercises.Items.Add(strength.ToString());
+                }
+            }
+        }
+
+        private void UC_StrengthPage_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

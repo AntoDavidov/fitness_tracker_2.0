@@ -46,6 +46,9 @@
             panel5 = new Panel();
             label3 = new Label();
             label4 = new Label();
+            label7 = new Label();
+            panel7 = new Panel();
+            txtbSearch = new TextBox();
             ((System.ComponentModel.ISupportInitialize)nudHours).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudMinutes).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSeconds).BeginInit();
@@ -115,9 +118,9 @@
             lstbExercises.ForeColor = Color.Red;
             lstbExercises.FormattingEnabled = true;
             lstbExercises.ItemHeight = 22;
-            lstbExercises.Location = new Point(554, 19);
+            lstbExercises.Location = new Point(554, 107);
             lstbExercises.Name = "lstbExercises";
-            lstbExercises.Size = new Size(390, 484);
+            lstbExercises.Size = new Size(390, 396);
             lstbExercises.TabIndex = 26;
             // 
             // btnDeleteExercise
@@ -237,11 +240,43 @@
             label4.TabIndex = 40;
             label4.Text = "Seconds:";
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            label7.ForeColor = Color.Red;
+            label7.Location = new Point(564, 46);
+            label7.Name = "label7";
+            label7.Size = new Size(79, 22);
+            label7.TabIndex = 41;
+            label7.Text = "Search:";
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.Red;
+            panel7.Location = new Point(649, 74);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(250, 1);
+            panel7.TabIndex = 42;
+            // 
+            // txtbSearch
+            // 
+            txtbSearch.BorderStyle = BorderStyle.None;
+            txtbSearch.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            txtbSearch.Location = new Point(649, 47);
+            txtbSearch.Name = "txtbSearch";
+            txtbSearch.Size = new Size(250, 21);
+            txtbSearch.TabIndex = 43;
+            txtbSearch.TextChanged += txtbSearch_TextChanged;
+            // 
             // ucCardioPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            Controls.Add(panel7);
+            Controls.Add(txtbSearch);
+            Controls.Add(label7);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(panel5);
@@ -288,5 +323,8 @@
         private Panel panel5;
         private Label label3;
         private Label label4;
+        private Label label7;
+        private Panel panel7;
+        private TextBox txtbSearch;
     }
 }
