@@ -66,9 +66,9 @@ namespace Fitness_Tracker2._0
             lstbCurrentWorkoutExercises.Items.Clear();
             if (currentWorkout != null)
             {
-                foreach (Exercise exercise in currentWorkout.GetExercises())
+                foreach (Exercise exercise in exerciseManager.GetCurrentWorkoutExercises(currentWorkout))
                 {
-                    lstbCurrentWorkoutExercises.Items.Add(exercise);
+                    lstbCurrentWorkoutExercises.Items.Add(exercise.ToString());
                 }
             }
         }
@@ -109,17 +109,25 @@ namespace Fitness_Tracker2._0
             }
 
         }
-
-        // Handle drag drop event for the workout exercises list box
         private void lstbExercises_DragDrop(object sender, DragEventArgs e)
         {
             lstbExercises.DataSource = null;
             string ex = (string)e.Data.GetData(DataFormats.Text);
             int id = Convert.ToInt32(ex.Split(":")[0]);
             Exercise exercise = exerciseManager.GetExerciseById(id);
+
+            // Check if the exercise already exists in the workout
+            if (currentWorkout != null && exerciseManager.ExerciseExistsInWorkout(currentWorkout, exercise))
+            {
+                MessageBox.Show("This exercise is already added to the workout.", "Duplicate Exercise", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // If the exercise doesn't exist in the workout, add it
             if (currentWorkout != null)
             {
                 exerciseManager.AddExerciseToWorkout(currentWorkout, exercise);
+                PopulateWorkoutExercisesListBox();
             }
         }
 

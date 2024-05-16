@@ -86,15 +86,31 @@ namespace ManagerLibrary
         public void AddExerciseToWorkout(Workouts workout, Exercise exercise)
         {
             exerciseDBManager.AddExerciseToWorkout(workout.GetId(), exercise.GetId());
-            workout.AddExercise(exercise);
         }
+        public List<Exercise> GetCurrentWorkoutExercises(Workouts workouts)
+        {
+            return exerciseDBManager.GetExercisesForWorkout(workouts.GetId());
+        }
+        public bool ExerciseExistsInWorkout(Workouts workouts, Exercise exercise)
+        {
+            return exerciseDBManager.ExerciseAlreadyExistsInWorkout(workouts.GetId(), exercise.GetId());
+        }
+        
         public List<Workouts> GetWorkouts()
         {
             return exerciseDBManager.GetAllWorkoutsFromDB();
         }
-        public void DeleteExercise(int id)
+        public void DeleteStrengthExercise(Strength strength)
         {
-            exerciseDBManager.DeleteExercise(id);
+            exerciseDBManager.DeleteStrengthExercise(strength);
+        }
+        public void DeleteCardioExercise(Cardio cardio)
+        {
+            exerciseDBManager.DeleteCardioExercise(cardio);
+        }
+        public void DeleteWorkout(Workouts workouts)
+        {
+            exerciseDBManager.DeleteWorkout(workouts.GetId());
         }
 
 

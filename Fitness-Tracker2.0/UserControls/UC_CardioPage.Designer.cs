@@ -34,8 +34,8 @@
             label5 = new Label();
             label2 = new Label();
             label1 = new Label();
-            listBox1 = new ListBox();
-            button2 = new Button();
+            lstbExercises = new ListBox();
+            btnDeleteExercise = new Button();
             btnAddExercise = new Button();
             nudHours = new NumericUpDown();
             rchtxtbDescription = new RichTextBox();
@@ -108,30 +108,31 @@
             label1.TabIndex = 27;
             label1.Text = "Name:";
             // 
-            // listBox1
+            // lstbExercises
             // 
-            listBox1.BorderStyle = BorderStyle.None;
-            listBox1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            listBox1.ForeColor = Color.Red;
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 22;
-            listBox1.Location = new Point(554, 19);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(301, 484);
-            listBox1.TabIndex = 26;
+            lstbExercises.BorderStyle = BorderStyle.None;
+            lstbExercises.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            lstbExercises.ForeColor = Color.Red;
+            lstbExercises.FormattingEnabled = true;
+            lstbExercises.ItemHeight = 22;
+            lstbExercises.Location = new Point(554, 19);
+            lstbExercises.Name = "lstbExercises";
+            lstbExercises.Size = new Size(390, 484);
+            lstbExercises.TabIndex = 26;
             // 
-            // button2
+            // btnDeleteExercise
             // 
-            button2.BackColor = Color.Red;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(373, 100);
-            button2.Name = "button2";
-            button2.Size = new Size(162, 50);
-            button2.TabIndex = 25;
-            button2.Text = "Delete Exercise";
-            button2.UseVisualStyleBackColor = false;
+            btnDeleteExercise.BackColor = Color.Red;
+            btnDeleteExercise.FlatStyle = FlatStyle.Flat;
+            btnDeleteExercise.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            btnDeleteExercise.ForeColor = Color.White;
+            btnDeleteExercise.Location = new Point(373, 100);
+            btnDeleteExercise.Name = "btnDeleteExercise";
+            btnDeleteExercise.Size = new Size(162, 50);
+            btnDeleteExercise.TabIndex = 25;
+            btnDeleteExercise.Text = "Delete Exercise";
+            btnDeleteExercise.UseVisualStyleBackColor = false;
+            btnDeleteExercise.Click += btnDeleteExercise_Click;
             // 
             // btnAddExercise
             // 
@@ -253,8 +254,8 @@
             Controls.Add(label5);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(listBox1);
-            Controls.Add(button2);
+            Controls.Add(lstbExercises);
+            Controls.Add(btnDeleteExercise);
             Controls.Add(btnAddExercise);
             Controls.Add(nudHours);
             Controls.Add(rchtxtbDescription);
@@ -275,8 +276,8 @@
         private Label label5;
         private Label label2;
         private Label label1;
-        private ListBox listBox1;
-        private Button button2;
+        private ListBox lstbExercises;
+        private Button btnDeleteExercise;
         private Button btnAddExercise;
         private NumericUpDown nudHours;
         private RichTextBox rchtxtbDescription;

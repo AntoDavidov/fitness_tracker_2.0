@@ -19,6 +19,7 @@ namespace Fitness_Tracker2._0.UserControls
         {
             InitializeComponent();
             exerciseManager = new ExerciseManager();
+            PopulateListBox();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,6 +42,34 @@ namespace Fitness_Tracker2._0.UserControls
             Cardio newCardioEx = new Cardio(name, description, duration);
             exerciseManager.AddCardioExercise(newCardioEx);
 
+        }
+        private void PopulateListBox()
+        {
+            lstbExercises.Items.Clear();
+            foreach(Cardio cardio in exerciseManager.GetOnlyCardioExercises())
+            {
+                lstbExercises.Items.Add(cardio.ToString());
+            }
+        }
+
+        private void btnDeleteExercise_Click(object sender, EventArgs e)
+        {
+            if(lstbExercises.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a cardio exercise to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Cardio cardioExercise = exerciseManager.GetOnlyCardioExercises()[lstbExercises.SelectedIndex];
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this exercise? The selected exercise is going to be removed from" +
+                "every workout that is associated with!", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if(result == DialogResult.Yes)
+            {
+                exerciseManager.DeleteCardioExercise(cardioExercise);
+                lstbExercises.Items.Remove(lstbExercises.SelectedIndex);
+
+            }
+            PopulateListBox();
         }
     }
 }

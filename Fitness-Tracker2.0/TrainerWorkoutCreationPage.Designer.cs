@@ -43,9 +43,9 @@
             lstbCurrentWorkoutExercises.ForeColor = Color.Red;
             lstbCurrentWorkoutExercises.FormattingEnabled = true;
             lstbCurrentWorkoutExercises.ItemHeight = 22;
-            lstbCurrentWorkoutExercises.Location = new Point(83, 101);
+            lstbCurrentWorkoutExercises.Location = new Point(599, 101);
             lstbCurrentWorkoutExercises.Name = "lstbCurrentWorkoutExercises";
-            lstbCurrentWorkoutExercises.Size = new Size(338, 400);
+            lstbCurrentWorkoutExercises.Size = new Size(440, 400);
             lstbCurrentWorkoutExercises.TabIndex = 0;
             // 
             // lstbExercises
@@ -54,9 +54,9 @@
             lstbExercises.ForeColor = Color.Red;
             lstbExercises.FormattingEnabled = true;
             lstbExercises.ItemHeight = 22;
-            lstbExercises.Location = new Point(652, 101);
+            lstbExercises.Location = new Point(47, 101);
             lstbExercises.Name = "lstbExercises";
-            lstbExercises.Size = new Size(338, 400);
+            lstbExercises.Size = new Size(440, 400);
             lstbExercises.TabIndex = 2;
             lstbExercises.SelectedIndexChanged += lstbExercises_SelectedIndexChanged;
             // 

@@ -35,8 +35,8 @@
             nmudSets = new NumericUpDown();
             nmudWeight = new NumericUpDown();
             btnAddExercise = new Button();
-            button2 = new Button();
-            listBox1 = new ListBox();
+            btnDeleteExercise = new Button();
+            lstbExercises = new ListBox();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -131,30 +131,31 @@
             btnAddExercise.UseVisualStyleBackColor = false;
             btnAddExercise.Click += btnAddExercise_Click;
             // 
-            // button2
+            // btnDeleteExercise
             // 
-            button2.BackColor = Color.Red;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(358, 110);
-            button2.Name = "button2";
-            button2.Size = new Size(162, 50);
-            button2.TabIndex = 7;
-            button2.Text = "Delete Exercise";
-            button2.UseVisualStyleBackColor = false;
+            btnDeleteExercise.BackColor = Color.Red;
+            btnDeleteExercise.FlatStyle = FlatStyle.Flat;
+            btnDeleteExercise.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            btnDeleteExercise.ForeColor = Color.White;
+            btnDeleteExercise.Location = new Point(358, 110);
+            btnDeleteExercise.Name = "btnDeleteExercise";
+            btnDeleteExercise.Size = new Size(162, 50);
+            btnDeleteExercise.TabIndex = 7;
+            btnDeleteExercise.Text = "Delete Exercise";
+            btnDeleteExercise.UseVisualStyleBackColor = false;
+            btnDeleteExercise.Click += btnDeleteExercise_Click;
             // 
-            // listBox1
+            // lstbExercises
             // 
-            listBox1.BorderStyle = BorderStyle.None;
-            listBox1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            listBox1.ForeColor = Color.Red;
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 22;
-            listBox1.Location = new Point(539, 29);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(301, 484);
-            listBox1.TabIndex = 8;
+            lstbExercises.BorderStyle = BorderStyle.None;
+            lstbExercises.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            lstbExercises.ForeColor = Color.Red;
+            lstbExercises.FormattingEnabled = true;
+            lstbExercises.ItemHeight = 22;
+            lstbExercises.Location = new Point(539, 29);
+            lstbExercises.Name = "lstbExercises";
+            lstbExercises.Size = new Size(398, 484);
+            lstbExercises.TabIndex = 8;
             // 
             // label1
             // 
@@ -287,8 +288,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(listBox1);
-            Controls.Add(button2);
+            Controls.Add(lstbExercises);
+            Controls.Add(btnDeleteExercise);
             Controls.Add(btnAddExercise);
             Controls.Add(nmudWeight);
             Controls.Add(nmudSets);
@@ -314,8 +315,8 @@
         private NumericUpDown nmudSets;
         private NumericUpDown nmudWeight;
         private Button btnAddExercise;
-        private Button button2;
-        private ListBox listBox1;
+        private Button btnDeleteExercise;
+        private ListBox lstbExercises;
         private Label label1;
         private Label label2;
         private Label label3;

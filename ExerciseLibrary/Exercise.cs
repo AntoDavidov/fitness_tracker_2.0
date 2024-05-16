@@ -28,7 +28,7 @@ namespace ExerciseLibrary
         public string GetDescription() { return description; }
         public virtual string ToString()
         {
-            return $"{id}: {name}";
+            return $"({id}) {name}:";
         }
         public abstract int CalculateCaloriesBurned(double userWeight);
     }

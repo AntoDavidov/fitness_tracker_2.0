@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
+            AllWorkouts = new TabPage();
             panel5 = new Panel();
             panel4 = new Panel();
-            textBox1 = new TextBox();
+            txtbSeachName = new TextBox();
             label1 = new Label();
             lstbWorkout = new ListBox();
             btnEditWorkout = new Button();
-            tabPage2 = new TabPage();
+            CreationOfWorkouts = new TabPage();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
@@ -47,42 +47,46 @@
             btnCreateWorkout = new Button();
             rchtxtbDescription = new RichTextBox();
             txtName = new TextBox();
+            btnDeleteWorkout = new Button();
             tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
-            tabPage2.SuspendLayout();
+            AllWorkouts.SuspendLayout();
+            CreationOfWorkouts.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(AllWorkouts);
+            tabControl1.Controls.Add(CreationOfWorkouts);
+            tabControl1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
             tabControl1.Location = new Point(3, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1016, 537);
             tabControl1.TabIndex = 39;
             // 
-            // tabPage1
+            // AllWorkouts
             // 
-            tabPage1.Controls.Add(panel5);
-            tabPage1.Controls.Add(panel4);
-            tabPage1.Controls.Add(textBox1);
-            tabPage1.Controls.Add(label1);
-            tabPage1.Controls.Add(lstbWorkout);
-            tabPage1.Controls.Add(btnEditWorkout);
-            tabPage1.Location = new Point(4, 29);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1008, 504);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
-            tabPage1.UseVisualStyleBackColor = true;
+            AllWorkouts.BackColor = Color.White;
+            AllWorkouts.Controls.Add(btnDeleteWorkout);
+            AllWorkouts.Controls.Add(panel5);
+            AllWorkouts.Controls.Add(panel4);
+            AllWorkouts.Controls.Add(txtbSeachName);
+            AllWorkouts.Controls.Add(label1);
+            AllWorkouts.Controls.Add(lstbWorkout);
+            AllWorkouts.Controls.Add(btnEditWorkout);
+            AllWorkouts.ForeColor = Color.Red;
+            AllWorkouts.Location = new Point(4, 31);
+            AllWorkouts.Name = "AllWorkouts";
+            AllWorkouts.Padding = new Padding(3);
+            AllWorkouts.Size = new Size(1008, 502);
+            AllWorkouts.TabIndex = 0;
+            AllWorkouts.Text = "All Workouts";
             // 
             // panel5
             // 
             panel5.BackColor = Color.Red;
             panel5.ForeColor = Color.Red;
-            panel5.Location = new Point(94, 415);
+            panel5.Location = new Point(94, 305);
             panel5.Name = "panel5";
             panel5.Size = new Size(290, 1);
             panel5.TabIndex = 44;
@@ -96,15 +100,16 @@
             panel4.Size = new Size(190, 1);
             panel4.TabIndex = 43;
             // 
-            // textBox1
+            // txtbSeachName
             // 
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            textBox1.ForeColor = Color.Red;
-            textBox1.Location = new Point(138, 19);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(190, 21);
-            textBox1.TabIndex = 42;
+            txtbSeachName.BorderStyle = BorderStyle.None;
+            txtbSeachName.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            txtbSeachName.ForeColor = Color.Red;
+            txtbSeachName.Location = new Point(138, 19);
+            txtbSeachName.Name = "txtbSeachName";
+            txtbSeachName.Size = new Size(190, 21);
+            txtbSeachName.TabIndex = 42;
+            txtbSeachName.TextChanged += txtbSeachName_TextChanged;
             // 
             // label1
             // 
@@ -125,7 +130,7 @@
             lstbWorkout.ItemHeight = 22;
             lstbWorkout.Location = new Point(94, 75);
             lstbWorkout.Name = "lstbWorkout";
-            lstbWorkout.Size = new Size(290, 334);
+            lstbWorkout.Size = new Size(290, 224);
             lstbWorkout.TabIndex = 40;
             lstbWorkout.SelectedIndexChanged += lstbWorkout_SelectedIndexChanged;
             // 
@@ -143,25 +148,27 @@
             btnEditWorkout.UseVisualStyleBackColor = false;
             btnEditWorkout.Click += btnEditWorkout_Click_1;
             // 
-            // tabPage2
+            // CreationOfWorkouts
             // 
-            tabPage2.Controls.Add(panel3);
-            tabPage2.Controls.Add(panel2);
-            tabPage2.Controls.Add(panel1);
-            tabPage2.Controls.Add(label4);
-            tabPage2.Controls.Add(label3);
-            tabPage2.Controls.Add(label2);
-            tabPage2.Controls.Add(cmbLevel);
-            tabPage2.Controls.Add(btnCreateWorkout);
-            tabPage2.Controls.Add(rchtxtbDescription);
-            tabPage2.Controls.Add(txtName);
-            tabPage2.Location = new Point(4, 29);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(1008, 504);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            CreationOfWorkouts.BackgroundImageLayout = ImageLayout.None;
+            CreationOfWorkouts.Controls.Add(panel3);
+            CreationOfWorkouts.Controls.Add(panel2);
+            CreationOfWorkouts.Controls.Add(panel1);
+            CreationOfWorkouts.Controls.Add(label4);
+            CreationOfWorkouts.Controls.Add(label3);
+            CreationOfWorkouts.Controls.Add(label2);
+            CreationOfWorkouts.Controls.Add(cmbLevel);
+            CreationOfWorkouts.Controls.Add(btnCreateWorkout);
+            CreationOfWorkouts.Controls.Add(rchtxtbDescription);
+            CreationOfWorkouts.Controls.Add(txtName);
+            CreationOfWorkouts.ForeColor = Color.Red;
+            CreationOfWorkouts.Location = new Point(4, 31);
+            CreationOfWorkouts.Name = "CreationOfWorkouts";
+            CreationOfWorkouts.Padding = new Padding(3);
+            CreationOfWorkouts.Size = new Size(1008, 502);
+            CreationOfWorkouts.TabIndex = 1;
+            CreationOfWorkouts.Text = "Creation of Workouts";
+            CreationOfWorkouts.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -230,7 +237,7 @@
             cmbLevel.Items.AddRange(new object[] { "Beginner", "Advanced", "Intermediate" });
             cmbLevel.Location = new Point(129, 298);
             cmbLevel.Name = "cmbLevel";
-            cmbLevel.Size = new Size(170, 28);
+            cmbLevel.Size = new Size(170, 30);
             cmbLevel.TabIndex = 3;
             // 
             // btnCreateWorkout
@@ -266,6 +273,20 @@
             txtName.Size = new Size(170, 21);
             txtName.TabIndex = 0;
             // 
+            // btnDeleteWorkout
+            // 
+            btnDeleteWorkout.BackColor = Color.Red;
+            btnDeleteWorkout.FlatStyle = FlatStyle.Flat;
+            btnDeleteWorkout.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            btnDeleteWorkout.ForeColor = Color.White;
+            btnDeleteWorkout.Location = new Point(432, 115);
+            btnDeleteWorkout.Name = "btnDeleteWorkout";
+            btnDeleteWorkout.Size = new Size(291, 50);
+            btnDeleteWorkout.TabIndex = 45;
+            btnDeleteWorkout.Text = "Delete workout";
+            btnDeleteWorkout.UseVisualStyleBackColor = false;
+            btnDeleteWorkout.Click += btnDeleteWorkout_Click;
+            // 
             // UC_SuggestionsPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -275,22 +296,22 @@
             Name = "UC_SuggestionsPage";
             Size = new Size(1022, 543);
             tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
-            tabPage2.ResumeLayout(false);
-            tabPage2.PerformLayout();
+            AllWorkouts.ResumeLayout(false);
+            AllWorkouts.PerformLayout();
+            CreationOfWorkouts.ResumeLayout(false);
+            CreationOfWorkouts.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private TabControl tabControl1;
-        private TabPage tabPage1;
-        private TextBox textBox1;
+        private TabPage AllWorkouts;
+        private TextBox txtbSeachName;
         private Label label1;
         private ListBox lstbWorkout;
         private Button btnEditWorkout;
-        private TabPage tabPage2;
+        private TabPage CreationOfWorkouts;
         private TextBox txtName;
         private Button btnCreateWorkout;
         private RichTextBox rchtxtbDescription;
@@ -303,5 +324,6 @@
         private Panel panel5;
         private Panel panel4;
         private Panel panel3;
+        private Button btnDeleteWorkout;
     }
 }

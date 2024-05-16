@@ -70,12 +70,5 @@ namespace ExerciseLibrary
         {
             return exercises;
         }
-        public void AddExercise(Exercise exercise)
-        {
-            exercises.Add(exercise);
-        }
-
-
-
     }
 }

@@ -114,9 +114,16 @@ namespace DBLibrary
             using SqlConnection connection = new SqlConnection(connectionString);
             try
             {
-                
+                // Check if the exercise already exists in the workout
+                if (ExerciseAlreadyExistsInWorkout(workoutId, exerciseId))
                 {
-                    using SqlCommand sqlCommand = connection.CreateCommand();
+                    Console.WriteLine("Exercise already exists in the workout.");
+                    return;
+                }
+
+                // If the exercise doesn't exist in the workout, add it
+                using (SqlCommand sqlCommand = connection.CreateCommand())
+                {
                     sqlCommand.CommandText = "INSERT INTO WorkoutExercise (WorkoutId, ExerciseId)" +
                         "VALUES (@WorkoutId, @ExerciseId);";
                     sqlCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
@@ -125,7 +132,7 @@ namespace DBLibrary
                     sqlCommand.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new Exception($"Unable to add an exercise to the desired workout: {ex}");
             }
@@ -135,6 +142,7 @@ namespace DBLibrary
                     connection.Close();
             }
         }
+
         public bool AddWorkoutToDB(Workouts workout)
         {
             try
@@ -337,36 +345,199 @@ namespace DBLibrary
                 }
             }
         }
-        public bool DeleteExercise(int id)
+        public bool ExerciseAlreadyExistsInWorkout(int workoutId, int exerciseId)
         {
+            bool exists = false;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT COUNT(*) FROM WorkoutExercise WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                    cmd.Parameters.AddWithValue("@ExerciseId", exerciseId);
+                    exists = (int)cmd.ExecuteScalar() > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            return exists;
+        }
+        public List<Exercise>? GetExercisesForWorkout(int workoutId)
+        {
+            List<Exercise> exercises = new List<Exercise>();
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    // Delete from Exercise table
-                    var query = "DELETE FROM Exercise WHERE id=@id";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("id", id);
-                        cmd.ExecuteNonQuery();
-                    }
+                    // Query the WorkoutExercise table to get exercise IDs for the specified workout
+                    string query = "SELECT ExerciseId FROM WorkoutExercise WHERE WorkoutId = @WorkoutId";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
 
-                    // Delete from specific exercise type table (e.g., StrengthExercise)
-                    query = "DELETE FROM StrengthExercise WHERE id=@id";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.AddWithValue("id", id);
-                        cmd.ExecuteNonQuery();
+                        while (reader.Read())
+                        {
+                            int exerciseId = reader.GetInt32(reader.GetOrdinal("ExerciseId"));
+
+                            // Get the exercise details based on its ID using the existing GetExerciseById method
+                            Exercise exercise = GetExerciseById(exerciseId);
+
+                            if (exercise != null)
+                            {
+                                exercises.Add(exercise);
+                            }
+                        }
                     }
                 }
-                return true;
             }
             catch (Exception ex)
             {
-                return false;
+                Console.WriteLine("Error: " + ex.Message);
             }
+
+            return exercises;
+        }
+        public void DeleteWorkout(int workoutId)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                connection.Open();
+
+                // Delete entries from WorkoutExercise connecting table first
+                var deleteWorkoutExerciseQuery = "DELETE FROM WorkoutExercise WHERE WorkoutId = @WorkoutId";
+                using SqlCommand deleteWorkoutExerciseCommand = new SqlCommand(deleteWorkoutExerciseQuery, connection);
+                deleteWorkoutExerciseCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
+                deleteWorkoutExerciseCommand.ExecuteNonQuery();
+
+                // Now, delete the workout from the Workouts table
+                var deleteWorkoutQuery = "DELETE FROM Workout WHERE Id = @WorkoutId";
+                using SqlCommand deleteWorkoutCommand = new SqlCommand(deleteWorkoutQuery, connection);
+                deleteWorkoutCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
+                deleteWorkoutCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+            }
+        }
+        public void DeleteStrengthExercise(Strength strengthExercise)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Check if the exercise exists in any workout
+                    List<int> workoutIds = GetWorkoutIdsContainingExercise(strengthExercise.GetId());
+                    foreach (int workoutId in workoutIds)
+                    {
+                        // Delete the exercise from the workout
+                        string deleteFromWorkoutQuery = "DELETE FROM WorkoutExercise WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId";
+                        SqlCommand deleteFromWorkoutCmd = new SqlCommand(deleteFromWorkoutQuery, connection);
+                        deleteFromWorkoutCmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                        deleteFromWorkoutCmd.Parameters.AddWithValue("@ExerciseId", strengthExercise.GetId());
+                        deleteFromWorkoutCmd.ExecuteNonQuery();
+                    }
+
+                    // Delete the exercise from the StrengthExercise table
+                    string deleteStrengthQuery = "DELETE FROM StrengthExercise WHERE exercise_id = @ExerciseId";
+                    SqlCommand deleteStrengthCmd = new SqlCommand(deleteStrengthQuery, connection);
+                    deleteStrengthCmd.Parameters.AddWithValue("@ExerciseId", strengthExercise.GetId());
+                    deleteStrengthCmd.ExecuteNonQuery();
+                    
+                    string deleteExerciseQuery = "DELETE FROM Exercise WHERE id = @ExerciseId";
+                    SqlCommand deleteExerciseCmd = new SqlCommand(deleteExerciseQuery, connection);
+                    deleteExerciseCmd.Parameters.AddWithValue("@ExerciseId", strengthExercise.GetId());
+                    deleteExerciseCmd.ExecuteNonQuery();
+                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting strength exercise: {ex.Message}", "Error");
+                }
+            }
+        }
+        public void DeleteCardioExercise(Cardio cardioExercise)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                connection.Open();
+                List<int> workoutIds = GetWorkoutIdsContainingExercise(cardioExercise.GetId());
+                foreach (int workoutId in workoutIds)
+                {
+                    string deleteFromWorkoutQuery = "DELETE FROM WorkoutExercise WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId";
+                    SqlCommand deleteFromWorkoutCmd = new SqlCommand(deleteFromWorkoutQuery, connection);
+                    deleteFromWorkoutCmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                    deleteFromWorkoutCmd.Parameters.AddWithValue("@ExerciseId", cardioExercise.GetId());
+                    deleteFromWorkoutCmd.ExecuteNonQuery();
+                }
+                string deleteCardioQuery = "DELETE FROM CardioExercise WHERE exercise_id = @ExerciseId";
+                SqlCommand sqlCommand = new SqlCommand(deleteCardioQuery, connection);
+                sqlCommand.Parameters.AddWithValue("@ExerciseId", cardioExercise.GetId());
+                sqlCommand.ExecuteNonQuery();
+
+                string deleteExerciseQuery = "DELETE FROM Exercise WHERE id = @ExerciseId";
+                SqlCommand deleteExerciseCmd = new SqlCommand(deleteExerciseQuery, connection);
+                deleteExerciseCmd.Parameters.AddWithValue("@ExerciseId", cardioExercise.GetId());
+                deleteExerciseCmd.ExecuteNonQuery();
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                if (connection.State != ConnectionState.Closed)
+                    connection.Close();
+            }
+        }
+        public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
+        {
+            List<int> workoutIds = new List<int>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Query to select all workout IDs containing the given exercise ID
+                    string query = "SELECT WorkoutId FROM WorkoutExercise WHERE ExerciseId = @ExerciseId";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@ExerciseId", exerciseId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int workoutId = reader.GetInt32(reader.GetOrdinal("WorkoutId"));
+                            workoutIds.Add(workoutId);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error retrieving workout IDs containing exercise: {ex.Message}", "Error");
+                }
+            }
+            return workoutIds;
         }
         public List<Workouts>? GetAllWorkoutsFromDB()
         {
