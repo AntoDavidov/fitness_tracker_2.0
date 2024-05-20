@@ -74,7 +74,7 @@ namespace Fitness_Tracker2._0.UserControls
 
         private void txtbSearch_TextChanged(object sender, EventArgs e)
         {
-            string searchedString = txtbSearch.Text;
+            string searchedString = txtbSearch.Text.ToLower();
             lstbExercises.Items.Clear();
             foreach(Cardio cardio in exerciseManager.GetOnlyCardioExercises())
             {

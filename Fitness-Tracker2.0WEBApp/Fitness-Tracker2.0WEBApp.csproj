@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Shared\_LayoutApp.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Shared\_LayoutApp.cshtml" />
     <None Include="wwwroot\img\Fitness-Tracker %286%29.png" />
   </ItemGroup>
 

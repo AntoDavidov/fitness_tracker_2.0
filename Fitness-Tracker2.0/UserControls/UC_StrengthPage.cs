@@ -73,7 +73,7 @@ namespace Fitness_Tracker2._0.UserControls
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string searchingString = txtbSearch.Text;
+            string searchingString = txtbSearch.Text.ToLower();
             lstbExercises.Items.Clear();
             foreach (Strength strength in exerciseManager.GetOnlyStrengthExercises())
             {
