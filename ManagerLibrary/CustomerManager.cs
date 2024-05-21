@@ -24,5 +24,13 @@ namespace ManagerLibrary
         {
             customerDBManager.AddCustomerToDB(signup.FirstName, signup.LastName,signup.UserName, signup.Password, signup.Email, signup.Weight, signup.Level);
         }
+        public int GetCustomerIdByEmail(string email)
+        {
+            return customerDBManager.GetCustomerIdByEmail(email);
+        }
+        public bool AddWorkoutToFavourites(int customerId, int workoutId)
+        {
+            return customerDBManager.AddWorkoutToFavorites(customerId, workoutId);
+        }
     }
 }

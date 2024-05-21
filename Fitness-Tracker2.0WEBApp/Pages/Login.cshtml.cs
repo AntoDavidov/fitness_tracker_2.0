@@ -2,49 +2,60 @@ using DBLibrary;
 using ManagerLibrary;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NameLibrary;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Fitness_Tracker2._0WEBApp.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly CustomerManager manager;
+        private readonly CustomerManager _manager;
         [BindProperty]
         public LoginDTO Login { get; set; }
 
         public LoginModel(CustomerManager manager)
         {
-            this.manager = manager;
+            _manager = manager;
             Login = new LoginDTO();
-        }   
+        }
+
         public void OnGet()
         {
-            if(Request.Cookies.ContainsKey(nameof(Login.Email)))
+            if (Request.Cookies.ContainsKey(nameof(Login.Email)))
             {
                 Login.Email = Request.Cookies[nameof(Login.Email)];
                 Login.RememberMe = true;
             }
-
         }
-        public IActionResult OnPost()
+
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            Customer customer = manager.VerifyLogin(Login);
+            Customer customer = _manager.VerifyLogin(Login);
 
             if (customer != null)
             {
                 var claims = new List<Claim>
                 {
-                new Claim(ClaimTypes.Email, customer.GetEmail()),
-                new Claim(ClaimTypes.Name, customer.GetUsername()),
+                    new Claim(ClaimTypes.Email, customer.GetEmail()),
+                    new Claim(ClaimTypes.Name, customer.GetEmail()),  // Use the email as the name claim
+                    new Claim("Username", customer.GetUsername())
                 };
+
+                var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
+
+                HttpContext.Session.SetString(nameof(Login.Email), Login.Email);
+
                 if (Login.RememberMe)
                 {
                     CookieOptions cookies = new CookieOptions();
@@ -58,11 +69,6 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                     Response.Cookies.Append(nameof(Login.Email), Login.Email, cookies);
                 }
 
-                var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
-
-                HttpContext.Session.SetString(nameof(Login.Email), Login.Email);
-                
                 return RedirectToPage("/Index");
             }
             else
@@ -70,9 +76,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 ModelState.AddModelError(string.Empty, "Invalid username or password.");
                 return Page();
             }
-
-            
-
         }
+
     }
 }

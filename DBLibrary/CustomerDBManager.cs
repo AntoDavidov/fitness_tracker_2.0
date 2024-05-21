@@ -1,6 +1,7 @@
 ﻿using NameLibrary;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection.Emit;
@@ -93,6 +94,79 @@ namespace DBLibrary
             }
 
             return null;
+        }
+        public bool AddWorkoutToFavorites(int customerId, int workoutId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+
+            try
+            {
+                
+                {
+                    conn.Open();
+
+                    // Check if the workout is already in favorites
+                    string checkQuery = "SELECT COUNT(*) FROM CustomerWorkout WHERE CustomerId = @CustomerId AND WorkoutId = @WorkoutId";
+                    SqlCommand checkCommand = new SqlCommand(checkQuery, conn);
+                    checkCommand.Parameters.AddWithValue("@CustomerId", customerId);
+                    checkCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
+                    int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                    if (count == 0)
+                    {
+                        // Insert into CustomerWorkout table
+                        string insertQuery = "INSERT INTO CustomerWorkout (CustomerId, WorkoutId) VALUES (@CustomerId, @WorkoutId)";
+                        SqlCommand insertCommand = new SqlCommand(insertQuery, conn);
+                        insertCommand.Parameters.AddWithValue("@CustomerId", customerId);
+                        insertCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
+                        insertCommand.ExecuteNonQuery();
+
+                        return true;
+                    }
+                    else
+                    {
+                        // Workout already exists in favorites
+                        Console.WriteLine("Workout already exists in favorites.");
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Unable to add an workout to favourites: {ex}");
+            }
+            finally
+            {
+                if (conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+        }
+        public int GetCustomerIdByEmail(string email)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = "SELECT id FROM Customer WHERE user_id = (SELECT id FROM [User] WHERE email = @Email);";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error retrieving customerId by email: " + ex.Message);
+            }
+
+            return -1; // Return -1 if customerId is not found or an error occurs
         }
     }
 }

@@ -83,6 +83,10 @@ namespace ManagerLibrary
         {
             return exerciseDBManager.GetWorkout(workout);
         }
+        public Workouts? GetWorkoutById(int workoutId)
+        {
+            return exerciseDBManager.GetWorkoutById(workoutId);
+        }
         public void AddExerciseToWorkout(Workouts workout, Exercise exercise)
         {
             exerciseDBManager.AddExerciseToWorkout(workout.GetId(), exercise.GetId());

@@ -43,9 +43,12 @@ namespace ExerciseLibrary
             this.name = name;
             this.description = description;
         }
+        public Workouts() { }
+
         public int GetId() { return id; }
         public string GetName() { return name; }
         public string GetDescription() { return description; }
+
         public Level GetWorkoutLevel() 
         {
             return workout_level;
@@ -65,6 +68,10 @@ namespace ExerciseLibrary
         public string ToString()
         {
             return $"{id}: {name}";
+        }
+        public void AddExercise(Exercise exercise)
+        {
+            exercises.Add(exercise);
         }
         public List<Exercise> GetExercises()
         {

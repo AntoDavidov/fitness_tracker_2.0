@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\Fitness-Tracker2.0WEBApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\DetailsPageStyle.css",
+      "PackagePath": "staticwebassets\\css\\DetailsPageStyle.css"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\LandingPageStyle.css",
+      "PackagePath": "staticwebassets\\css\\LandingPageStyle.css"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\SignUpLogIn.css",
       "PackagePath": "staticwebassets\\css\\SignUpLogIn.css"
     },

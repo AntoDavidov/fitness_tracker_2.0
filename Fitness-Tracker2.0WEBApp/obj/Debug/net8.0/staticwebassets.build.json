@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cuyyrEDoguAy8TAIoo+YEB0ttwoxd+Px3GN6/ulWypc=",
+  "Hash": "xtWVf4i+nB27eMsP2OA7iU3cD5/EVbmzRrT49L/tDqA=",
   "Source": "Fitness-Tracker2.0WEBApp",
   "BasePath": "_content/Fitness-Tracker2.0WEBApp",
   "Mode": "Default",
@@ -55,6 +55,25 @@
       "OriginalItemSpec": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Fitness-Tracker2.0WEBApp.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\DetailsPageStyle.css",
+      "SourceId": "Fitness-Tracker2.0WEBApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\",
+      "BasePath": "_content/Fitness-Tracker2.0WEBApp",
+      "RelativePath": "css/DetailsPageStyle.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\DetailsPageStyle.css"
+    },
+    {
       "Identity": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\landing.css",
       "SourceId": "Fitness-Tracker2.0WEBApp",
       "SourceType": "Discovered",
@@ -72,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\landing.css"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\LandingPageStyle.css",
+      "SourceId": "Fitness-Tracker2.0WEBApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\",
+      "BasePath": "_content/Fitness-Tracker2.0WEBApp",
+      "RelativePath": "css/LandingPageStyle.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\LandingPageStyle.css"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\login.css",

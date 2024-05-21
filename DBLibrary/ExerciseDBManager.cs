@@ -257,6 +257,61 @@ namespace DBLibrary
 
             return cardioExercise;
         }
+        public Workouts GetWorkoutById(int workoutId)
+        {
+            Workouts workout = null;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Query to get the workout details
+                    string workoutQuery = "SELECT Id, Name, Description, workout_level FROM Workout WHERE Id = @WorkoutId";
+                    SqlCommand workoutCmd = new SqlCommand(workoutQuery, connection);
+                    workoutCmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+
+                    using (SqlDataReader workoutReader = workoutCmd.ExecuteReader())
+                    {
+                        if (workoutReader.Read())
+                        {
+                            int id = workoutReader.GetInt32(workoutReader.GetOrdinal("Id"));
+                            string name = workoutReader.GetString(workoutReader.GetOrdinal("Name"));
+                            string description = workoutReader.GetString(workoutReader.GetOrdinal("Description"));
+                            string workoutLevel = workoutReader.GetString(workoutReader.GetOrdinal("workout_level"));
+
+                            // Initialize the workout object
+                            workout = new Workouts(id, name, description, workoutLevel);
+                        }
+                    }
+
+                    // Query to get exercises associated with the workout
+                    string exerciseQuery = "SELECT ExerciseId FROM WorkoutExercise WHERE WorkoutId = @WorkoutId";
+                    SqlCommand exerciseCmd = new SqlCommand(exerciseQuery, connection);
+                    exerciseCmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+
+                    using (SqlDataReader exerciseReader = exerciseCmd.ExecuteReader())
+                    {
+                        while (exerciseReader.Read())
+                        {
+                            int exerciseId = exerciseReader.GetInt32(exerciseReader.GetOrdinal("ExerciseId"));
+                            // Fetch the exercise details using the GetExerciseById method
+                            Exercise exercise = GetExerciseById(exerciseId);
+                            if (exercise != null)
+                            {
+                                workout.AddExercise(exercise);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return workout;
+        }
 
         public Strength? GetStrengthExerciseById(int exerciseId)
         {

@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<EmployeeManager>();
 builder.Services.AddScoped<CustomerManager>();
+builder.Services.AddScoped<ExerciseManager>();
 
 builder.Services.AddSession(options =>
 {

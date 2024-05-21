@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Fitness_Tracker2.0</title>
     <link rel="stylesheet" href="~/css/mainStyle.css" />
+    <link rel="stylesheet" href="~/css/DetailsPageStyle.css" asp-append-version="true" />
 @*     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Fitness_Tracker2._0WEBApp.styles.css" asp-append-version="true" /> *@
     @await RenderSectionAsync("Styles", required: false)
@@ -60,7 +61,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Application">Discover</a>
+                            </li>
+                        }
+                       @*  <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Action</a>
@@ -69,7 +76,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
                             </div>
-                        </li>
+                        </li> *@
                     </ul>
                     <form class="d-flex" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
                         <input class="form-control me-sm-2" type="search" placeholder="Search" data-np-intersection-state="visible">
@@ -98,6 +105,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
     

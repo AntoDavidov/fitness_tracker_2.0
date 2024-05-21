@@ -18,6 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0WEBApp
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/User/Desktop/Fitness-Tracker2.0/Fitness-Tracker2.0WEBApp/Pages/Application.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBwbGljYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/Fitness-Tracker2.0/Fitness-Tracker2.0WEBApp/Pages/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/User/Desktop/Fitness-Tracker2.0/Fitness-Tracker2.0WEBApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
