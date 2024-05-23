@@ -1,12 +1,13 @@
 using DBLibrary;
 using ExerciseLibrary;
 using ManagerLibrary;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Threading.Tasks;
 
 namespace Fitness_Tracker2._0WEBApp.Pages
 {
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly ExerciseManager _workoutManager;
@@ -16,6 +17,9 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
 
         public DetailsModel(ExerciseManager workoutManager, CustomerManager customerManager)
         {
@@ -28,26 +32,20 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             Workout = _workoutManager.GetWorkoutById(Id);
             if (Workout == null)
             {
-                return NotFound();
+                ErrorMessage = "The requested workout does not exist.";
+                return Page();
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddToFavorites()
+        public IActionResult OnPostAddToFavorites()
         {
-            // Get customer ID from session or any other method
             int customerId = _customerManager.GetCustomerIdByEmail(HttpContext.User.Identity.Name);
 
             if (customerId == -1)
             {
+                // Customer ID not found
                 return RedirectToPage("/Error");
-            }
-
-            // Reload the Workout object
-            Workout = _workoutManager.GetWorkoutById(Id);
-            if (Workout == null)
-            {
-                return NotFound();
             }
 
             bool success = _customerManager.AddWorkoutToFavourites(customerId, Id);

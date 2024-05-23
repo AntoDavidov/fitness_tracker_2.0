@@ -3,92 +3,88 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B36F4950-8422-473C-8EAC-61D47973DC71}|ManagerLibrary\\ManagerLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\managerlibrary\\customermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B36F4950-8422-473C-8EAC-61D47973DC71}|ManagerLibrary\\ManagerLibrary.csproj|solutionrelative:managerlibrary\\customermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\dblibrary\\customerdbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|solutionrelative:dblibrary\\customerdbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BFF1D08F-D4DB-4F42-88AE-465FB42F32DA}|NameLibrary\\NameLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\namelibrary\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BFF1D08F-D4DB-4F42-88AE-465FB42F32DA}|NameLibrary\\NameLibrary.csproj|solutionrelative:namelibrary\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\dblibrary\\exercisedbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|solutionrelative:dblibrary\\exercisedbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B36F4950-8422-473C-8EAC-61D47973DC71}|ManagerLibrary\\ManagerLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\managerlibrary\\exercisemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B36F4950-8422-473C-8EAC-61D47973DC71}|ManagerLibrary\\ManagerLibrary.csproj|solutionrelative:managerlibrary\\exercisemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\exerciselibrary\\cardio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|solutionrelative:exerciselibrary\\cardio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\exerciselibrary\\workouts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|solutionrelative:exerciselibrary\\workouts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\exerciselibrary\\strength.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|solutionrelative:exerciselibrary\\strength.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{893734BA-D7C3-4544-B2FD-465BE29A20E3}|Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0\\trainermenupage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{893734BA-D7C3-4544-B2FD-465BE29A20E3}|Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj|solutionrelative:fitness-tracker2.0\\trainermenupage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BFF1D08F-D4DB-4F42-88AE-465FB42F32DA}|NameLibrary\\NameLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\namelibrary\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BFF1D08F-D4DB-4F42-88AE-465FB42F32DA}|NameLibrary\\NameLibrary.csproj|solutionrelative:namelibrary\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\application.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BFF1D08F-D4DB-4F42-88AE-465FB42F32DA}|NameLibrary\\NameLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\namelibrary\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BFF1D08F-D4DB-4F42-88AE-465FB42F32DA}|NameLibrary\\NameLibrary.csproj|solutionrelative:namelibrary\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\details.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\signup.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\application.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\application.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{893734BA-D7C3-4544-B2FD-465BE29A20E3}|Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0\\usercontrols\\uc_strengthpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{893734BA-D7C3-4544-B2FD-465BE29A20E3}|Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj|solutionrelative:fitness-tracker2.0\\usercontrols\\uc_strengthpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\exerciselibrary\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|solutionrelative:exerciselibrary\\exercise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\application.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\application.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\application.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\dblibrary\\exercisedbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|solutionrelative:dblibrary\\exercisedbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{893734BA-D7C3-4544-B2FD-465BE29A20E3}|Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0\\usercontrols\\uc_suggestionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{893734BA-D7C3-4544-B2FD-465BE29A20E3}|Fitness-Tracker2.0\\Fitness-Tracker2.0.csproj|solutionrelative:fitness-tracker2.0\\usercontrols\\uc_suggestionspage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\signup.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\signup.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\fitness-tracker2.0webapp\\pages\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\dblibrary\\employeedbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|solutionrelative:dblibrary\\employeedbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|c:\\users\\user\\desktop\\fitness-tracker2.0\\exerciselibrary\\workouts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DFCD4812-6BBD-4FF4-BD62-5DBAF221E24B}|ExerciseLibrary\\ExerciseLibrary.csproj|solutionrelative:exerciselibrary\\workouts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B36F4950-8422-473C-8EAC-61D47973DC71}|ManagerLibrary\\ManagerLibrary.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\managerlibrary\\exercisemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B36F4950-8422-473C-8EAC-61D47973DC71}|ManagerLibrary\\ManagerLibrary.csproj|solutionrelative:managerlibrary\\exercisemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\dblibrary\\customerdbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|solutionrelative:dblibrary\\customerdbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\dblibrary\\dbdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C7832B4-F549-455F-9EA7-6F14B9E8AF9C}|DBLibrary\\DBLibrary.csproj|solutionrelative:dblibrary\\dbdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\fitness-tracker2.0webapp\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{58DC7045-3129-4884-9BBC-72896E0CCD1C}|Fitness-Tracker2.0WEBApp\\Fitness-Tracker2.0WEBApp.csproj|solutionrelative:fitness-tracker2.0webapp\\pages\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -98,293 +94,275 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "LoginDTO.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\LoginDTO.cs",
               "RelativeDocumentMoniker": "NameLibrary\\LoginDTO.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\LoginDTO.cs",
               "RelativeToolTip": "NameLibrary\\LoginDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T14:18:33.241Z",
+              "WhenOpened": "2024-05-23T13:46:18.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAiwCYAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-23T13:37:12.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAASwEkAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T08:34:02.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Program.cs",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Program.cs",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Program.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAiwBYAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T13:33:32.997Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "Details.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T08:16:02.231Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SignUp.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml.cs",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml.cs",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAIwB4AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T13:20:57.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LogOut.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-23T13:17:21.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Application.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAgwBUAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-23T08:17:40.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SignUp.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAiwCUAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-20T21:12:04.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAFUAAAAAAAAAAAAUwG8AAAAHAAAA",
+              "ViewState": "AQIAAFUAAAAAAAAAAAAUwG8AAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-05-21T14:08:55.174Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-21T14:07:25.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Details.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA6AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T08:19:09.81Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CustomerManager.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\CustomerManager.cs",
-              "RelativeDocumentMoniker": "ManagerLibrary\\CustomerManager.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\CustomerManager.cs",
-              "RelativeToolTip": "ManagerLibrary\\CustomerManager.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAArwB0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T14:02:34.375Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Login.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAAswDAAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T13:59:24.972Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CustomerDBManager.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\CustomerDBManager.cs",
-              "RelativeDocumentMoniker": "DBLibrary\\CustomerDBManager.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\CustomerDBManager.cs",
-              "RelativeToolTip": "DBLibrary\\CustomerDBManager.cs",
-              "ViewState": "AQIAAJEAAAAAAAAAAAAEwKkAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T13:50:49.011Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "ExerciseDBManager.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\ExerciseDBManager.cs",
               "RelativeDocumentMoniker": "DBLibrary\\ExerciseDBManager.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\ExerciseDBManager.cs",
               "RelativeToolTip": "DBLibrary\\ExerciseDBManager.cs",
-              "ViewState": "AQIAAG4AAAAAAAAAAAAIwIwAAAAQAAAA",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAjwG4AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T08:15:19.105Z",
+              "WhenOpened": "2024-05-23T08:11:39.076Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Customer.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\Customer.cs",
-              "RelativeDocumentMoniker": "NameLibrary\\Customer.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\NameLibrary\\Customer.cs",
-              "RelativeToolTip": "NameLibrary\\Customer.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAwB8AAAAAAAAA",
+              "DocumentIndex": 11,
+              "Title": "UC_SuggestionsPage.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\UserControls\\UC_SuggestionsPage.cs",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0\\UserControls\\UC_SuggestionsPage.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\UserControls\\UC_SuggestionsPage.cs [Design]",
+              "RelativeToolTip": "Fitness-Tracker2.0\\UserControls\\UC_SuggestionsPage.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T13:39:31.376Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-23T12:02:00.767Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "UC_StrengthPage.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\UserControls\\UC_StrengthPage.cs",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0\\UserControls\\UC_StrengthPage.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\UserControls\\UC_StrengthPage.cs",
-              "RelativeToolTip": "Fitness-Tracker2.0\\UserControls\\UC_StrengthPage.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAkwFIAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T09:57:17.722Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "TrainerMenuPage.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\TrainerMenuPage.cs",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0\\TrainerMenuPage.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0\\TrainerMenuPage.cs",
-              "RelativeToolTip": "Fitness-Tracker2.0\\TrainerMenuPage.cs",
-              "ViewState": "AQIAACgAAAAAAAAAAAAkwDYAAABCAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T09:57:06.395Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Cardio.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Cardio.cs",
-              "RelativeDocumentMoniker": "ExerciseLibrary\\Cardio.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Cardio.cs",
-              "RelativeToolTip": "ExerciseLibrary\\Cardio.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAxwB8AAAA4AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T09:51:00.873Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Strength.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Strength.cs",
-              "RelativeDocumentMoniker": "ExerciseLibrary\\Strength.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Strength.cs",
-              "RelativeToolTip": "ExerciseLibrary\\Strength.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAAYwCcAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T09:50:55.656Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Program.cs",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Program.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Program.cs",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Program.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAADAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T09:28:13.188Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Login.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAABDAAAA",
+              "DocumentIndex": 7,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Details.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-21T09:03:28.415Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Exercise.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Exercise.cs",
-              "RelativeDocumentMoniker": "ExerciseLibrary\\Exercise.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Exercise.cs",
-              "RelativeToolTip": "ExerciseLibrary\\Exercise.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAwB4AAAAkAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T08:35:01.763Z",
+              "WhenOpened": "2024-05-23T08:11:30.063Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "ExerciseManager.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\ExerciseManager.cs",
-              "RelativeDocumentMoniker": "ManagerLibrary\\ExerciseManager.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\ExerciseManager.cs",
-              "RelativeToolTip": "ManagerLibrary\\ExerciseManager.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAEwBUAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T08:15:40.532Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
               "Title": "Application.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml.cs",
               "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml.cs",
               "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABMAAAAsAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T08:13:31.944Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
+              "Title": "LogOut.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml.cs",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml.cs",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\LogOut.cshtml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T13:17:24.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "EmployeeDBManager.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\EmployeeDBManager.cs",
+              "RelativeDocumentMoniker": "DBLibrary\\EmployeeDBManager.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\EmployeeDBManager.cs",
+              "RelativeToolTip": "DBLibrary\\EmployeeDBManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T07:48:46.334Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "Workouts.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Workouts.cs",
               "RelativeDocumentMoniker": "ExerciseLibrary\\Workouts.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\Workouts.cs",
               "RelativeToolTip": "ExerciseLibrary\\Workouts.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAswC0AAAAcAAAA",
+              "ViewState": "AQIAACcAAAAAAAAAAAAswDIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T08:10:47.616Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Application.cshtml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Application.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-21T08:00:32.687Z",
-              "EditorCaption": ""
+              "DocumentIndex": 17,
+              "Title": "ExerciseManager.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\ExerciseManager.cs",
+              "RelativeDocumentMoniker": "ManagerLibrary\\ExerciseManager.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\ExerciseManager.cs",
+              "RelativeToolTip": "ManagerLibrary\\ExerciseManager.cs",
+              "ViewState": "AQIAADMAAAAAAAAAAIAwwEQAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T08:15:40.532Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "_Layout.cshtml.css",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml.css",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml.css",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml.css",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Shared\\_Layout.cshtml.css",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-05-20T21:23:40.428Z",
-              "EditorCaption": ""
+              "DocumentIndex": 18,
+              "Title": "CustomerDBManager.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\CustomerDBManager.cs",
+              "RelativeDocumentMoniker": "DBLibrary\\CustomerDBManager.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\CustomerDBManager.cs",
+              "RelativeToolTip": "DBLibrary\\CustomerDBManager.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAB4AAABUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T08:30:44.224Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SignUp.cshtml",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
-              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
-              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
-              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\SignUp.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADgAAAAvAAAA",
+              "DocumentIndex": 19,
+              "Title": "DBDal.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\DBDal.cs",
+              "RelativeDocumentMoniker": "DBLibrary\\DBDal.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\DBLibrary\\DBDal.cs",
+              "RelativeToolTip": "DBLibrary\\DBDal.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T08:29:48.047Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Error.cshtml",
+              "RelativeDocumentMoniker": "Fitness-Tracker2.0WEBApp\\Pages\\Error.cshtml",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\Pages\\Error.cshtml",
+              "RelativeToolTip": "Fitness-Tracker2.0WEBApp\\Pages\\Error.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-20T21:12:04.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-23T08:16:01.383Z"
             }
           ]
         }

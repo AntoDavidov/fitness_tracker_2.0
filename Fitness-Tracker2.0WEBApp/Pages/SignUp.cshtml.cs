@@ -10,6 +10,8 @@ namespace Fitness_Tracker2._0WEBApp.Pages
         private readonly CustomerManager manager1;
         [BindProperty]
         public SignupDTO SignupDTO { get; set; }
+
+        public bool SignUpSuccessfull { get; set; }
         
         public SignUpModel(CustomerManager manager)
         {
@@ -24,7 +26,9 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             if (ModelState.IsValid)
             {
                 manager1.AddCustomer(SignupDTO);
-                return new RedirectToPageResult("Index");
+
+                SignUpSuccessfull = true;
+                return Page();
             }
             return Page();
         }

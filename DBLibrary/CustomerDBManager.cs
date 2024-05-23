@@ -166,7 +166,7 @@ namespace DBLibrary
                 Console.WriteLine("Error retrieving customerId by email: " + ex.Message);
             }
 
-            return -1; // Return -1 if customerId is not found or an error occurs
+            return -1; 
         }
     }
 }

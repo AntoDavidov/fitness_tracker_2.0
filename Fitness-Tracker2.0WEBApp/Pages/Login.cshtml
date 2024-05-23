@@ -5,14 +5,16 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 }
-<form asp-action="post">
+<form asp-action="Post">
     <div class="form-group">
         <label class="form-label" asp-for="Login.Email">Email address</label>
         <input class="form-control" asp-for="Login.Email">
+        <span asp-validation-for="Login.Email" class="text-danger"></span> <!-- Add validation message -->
     </div>
     <div class="form-group">
         <label class="form-label" asp-for="Login.Password">Password</label>
         <input class="form-control" asp-for="Login.Password" type="password">
+        <span asp-validation-for="Login.Password" class="text-danger"></span> <!-- Add validation message -->
     </div>
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="rememberMe" asp-for="Login.RememberMe">
@@ -25,5 +27,21 @@
 <div class="text-center mt-3">
     Don't have an account? <a href="/SignUp">Sign Up</a>
 </div>
+@if (!ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var modelState in ViewData.ModelState.Values)
+        {
+            foreach (var error in modelState.Errors)
+            {
+                <span>@error.ErrorMessage</span>
 
+                <br />
+            }
+        }
+    </div>
+}
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

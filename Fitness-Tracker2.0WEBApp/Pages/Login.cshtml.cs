@@ -54,7 +54,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimIdentity));
 
-                HttpContext.Session.SetString(nameof(Login.Email), Login.Email);
+                //HttpContext.Session.SetString(nameof(Login.Email), Login.Email);
 
                 if (Login.RememberMe)
                 {
@@ -73,7 +73,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                ModelState.AddModelError(string.Empty, "Invalid username or password. Please try again!");
                 return Page();
             }
         }
