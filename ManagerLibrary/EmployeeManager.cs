@@ -6,7 +6,7 @@ using NameLibrary;
 
 namespace ManagerLibrary
 {
-    public class EmployeeManager
+    public class EmployeeManager : PasswordManager
     {
         private EmployeeDBManager employeeDBManager;
         private List<Employee> cachedEmployees;
@@ -19,7 +19,8 @@ namespace ManagerLibrary
 
         public void AddEmployee(Employee employee)
         {
-            employeeDBManager.AddEmployeeToDB(employee);
+            string passwordHashed = HashPassword(employee.GetPassword());
+            employeeDBManager.AddEmployeeToDB(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), passwordHashed, employee.GetEmail(), employee.Role());
             cachedEmployees = null;
         }
         public List<Employee> GetEmployees()
@@ -46,9 +47,10 @@ namespace ManagerLibrary
         }
         public bool VerifyEmployeeCredentials(string email, string password)
         {
+            string hashedPassword = HashPassword(password);
             try
             {
-                return employeeDBManager.VerifyEmployeeCredentials(email, password);
+                return employeeDBManager.VerifyEmployeeCredentials(email, hashedPassword);
             }
             catch (Exception ex)
             {
@@ -58,14 +60,16 @@ namespace ManagerLibrary
         }
         public string GetEmployeeRole(string username, string password)
         {
-            return employeeDBManager.GetEmployeeRole(username, password);
+            string hashedPassword = HashPassword(password);
+            return employeeDBManager.GetEmployeeRole(username, hashedPassword);
         }
 
         public bool UpdateEmployeeInfo(Employee employee)
         {
+            string hashedPassword = HashPassword(employee.GetPassword());
             try
             {
-                return employeeDBManager.UpdateEmployeeInfo(employee);
+                return employeeDBManager.UpdateEmployeeInfo(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), hashedPassword, employee.GetEmail(), employee.Role());
             }
             catch (Exception ex)
             {

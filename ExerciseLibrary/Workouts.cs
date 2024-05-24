@@ -48,7 +48,6 @@ namespace ExerciseLibrary
         public int GetId() { return id; }
         public string GetName() { return name; }
         public string GetDescription() { return description; }
-
         public Level GetWorkoutLevel() 
         {
             return workout_level;

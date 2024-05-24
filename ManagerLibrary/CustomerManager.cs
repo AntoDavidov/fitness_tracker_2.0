@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ManagerLibrary
 {
-    public class CustomerManager
+    public class CustomerManager : PasswordManager
     {
         private CustomerDBManager customerDBManager;
         public CustomerManager()
@@ -17,12 +17,14 @@ namespace ManagerLibrary
         }
         public Customer VerifyLogin(LoginDTO login)
         {
-            return customerDBManager.VerifyCustomerCredentials(login.Email, login.Password);
+            string password = HashPassword(login.Password);
+            return customerDBManager.VerifyCustomerCredentials(login.Email, password);
         }
 
         public void AddCustomer(SignupDTO signup)
         {
-            customerDBManager.AddCustomerToDB(signup.FirstName, signup.LastName,signup.UserName, signup.Password, signup.Email, signup.Weight, signup.Level);
+            string hashedPassword = HashPassword(signup.Password);
+            customerDBManager.AddCustomerToDB(signup.FirstName, signup.LastName,signup.UserName, hashedPassword, signup.Email, signup.Weight, signup.Level);
         }
         public int GetCustomerIdByEmail(string email)
         {

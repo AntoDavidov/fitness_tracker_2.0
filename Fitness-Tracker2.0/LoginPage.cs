@@ -38,11 +38,11 @@ namespace Fitness_Tracker2._0
             if (loggedIn)
             {
                 MessageBox.Show("Welcome " + username);
-                string role = manager.GetEmployeeRole(username, password)?.Trim();// Trim because the role was giving unknown
+                string role = manager.GetEmployeeRole(username, password)?.Trim();
 
                 if (role == "TRAINER")
                 {
-                    loggedEmployee = manager.GetEmployeeByUsername(username); // Assuming you have a method to retrieve an employee by username
+                    loggedEmployee = manager.GetEmployeeByUsername(username); 
                     frmTrainerUCPage trainerUCPage = new frmTrainerUCPage(loggedEmployee); 
                     trainerUCPage.Show();
 

@@ -19,14 +19,13 @@ namespace DBLibrary
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string hashedPassword = HashPassword(password);
                     // Insert into User table
                     string insertUserQuery = "INSERT INTO [User] (first_name, last_name, username, [password], email) VALUES (@FirstName, @LastName, @Username, @Password, @Email); SELECT SCOPE_IDENTITY();";
                     SqlCommand insertUserCommand = new SqlCommand(insertUserQuery, conn);
                     insertUserCommand.Parameters.AddWithValue("@FirstName", firstName);
                     insertUserCommand.Parameters.AddWithValue("@LastName", lastName);
                     insertUserCommand.Parameters.AddWithValue("@Username", username);
-                    insertUserCommand.Parameters.AddWithValue("@Password", hashedPassword);
+                    insertUserCommand.Parameters.AddWithValue("@Password", password);
                     insertUserCommand.Parameters.AddWithValue("@Email", email);
                     int userId = Convert.ToInt32(insertUserCommand.ExecuteScalar());
 
@@ -54,7 +53,6 @@ namespace DBLibrary
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string hashedPassword = HashPassword(password);
 
                     string query = "SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level " +
                                    "FROM [User] u " +
@@ -62,7 +60,7 @@ namespace DBLibrary
                                    "WHERE u.email = @Email AND u.password = @Password";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@password", hashedPassword);
+                    cmd.Parameters.AddWithValue("@password", password);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
