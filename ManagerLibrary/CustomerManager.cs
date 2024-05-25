@@ -1,4 +1,5 @@
 ﻿using DBLibrary;
+using DBLibrary.IRepositories;
 using NameLibrary;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,31 @@ namespace ManagerLibrary
 {
     public class CustomerManager : PasswordManager
     {
+        private readonly ICustomerRepository _customerRepository;
         private CustomerDBManager customerDBManager;
-        public CustomerManager()
+        public CustomerManager(ICustomerRepository customerRepo)
         {
             customerDBManager = new CustomerDBManager();
+            _customerRepository = customerRepo;
         }
         public Customer VerifyLogin(LoginDTO login)
         {
             string password = HashPassword(login.Password);
-            return customerDBManager.VerifyCustomerCredentials(login.Email, password);
+            return _customerRepository.VerifyCustomerCredentials(login.Email, password);
         }
 
         public void AddCustomer(SignupDTO signup)
         {
             string hashedPassword = HashPassword(signup.Password);
-            customerDBManager.AddCustomerToDB(signup.FirstName, signup.LastName,signup.UserName, hashedPassword, signup.Email, signup.Weight, signup.Level);
+            _customerRepository.AddCustomerToDB(signup.FirstName, signup.LastName,signup.UserName, hashedPassword, signup.Email, signup.Weight, signup.Level);
         }
         public int GetCustomerIdByEmail(string email)
         {
-            return customerDBManager.GetCustomerIdByEmail(email);
+            return _customerRepository.GetCustomerIdByEmail(email);
         }
         public bool AddWorkoutToFavourites(int customerId, int workoutId)
         {
-            return customerDBManager.AddWorkoutToFavorites(customerId, workoutId);
+            return _customerRepository.AddWorkoutToFavourites(customerId, workoutId);
         }
     }
 }

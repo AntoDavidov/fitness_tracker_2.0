@@ -21,48 +21,42 @@ namespace Fitness_Tracker2._0
         public frmTrainerWorkoutCreationPage(Workouts workouts)
         {
             InitializeComponent();
-            exerciseManager = new ExerciseManager();
+            this.exerciseManager = new ExerciseManager();
             cmbFilter.SelectedIndexChanged += cmbFilter_SelectedIndexChanged;
             currentWorkout = workouts;
             PopulateExercisesListBox();
             PopulateWorkoutExercisesListBox();
             PopulateLabel();
 
-            // Enable drag and drop for the list boxes
             lstbExercises.AllowDrop = true;
             lstbCurrentWorkoutExercises.AllowDrop = true;
 
-            // Add event handlers for drag and drop events
             lstbExercises.MouseDown += lstbExercises_MouseDown;
             lstbCurrentWorkoutExercises.DragEnter += lstbCurrentWorkoutExercises_DragEnter;
             lstbCurrentWorkoutExercises.DragDrop += lstbExercises_DragDrop;
         }
 
-        // Populate exercises list box
         private void PopulateExercisesListBox()
         {
-            // Populate exercises list box with available exercises
             lstbExercises.Items.Clear();
             if (cmbFilter.SelectedIndex == 0)
             {
                 foreach (Strength strengthExercise in exerciseManager.GetOnlyStrengthExercises())
                 {
-                    lstbExercises.Items.Add(strengthExercise.ToString()); // Add the object itself, not the ToString() representation
+                    lstbExercises.Items.Add(strengthExercise.ToString()); 
                 }
             }
             else if (cmbFilter.SelectedIndex == 1)
             {
                 foreach (Cardio cardioExercise in exerciseManager.GetOnlyCardioExercises())
                 {
-                    lstbExercises.Items.Add(cardioExercise.ToString()); // Add the object itself, not the ToString() representation
+                    lstbExercises.Items.Add(cardioExercise.ToString()); 
                 }
             }
         }
 
-        // Populate workout exercises list box
         private void PopulateWorkoutExercisesListBox()
-        {
-            // Populate workout exercises list box with exercises in current workout
+        { 
             lstbCurrentWorkoutExercises.Items.Clear();
             if (currentWorkout != null)
             {
@@ -73,7 +67,6 @@ namespace Fitness_Tracker2._0
             }
         }
 
-        // Populate label with workout name
         private void PopulateLabel()
         {
             if (currentWorkout != null)

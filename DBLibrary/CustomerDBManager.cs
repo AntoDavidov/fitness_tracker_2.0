@@ -1,4 +1,5 @@
-﻿using NameLibrary;
+﻿using DBLibrary.IRepositories;
+using NameLibrary;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DBLibrary
 {
-    public class CustomerDBManager : DBDal
+    public class CustomerDBManager : DBDal, ICustomerRepository
     {
         public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, string level)
         {
@@ -93,7 +94,7 @@ namespace DBLibrary
 
             return null;
         }
-        public bool AddWorkoutToFavorites(int customerId, int workoutId)
+        public bool AddWorkoutToFavourites(int customerId, int workoutId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
 

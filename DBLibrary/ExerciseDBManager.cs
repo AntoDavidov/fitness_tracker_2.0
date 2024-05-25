@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DBLibrary.IRepositories;
 using ExerciseLibrary;
 
 
 namespace DBLibrary
 {
-    public class ExerciseDBManager : DBDal
+    public class ExerciseDBManager : DBDal, IExerciseRepository
     {
 
         public ExerciseDBManager()
@@ -19,7 +20,7 @@ namespace DBLibrary
 
         }
 
-        public bool AddStrengthExerciseToDB(Strength strength)
+        public bool AddStrengthExercise(Strength strength)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace DBLibrary
                 return false;
             }
         }
-        public bool AddCardioExerciseToDB(Cardio cardio)
+        public bool AddCardioExercise(Cardio cardio)
         {
             try
             {
@@ -85,7 +86,7 @@ namespace DBLibrary
                 return false;
             }
         }
-        public bool AddWorkoutToDBWithoutExercises(Workouts workout)
+        public bool AddWorkoutWithoutExercises(Workouts workout)
         {
             try
             {
@@ -143,39 +144,6 @@ namespace DBLibrary
             }
         }
 
-        public bool AddWorkoutToDB(Workouts workout)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-
-                    // Insert into Workout table
-                    string insertWorkoutQuery = "INSERT INTO Workout (Name, Description) VALUES (@Name, @Description); SELECT SCOPE_IDENTITY();";
-                    SqlCommand insertWorkoutCommand = new SqlCommand(insertWorkoutQuery, connection);
-                    insertWorkoutCommand.Parameters.AddWithValue("@Name", workout.GetName());
-                    insertWorkoutCommand.Parameters.AddWithValue("@Description", workout.GetDescription());
-                    int workoutId = Convert.ToInt32(insertWorkoutCommand.ExecuteScalar());
-
-                    // Insert into WorkoutExercise table for each exercise in the workout
-                    foreach (var exercise in workout.GetExercises())
-                    {
-                        string insertWorkoutExerciseQuery = "INSERT INTO WorkoutExercise (WorkoutId, ExerciseId) VALUES (@WorkoutId, @ExerciseId);";
-                        SqlCommand insertWorkoutExerciseCommand = new SqlCommand(insertWorkoutExerciseQuery, connection);
-                        insertWorkoutExerciseCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
-                        insertWorkoutExerciseCommand.Parameters.AddWithValue("@ExerciseId", exercise.GetId());
-                        insertWorkoutExerciseCommand.ExecuteNonQuery();
-                    }
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-                return false;
-            }
-        }
         public Exercise? GetExerciseById(int exerciseId)
         {
             try
@@ -594,7 +562,7 @@ namespace DBLibrary
             }
             return workoutIds;
         }
-        public List<Workouts>? GetAllWorkoutsFromDB()
+        public List<Workouts>? GetAllWorkouts()
         {
             List<Workouts> workouts = new List<Workouts>();
 

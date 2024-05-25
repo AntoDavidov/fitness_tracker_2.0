@@ -2,33 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using DBLibrary;
+using DBLibrary.IRepositories;
 using NameLibrary;
 
 namespace ManagerLibrary
 {
     public class EmployeeManager : PasswordManager
     {
-        private EmployeeDBManager employeeDBManager;
+        private readonly IEmployeeRepository _employeeRepository;
         private List<Employee> cachedEmployees;
 
-        public EmployeeManager()
+        public EmployeeManager(IEmployeeRepository employeeRepository)
         {
-            employeeDBManager = new EmployeeDBManager();
+            _employeeRepository = employeeRepository;
             cachedEmployees = null;
         }
 
         public void AddEmployee(Employee employee)
         {
             string passwordHashed = HashPassword(employee.GetPassword());
-            employeeDBManager.AddEmployeeToDB(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), passwordHashed, employee.GetEmail(), employee.Role());
+            _employeeRepository.AddEmployee(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), passwordHashed, employee.GetEmail(), employee.Role());
             cachedEmployees = null;
         }
+
         public List<Employee> GetEmployees()
         {
-            // Lazy loading and caching employees
             if (cachedEmployees == null)
             {
-                cachedEmployees = employeeDBManager.GetAllEmployeesFromDB();
+                cachedEmployees = _employeeRepository.GetAllEmployees();
             }
             return cachedEmployees;
         }
@@ -37,7 +38,7 @@ namespace ManagerLibrary
         {
             try
             {
-                return employeeDBManager.VerifyUserCredentials(email, password);
+                return _employeeRepository.VerifyEmployeeCredentials(email, password);
             }
             catch (Exception ex)
             {
@@ -45,12 +46,13 @@ namespace ManagerLibrary
                 return false;
             }
         }
+
         public bool VerifyEmployeeCredentials(string email, string password)
         {
             string hashedPassword = HashPassword(password);
             try
             {
-                return employeeDBManager.VerifyEmployeeCredentials(email, hashedPassword);
+                return _employeeRepository.VerifyEmployeeCredentials(email, hashedPassword);
             }
             catch (Exception ex)
             {
@@ -58,10 +60,11 @@ namespace ManagerLibrary
                 return false;
             }
         }
+
         public string GetEmployeeRole(string username, string password)
         {
             string hashedPassword = HashPassword(password);
-            return employeeDBManager.GetEmployeeRole(username, hashedPassword);
+            return _employeeRepository.GetEmployeeRole(username, hashedPassword);
         }
 
         public bool UpdateEmployeeInfo(Employee employee)
@@ -69,7 +72,7 @@ namespace ManagerLibrary
             string hashedPassword = HashPassword(employee.GetPassword());
             try
             {
-                return employeeDBManager.UpdateEmployeeInfo(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), hashedPassword, employee.GetEmail(), employee.Role());
+                return _employeeRepository.UpdateEmployeeInfo(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), hashedPassword, employee.GetEmail(), employee.Role());
             }
             catch (Exception ex)
             {
@@ -77,20 +80,16 @@ namespace ManagerLibrary
                 return false;
             }
         }
+
         public Employee GetEmployeeByUsername(string username)
         {
-            return employeeDBManager.GetEmployeeByUsername(username);
+            return _employeeRepository.GetEmployeeByUsername(username);
         }
 
         public void DeleteEmployee(int id)
         {
-            employeeDBManager.DeleteEmployee(id);
+            _employeeRepository.DeleteEmployee(id);
             cachedEmployees = null;
         }
-
-        //public Employee GetEmployeeByUsernameAndPassword(string username, string password)
-        //{
-        //    return GetEmployees().FirstOrDefault(emp => emp.GetFirstName() == username && emp.GetPassword() == password);
-        //}
     }
 }

@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using NameLibrary;
 using System.Security.Cryptography;
+using DBLibrary.IRepositories;
 
 namespace DBLibrary
 {
-    public class EmployeeDBManager : DBDal
+    public class EmployeeDBManager : DBDal, IEmployeeRepository
     {
         public EmployeeDBManager()
         {
         }
-        public bool AddEmployeeToDB(string firstName, string lastName, string username, string hashedPassword, string email, string role)
+        public bool AddEmployee(string firstName, string lastName, string username, string hashedPassword, string email, string role)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace DBLibrary
         
 
 
-        public List<Employee> GetAllEmployeesFromDB()
+        public List<Employee> GetAllEmployees()
         {
             List<Employee> employees = new List<Employee>();
 

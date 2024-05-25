@@ -1,4 +1,5 @@
 ﻿using Fitness_Tracker2._0.UserControls;
+using ManagerLibrary;
 using NameLibrary;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Fitness_Tracker2._0
     public partial class frmTrainerUCPage : Form
     {
         Employee _employee;
+        EmployeeManager EmployeeManager;
         public frmTrainerUCPage(Employee loggedInEmployee)
         {
             _employee = loggedInEmployee;
@@ -55,7 +57,7 @@ namespace Fitness_Tracker2._0
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             this.Close();
-            frmLoginPage frmLoginPage = new frmLoginPage();
+            frmLoginPage frmLoginPage = new frmLoginPage(EmployeeManager);
             frmLoginPage.Show();
         }
     }
