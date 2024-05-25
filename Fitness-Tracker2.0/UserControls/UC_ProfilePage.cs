@@ -16,12 +16,14 @@ namespace Fitness_Tracker2._0.UserControls
     public partial class ucProfilePage : UserControl
     {
         private Employee loggedInEmployee;
+        private EmployeeManager employeeManager;
 
 
-        public ucProfilePage(Employee loggedInEmployee)
+        public ucProfilePage(Employee loggedInEmployee, EmployeeManager _employeeManager)
         {
             InitializeComponent();
             this.loggedInEmployee = loggedInEmployee;
+            this.employeeManager = _employeeManager;
             PopulateTextBoxes();
         }
 
@@ -53,7 +55,6 @@ namespace Fitness_Tracker2._0.UserControls
             loggedInEmployee.SetEmail(txtbEmail.Text);
             loggedInEmployee.SetPassword(txtbPassword.Text);
 
-            EmployeeManager employeeManager = new EmployeeManager();
             bool updateResult = employeeManager.UpdateEmployeeInfo(loggedInEmployee);
 
             if (updateResult)

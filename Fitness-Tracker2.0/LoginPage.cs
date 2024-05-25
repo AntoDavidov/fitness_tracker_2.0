@@ -1,26 +1,23 @@
-using Microsoft.VisualBasic.ApplicationServices;
 using NameLibrary;
 using ManagerLibrary;
+using System;
+using System.Windows.Forms;
+
 namespace Fitness_Tracker2._0
 {
     public partial class frmLoginPage : Form
     {
-        NameLibrary.User user;
-        Employee loggedEmployee;
-        EmployeeManager manager;
+        private EmployeeManager manager;
+        private ExerciseManager exerciseManager;
 
-        frmAdminHomePage adminHomePage;
-        frmTrainerUCPage trainerUCPage;
-        public frmLoginPage()
+        public frmLoginPage(EmployeeManager employeeManager, ExerciseManager exerciseManager)
         {
             InitializeComponent();
-            manager = new EmployeeManager();
-            adminHomePage = new frmAdminHomePage();
-            user = new NameLibrary.User("Default", "User", "default", "password", "default@example.com");
+            manager = employeeManager;
+            this.exerciseManager = exerciseManager;
             txtbPassword.PasswordChar = '*';
-
-
         }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtbUsername.Text;
@@ -30,6 +27,7 @@ namespace Fitness_Tracker2._0
 
             if (username == "default" && password == "password")
             {
+                var adminHomePage = new frmAdminHomePage(manager);
                 adminHomePage.Show();
                 this.Hide();
                 return;
@@ -42,10 +40,14 @@ namespace Fitness_Tracker2._0
 
                 if (role == "TRAINER")
                 {
-                    loggedEmployee = manager.GetEmployeeByUsername(username); 
-                    frmTrainerUCPage trainerUCPage = new frmTrainerUCPage(loggedEmployee); 
+                    var loggedEmployee = manager.GetEmployeeByUsername(username);
+                    var trainerUCPage = new frmTrainerUCPage(loggedEmployee, manager, exerciseManager);
                     trainerUCPage.Show();
-
+                }
+                else if (role == "ADMIN")
+                {
+                    var adminHomePage = new frmAdminHomePage(manager);
+                    adminHomePage.Show();
                 }
                 else if (role == "Nutritionist")
                 {

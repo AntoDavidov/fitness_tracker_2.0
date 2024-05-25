@@ -18,10 +18,10 @@ namespace Fitness_Tracker2._0
         private Workouts currentWorkout;
         private Exercise selectedEx;
 
-        public frmTrainerWorkoutCreationPage(Workouts workouts)
+        public frmTrainerWorkoutCreationPage(Workouts workouts, ExerciseManager _exerciseManager)
         {
             InitializeComponent();
-            this.exerciseManager = new ExerciseManager();
+            this.exerciseManager = _exerciseManager;
             cmbFilter.SelectedIndexChanged += cmbFilter_SelectedIndexChanged;
             currentWorkout = workouts;
             PopulateExercisesListBox();

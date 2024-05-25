@@ -17,10 +17,10 @@ namespace Fitness_Tracker2._0
     {
         private EmployeeManager manager;
 
-        public frmAdminHomePage()
+        public frmAdminHomePage(EmployeeManager employeeManager)
         {
             InitializeComponent();
-            manager = new EmployeeManager();
+            manager = employeeManager;
             PopulateListBox();
         }
         public void PopulateListBox()

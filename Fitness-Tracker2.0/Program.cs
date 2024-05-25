@@ -1,7 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
-using Fitness_Tracker2._0.Con; 
+using ManagerLibrary; // Add this directive
+using Fitness_Tracker2._0.Configuration; // Add this directive
 
 namespace Fitness_Tracker2._0
 {
@@ -20,7 +21,8 @@ namespace Fitness_Tracker2._0
 
             // Resolve the EmployeeManager and pass it to the login form
             var employeeManager = serviceProvider.GetService<EmployeeManager>();
-            Application.Run(new frmLoginPage(employeeManager));
+            var exerciseManager = serviceProvider.GetService<ExerciseManager>();    
+            Application.Run(new frmLoginPage(employeeManager, exerciseManager));
         }
     }
 }

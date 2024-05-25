@@ -14,11 +14,11 @@ namespace Fitness_Tracker2._0.UserControls
 {
     public partial class UC_StrengthPage : UserControl
     {
-        private ExerciseManager exerciseManager;
-        public UC_StrengthPage()
+        private ExerciseManager _exerciseManager;
+        public UC_StrengthPage(ExerciseManager exerciseManager)
         {
             InitializeComponent();
-            exerciseManager = new ExerciseManager();
+            _exerciseManager = exerciseManager;
             PopulateExerciseListbox();
         }
 
@@ -34,7 +34,7 @@ namespace Fitness_Tracker2._0.UserControls
             if (Enum.TryParse(cmbMuscle.Text, out muscleGroup))
             {
                 Strength newStrength = new Strength(name, description, muscleGroup, reps, sets, weight);
-                exerciseManager.AddStrengthExercise(newStrength);
+                _exerciseManager.AddStrengthExercise(newStrength);
                 MessageBox.Show("Exercise created successfully!");
                 PopulateExerciseListbox();
             }
@@ -46,7 +46,7 @@ namespace Fitness_Tracker2._0.UserControls
         private void PopulateExerciseListbox()
         {
             lstbExercises.Items.Clear();
-            foreach (Strength strengthExercise in exerciseManager.GetOnlyStrengthExercises())
+            foreach (Strength strengthExercise in _exerciseManager.GetOnlyStrengthExercises())
             {
                 lstbExercises.Items.Add(strengthExercise.ToString());
             }
@@ -60,12 +60,12 @@ namespace Fitness_Tracker2._0.UserControls
                 return;
             }
 
-            Strength selectedStrength = exerciseManager.GetOnlyStrengthExercises()[lstbExercises.SelectedIndex];
+            Strength selectedStrength = _exerciseManager.GetOnlyStrengthExercises()[lstbExercises.SelectedIndex];
             DialogResult result = MessageBox.Show("Are you sure you want to delete this exercise? The selected exercise is going to be removed from" +
                 "every workout that is associated with!", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                exerciseManager.DeleteStrengthExercise(selectedStrength);
+                _exerciseManager.DeleteStrengthExercise(selectedStrength);
                 lstbExercises.Items.Remove(lstbExercises.SelectedIndex);
                 PopulateExerciseListbox();
             }
@@ -75,7 +75,7 @@ namespace Fitness_Tracker2._0.UserControls
         {
             string searchingString = txtbSearch.Text.ToLower();
             lstbExercises.Items.Clear();
-            foreach (Strength strength in exerciseManager.GetOnlyStrengthExercises())
+            foreach (Strength strength in _exerciseManager.GetOnlyStrengthExercises())
             {
                 if (strength.GetName().ToLower().StartsWith(searchingString))
                 {

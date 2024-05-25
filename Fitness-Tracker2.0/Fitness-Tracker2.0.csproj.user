@@ -7,9 +7,6 @@
     <Compile Update="AdminHomePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="TrainerHomePage.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="TrainerMenuPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -26,9 +23,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="UserControls\UC_SuggestionsPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="UserControls\UC_Test.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

@@ -15,10 +15,12 @@ namespace Fitness_Tracker2._0.UserControls
     public partial class ucCardioPage : UserControl
     {
         private ExerciseManager exerciseManager;
-        public ucCardioPage()
+
+        // Update the constructor to accept ExerciseManager
+        public ucCardioPage(ExerciseManager exerciseManager)
         {
             InitializeComponent();
-            exerciseManager = new ExerciseManager();
+            this.exerciseManager = exerciseManager;
             PopulateListBox();
         }
 
@@ -41,8 +43,9 @@ namespace Fitness_Tracker2._0.UserControls
 
             Cardio newCardioEx = new Cardio(name, description, duration);
             exerciseManager.AddCardioExercise(newCardioEx);
-
+            PopulateListBox(); // Update the list box after adding a new exercise
         }
+
         private void PopulateListBox()
         {
             lstbExercises.Items.Clear();
@@ -66,17 +69,15 @@ namespace Fitness_Tracker2._0.UserControls
             if (result == DialogResult.Yes)
             {
                 exerciseManager.DeleteCardioExercise(cardioExercise);
-                lstbExercises.Items.Remove(lstbExercises.SelectedIndex);
-
+                PopulateListBox();
             }
-            PopulateListBox();
         }
 
         private void txtbSearch_TextChanged(object sender, EventArgs e)
         {
             string searchedString = txtbSearch.Text.ToLower();
             lstbExercises.Items.Clear();
-            foreach(Cardio cardio in exerciseManager.GetOnlyCardioExercises())
+            foreach (Cardio cardio in exerciseManager.GetOnlyCardioExercises())
             {
                 if (cardio.GetName().ToLower().StartsWith(searchedString))
                 {
