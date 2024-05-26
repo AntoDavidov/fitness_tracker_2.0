@@ -1,38 +1,34 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using ManagerLibrary;
 using DBLibrary.IRepositories;
 using NameLibrary;
-using System.Collections.Generic;
+using DBLibrary.FakeRepositories;
+using ManagerLibrary.Exceptions;
 
 namespace YourProject.Tests
 {
     [TestClass]
     public class EmployeeManagerTests
     {
-        private Mock<IEmployeeRepository> _mockEmployeeRepository;
+        private IEmployeeRepository _fakeEmployeeRepository;
         private EmployeeManager _employeeManager;
-        private PasswordManager _passwordManager;
 
         [TestInitialize]
         public void Setup()
         {
-            _mockEmployeeRepository = new Mock<IEmployeeRepository>();
-            _passwordManager = new PasswordManager();
-            _employeeManager = new EmployeeManager(_mockEmployeeRepository.Object);
+            _fakeEmployeeRepository = new FakeEmployeeRepository();
+            _employeeManager = new EmployeeManager(_fakeEmployeeRepository);
         }
 
         [TestMethod]
         public void VerifyEmployeeCredentials_ShouldReturnTrue_ForValidCredentials()
         {
             // Arrange
-            var email = "validUser@example.com";
-            var password = "validPassword";
-            var hashedPassword = _passwordManager.HashPassword(password);
-            _mockEmployeeRepository.Setup(repo => repo.VerifyEmployeeCredentials(email, hashedPassword)).Returns(true);
+            var username = "trainer";
+            var password = "password";
 
             // Act
-            var result = _employeeManager.VerifyEmployeeCredentials(email, password);
+            var result = _employeeManager.VerifyEmployeeCredentials(username, password);
 
             // Assert
             Assert.IsTrue(result);
@@ -42,13 +38,11 @@ namespace YourProject.Tests
         public void VerifyEmployeeCredentials_ShouldReturnFalse_ForInvalidCredentials()
         {
             // Arrange
-            var email = "invalidUser@example.com";
+            var username = "nonExistingUser";
             var password = "invalidPassword";
-            var hashedPassword = _passwordManager.HashPassword(password);
-            _mockEmployeeRepository.Setup(repo => repo.VerifyEmployeeCredentials(email, hashedPassword)).Returns(false);
 
             // Act
-            var result = _employeeManager.VerifyEmployeeCredentials(email, password);
+            var result = _employeeManager.VerifyEmployeeCredentials(username, password);
 
             // Assert
             Assert.IsFalse(result);
@@ -58,9 +52,8 @@ namespace YourProject.Tests
         public void GetEmployeeByUsername_ShouldReturnEmployee_WhenEmployeeExists()
         {
             // Arrange
-            var username = "existingUser";
-            var expectedEmployee = new Employee("First", "Last", username, "password", "email@example.com", "role");
-            _mockEmployeeRepository.Setup(repo => repo.GetEmployeeByUsername(username)).Returns(expectedEmployee);
+            var username = "trainer";
+            var expectedEmployee = _fakeEmployeeRepository.GetEmployeeByUsername(username);
 
             // Act
             var result = _employeeManager.GetEmployeeByUsername(username);
@@ -75,7 +68,6 @@ namespace YourProject.Tests
         {
             // Arrange
             var username = "nonExistingUser";
-            _mockEmployeeRepository.Setup(repo => repo.GetEmployeeByUsername(username)).Returns((Employee)null);
 
             // Act
             var result = _employeeManager.GetEmployeeByUsername(username);
@@ -85,38 +77,65 @@ namespace YourProject.Tests
         }
 
         [TestMethod]
-        public void AddEmployee_ShouldInvokeRepositoryAddMethod()
+        [ExpectedException(typeof(DuplicateUsernameException))]
+        public void AddEmployee_ShouldThrowDuplicateUsernameException_WhenUsernameAlreadyExists()
         {
             // Arrange
-            var newEmployee = new Employee("First", "Last", "newUser", "password", "email@example.com", "role");
-            var hashedPassword = _passwordManager.HashPassword(newEmployee.GetPassword());
+            var existingEmployee = new Employee("John", "Doe", "existingUser", "password", "email@example.com", "role");
+            _employeeManager.AddEmployee(existingEmployee);
+            var newEmployeeWithSameUsername = new Employee("Jane", "Smith", "existingUser", "password", "newemail@example.com", "role");
 
             // Act
-            _employeeManager.AddEmployee(newEmployee);
+            _employeeManager.AddEmployee(newEmployeeWithSameUsername);
 
             // Assert
-            _mockEmployeeRepository.Verify(repo => repo.AddEmployee(
-                newEmployee.GetFirstName(),
-                newEmployee.GetLastName(),
-                newEmployee.GetUsername(),
-                hashedPassword,
-                newEmployee.GetEmail(),
-                newEmployee.Role()
-            ), Moq.Times.Once);
+            // Expecting a DuplicateUsernameException
         }
 
         [TestMethod]
-        public void DeleteEmployee_ShouldInvokeRepositoryDeleteMethod()
+        [ExpectedException(typeof(DuplicateEmailException))]
+        public void AddEmployee_ShouldThrowDuplicateEmailException_WhenEmailAlreadyExists()
         {
             // Arrange
-            var employeeId = 1;
+            var existingEmployee = new Employee("John", "Doe", "user1", "password", "existing@example.com", "role");
+            _employeeManager.AddEmployee(existingEmployee);
+            var newEmployeeWithSameEmail = new Employee("Jane", "Smith", "newUser", "password", "existing@example.com", "role");
 
             // Act
-            _employeeManager.DeleteEmployee(employeeId);
+            _employeeManager.AddEmployee(newEmployeeWithSameEmail);
 
             // Assert
-            _mockEmployeeRepository.Verify(repo => repo.DeleteEmployee(employeeId), Moq.Times.Once);
+            // Expecting a DuplicateEmailException
         }
 
+        [TestMethod]
+        public void AddEmployee_ShouldAddEmployee_WhenUsernameAndEmailAreUnique()
+        {
+            // Arrange
+            var newEmployee = new Employee("John", "Doe", "uniqueUser", "password", "unique@example.com", "role");
+
+            // Act
+            _employeeManager.AddEmployee(newEmployee);
+            var addedEmployee = _fakeEmployeeRepository.GetEmployeeByUsername("uniqueUser");
+
+            // Assert
+            Assert.IsNotNull(addedEmployee);
+            Assert.AreEqual(newEmployee.GetFirstName(), addedEmployee.GetFirstName());
+        }
+
+
+        [TestMethod]
+        public void DeleteEmployee_ShouldRemoveEmployeeFromRepository()
+        {
+            // Arrange
+            var existingEmployee = _fakeEmployeeRepository.GetAllEmployees().First();
+
+            // Act
+            _employeeManager.DeleteEmployee(existingEmployee.GetId());
+            var deletedEmployee = _fakeEmployeeRepository.GetEmployeeByUsername(existingEmployee.GetUsername());
+
+            // Assert
+            Assert.IsNull(deletedEmployee);
+        }
     }
 }

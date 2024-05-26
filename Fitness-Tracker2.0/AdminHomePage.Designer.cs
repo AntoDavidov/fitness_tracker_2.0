@@ -265,6 +265,7 @@
             btnDelete.TabIndex = 16;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // frmAdminHomePage
             // 

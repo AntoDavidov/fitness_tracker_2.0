@@ -13,9 +13,8 @@ namespace DBLibrary.FakeRepositories
         {
             _employees = new List<Employee>
             {
-                new Employee("John", "Doe", "trainer", "password", "trainer@example.com", "TRAINER"),
-                new Employee("Jane", "Doe", "admin", "password", "admin@example.com", "ADMIN")
-                // Add more fake employees as needed
+                new Employee("John", "Doe", "trainer", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "trainer@example.com", "TRAINER"),
+                new Employee("Jane", "Doe", "admin", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "admin@example.com", "ADMIN")
             };
         }
 
@@ -23,6 +22,7 @@ namespace DBLibrary.FakeRepositories
         {
             return _employees.Any(e => e.GetUsername() == username && e.GetPassword() == password);
         }
+
 
         public Employee GetEmployeeByUsername(string username)
         {
@@ -37,7 +37,7 @@ namespace DBLibrary.FakeRepositories
 
         public bool AddEmployee(string firstName, string lastName, string username, string password, string email, string role)
         {
-            if (_employees.Any(e => e.GetUsername() == username))
+            if (_employees.Any(e => e.GetUsername() == username || e.GetEmail() == email))
                 return false;
 
             var newEmployee = new Employee(firstName, lastName, username, password, email, role);

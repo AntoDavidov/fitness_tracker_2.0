@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DBLibrary;
 using DBLibrary.IRepositories;
+using ManagerLibrary.Exceptions;
 using NameLibrary;
 
 namespace ManagerLibrary
@@ -20,10 +21,21 @@ namespace ManagerLibrary
 
         public void AddEmployee(Employee employee)
         {
+            if (_employeeRepository.GetAllEmployees().Any(e => e.GetUsername() == employee.GetUsername()))
+            {
+                throw new DuplicateUsernameException();
+            }
+
+            if (_employeeRepository.GetAllEmployees().Any(e => e.GetEmail() == employee.GetEmail()))
+            {
+                throw new DuplicateEmailException();
+            }
+
             string passwordHashed = HashPassword(employee.GetPassword());
             _employeeRepository.AddEmployee(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), passwordHashed, employee.GetEmail(), employee.Role());
             cachedEmployees = null;
         }
+
 
         public List<Employee> GetEmployees()
         {
@@ -34,11 +46,12 @@ namespace ManagerLibrary
             return cachedEmployees;
         }
 
-        public bool VerifyUserCredentials(string email, string password)
+        public bool VerifyEmployeeCredentials(string username, string password)
         {
+            string hashedPassword = HashPassword(password);
             try
             {
-                return _employeeRepository.VerifyEmployeeCredentials(email, password);
+                return _employeeRepository.VerifyEmployeeCredentials(username, hashedPassword);
             }
             catch (Exception ex)
             {
@@ -47,19 +60,6 @@ namespace ManagerLibrary
             }
         }
 
-        public bool VerifyEmployeeCredentials(string email, string password)
-        {
-            string hashedPassword = HashPassword(password);
-            try
-            {
-                return _employeeRepository.VerifyEmployeeCredentials(email, hashedPassword);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error verifying employee credentials: " + ex.Message);
-                return false;
-            }
-        }
 
         public string GetEmployeeRole(string username, string password)
         {
