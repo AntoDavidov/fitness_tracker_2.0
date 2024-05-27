@@ -34,7 +34,7 @@ namespace Fitness_Tracker2._0.UserControls
             if (Enum.TryParse(cmbMuscle.Text, out muscleGroup))
             {
                 Strength newStrength = new Strength(name, description, muscleGroup, reps, sets, weight);
-                _exerciseManager.AddStrengthExercise(newStrength);
+                _exerciseManager.AddExercise(newStrength);
                 MessageBox.Show("Exercise created successfully!");
                 PopulateExerciseListbox();
             }
@@ -65,7 +65,7 @@ namespace Fitness_Tracker2._0.UserControls
                 "every workout that is associated with!", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                _exerciseManager.DeleteStrengthExercise(selectedStrength);
+                _exerciseManager.DeleteExercise(selectedStrength);
                 lstbExercises.Items.Remove(lstbExercises.SelectedIndex);
                 PopulateExerciseListbox();
             }

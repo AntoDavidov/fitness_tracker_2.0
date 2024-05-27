@@ -42,7 +42,7 @@ namespace Fitness_Tracker2._0.UserControls
             Console.WriteLine($"Duration: {duration}");
 
             Cardio newCardioEx = new Cardio(name, description, duration);
-            exerciseManager.AddCardioExercise(newCardioEx);
+            exerciseManager.AddExercise(newCardioEx);
             PopulateListBox(); // Update the list box after adding a new exercise
         }
 
@@ -68,7 +68,7 @@ namespace Fitness_Tracker2._0.UserControls
                 "every workout that is associated with!", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                exerciseManager.DeleteCardioExercise(cardioExercise);
+                exerciseManager.DeleteExercise(cardioExercise);
                 PopulateListBox();
             }
         }

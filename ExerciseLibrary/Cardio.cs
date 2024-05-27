@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NameLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,9 +28,9 @@ namespace ExerciseLibrary
         {
             return base.ToString() + $" Duriation: {duration}";
         }
-        public override int CalculateCaloriesBurned(double userWeight)
+        public override int CalculateCaloriesBurned(Customer customer)
         {
-            double basalMetabolicRate = 10 * userWeight;
+            double basalMetabolicRate = 10 * customer.GetWeight();
             double totalHours = duration.TotalHours;
             int totalCaloriesBurned = (int)(basalMetabolicRate * totalHours);
             return totalCaloriesBurned;

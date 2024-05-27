@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NameLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,13 +35,14 @@ namespace ExerciseLibrary
         {
             return base.ToString() + $" Primary muscle: {muscleGroup}";
         }
-        public override int CalculateCaloriesBurned(double userWeight)
+        public override int CalculateCaloriesBurned(Customer customer)
         {
             int caloriesPerRep = 2;
             int totalReps = reps * sets;
-            double caloriesBurnedPerRep = caloriesPerRep * (weightLifted / 100); //kilograms
+            double caloriesBurnedPerRep = caloriesPerRep * (weightLifted / 100); 
             int totalCaloriesBurned = (int)(totalReps * caloriesBurnedPerRep);
             return totalCaloriesBurned;
+            
         }
     }
 }

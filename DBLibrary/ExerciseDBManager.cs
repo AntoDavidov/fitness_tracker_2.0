@@ -24,7 +24,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -60,7 +60,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -90,7 +90,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -112,7 +112,7 @@ namespace DBLibrary
         }
         public void AddExerciseToWorkout(int workoutId, int exerciseId)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            using SqlConnection connection = new SqlConnection(GetConnectionString());
             try
             {
                 // Check if the exercise already exists in the workout
@@ -148,7 +148,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -196,7 +196,7 @@ namespace DBLibrary
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -230,7 +230,7 @@ namespace DBLibrary
             Workouts workout = null;
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -287,7 +287,7 @@ namespace DBLibrary
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -322,7 +322,7 @@ namespace DBLibrary
         }
         public Workouts? GetWorkout(Workouts workout)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(GetConnectionString()))
             {
                 try
                 {
@@ -373,7 +373,7 @@ namespace DBLibrary
             bool exists = false;
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
                     string query = "SELECT COUNT(*) FROM WorkoutExercise WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId";
@@ -395,7 +395,7 @@ namespace DBLibrary
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -430,7 +430,7 @@ namespace DBLibrary
         }
         public void DeleteWorkout(int workoutId)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            using SqlConnection connection = new SqlConnection(GetConnectionString());
             try
             {
                 connection.Open();
@@ -460,7 +460,7 @@ namespace DBLibrary
         }
         public void DeleteStrengthExercise(Strength strengthExercise)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(GetConnectionString()))
             {
                 try
                 {
@@ -498,7 +498,7 @@ namespace DBLibrary
         }
         public void DeleteCardioExercise(Cardio cardioExercise)
         {
-            using SqlConnection connection = new SqlConnection(connectionString);
+            using SqlConnection connection = new SqlConnection(GetConnectionString());
             try
             {
                 connection.Open();
@@ -535,7 +535,7 @@ namespace DBLibrary
         public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
         {
             List<int> workoutIds = new List<int>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(GetConnectionString()))
             {
                 try
                 {
@@ -568,7 +568,7 @@ namespace DBLibrary
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -605,7 +605,7 @@ namespace DBLibrary
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 
@@ -642,7 +642,7 @@ namespace DBLibrary
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
                 {
                     connection.Open();
 

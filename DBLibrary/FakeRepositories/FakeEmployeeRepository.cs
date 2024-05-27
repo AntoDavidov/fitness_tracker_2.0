@@ -13,8 +13,8 @@ namespace DBLibrary.FakeRepositories
         {
             _employees = new List<Employee>
             {
-                new Employee("John", "Doe", "trainer", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "trainer@example.com", "TRAINER"),
-                new Employee("Jane", "Doe", "admin", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "admin@example.com", "ADMIN")
+                new Employee(1, "John", "Doe", "trainer", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "trainer@example.com", "TRAINER"),
+                new Employee(2, "Jane", "Doe", "admin", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "admin@example.com", "ADMIN")
             };
         }
 
@@ -22,7 +22,6 @@ namespace DBLibrary.FakeRepositories
         {
             return _employees.Any(e => e.GetUsername() == username && e.GetPassword() == password);
         }
-
 
         public Employee GetEmployeeByUsername(string username)
         {
@@ -40,12 +39,13 @@ namespace DBLibrary.FakeRepositories
             if (_employees.Any(e => e.GetUsername() == username || e.GetEmail() == email))
                 return false;
 
-            var newEmployee = new Employee(firstName, lastName, username, password, email, role);
+            int newId = _employees.Max(e => e.GetId()) + 1;
+            var newEmployee = new Employee(newId, firstName, lastName, username, password, email, role);
             _employees.Add(newEmployee);
             return true;
         }
 
-        public bool UpdateEmployeeInfo(string username, string firstName, string lastName, string password, string email, string role)
+        public bool UpdateEmployeeInfo(string firstName, string lastName, string username, string password, string email, string role)
         {
             var employee = _employees.FirstOrDefault(e => e.GetUsername() == username);
             if (employee == null)

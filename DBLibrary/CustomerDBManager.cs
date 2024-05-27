@@ -17,7 +17,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
                     // Insert into User table
@@ -51,7 +51,7 @@ namespace DBLibrary
             try
             {
                 Console.WriteLine($"Verifying credentials for email: {email}");
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
 
@@ -96,7 +96,7 @@ namespace DBLibrary
         }
         public bool AddWorkoutToFavourites(int customerId, int workoutId)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
 
             try
             {
@@ -144,7 +144,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
 

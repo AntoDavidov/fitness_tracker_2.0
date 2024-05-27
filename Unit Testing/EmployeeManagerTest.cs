@@ -123,7 +123,6 @@ namespace YourProject.Tests
             Assert.AreEqual(newEmployee.GetFirstName(), addedEmployee.GetFirstName());
         }
 
-
         [TestMethod]
         public void DeleteEmployee_ShouldRemoveEmployeeFromRepository()
         {
@@ -136,6 +135,65 @@ namespace YourProject.Tests
 
             // Assert
             Assert.IsNull(deletedEmployee);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DuplicateUsernameException))]
+        public void UpdateEmployeeInfo_ShouldThrowDuplicateUsernameException_WhenUsernameAlreadyExists()
+        {
+            // Arrange
+            var existingEmployee = new Employee(1, "John", "Doe", "existingUser", "password", "email@example.com", "role");
+            _employeeManager.AddEmployee(existingEmployee);
+            var anotherEmployee = new Employee(2, "Jane", "Smith", "anotherUser", "password", "another@example.com", "role");
+            _employeeManager.AddEmployee(anotherEmployee);
+
+            // Act
+            anotherEmployee.SetUsername("existingUser");
+            _employeeManager.UpdateEmployeeInfo(anotherEmployee);
+
+            // Assert
+            // Expecting a DuplicateUsernameException
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DuplicateEmailException))]
+        public void UpdateEmployeeInfo_ShouldThrowDuplicateEmailException_WhenEmailAlreadyExists()
+        {
+            // Arrange
+            var existingEmployee = new Employee(3, "John", "Doe", "user1", "password", "existing@example.com", "TRAINER");
+            _employeeManager.AddEmployee(existingEmployee);
+            var anotherEmployee = new Employee(4, "Jane", "Smith", "newUser", "password", "another@example.com", "TRAINER");
+            _employeeManager.AddEmployee(anotherEmployee);
+
+            // Act
+            anotherEmployee.SetEmail("existing@example.com");
+            _employeeManager.UpdateEmployeeInfo(anotherEmployee);
+
+            // Assert
+            // Expecting a DuplicateEmailException
+        }
+
+        [TestMethod]
+        public void UpdateEmployeeInfo_ShouldUpdateEmployee_WhenUsernameAndEmailAreUnique()
+        {
+            // Arrange
+            var existingEmployee = new Employee(3, "John", "Davidov", "user1", "password", "existing@example.com", "TRAINER");
+            _employeeManager.AddEmployee(existingEmployee);
+
+            // Act
+            existingEmployee.SetFirstName("Updated");
+            existingEmployee.SetLastName("Name");
+            existingEmployee.SetUsername("updatedUser");
+            existingEmployee.SetEmail("updated@example.com");
+            _employeeManager.UpdateEmployeeInfo(existingEmployee);
+
+
+            List<Employee> allEmployees = _employeeManager.GetEmployees();
+            // Assert
+            var updatedEmployee = _employeeManager.GetEmployeeByUsername("updatedUser");
+            Assert.IsNotNull(updatedEmployee);
+            Assert.AreEqual("Updated", updatedEmployee.GetFirstName());
+            Assert.AreEqual("updated@example.com", updatedEmployee.GetEmail());
         }
     }
 }

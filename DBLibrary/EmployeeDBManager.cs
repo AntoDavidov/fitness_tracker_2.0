@@ -23,7 +23,7 @@ namespace DBLibrary
                 {
                     throw new Exception();
                 }
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
                     
@@ -60,7 +60,7 @@ namespace DBLibrary
         {
             List<Employee> employees = new List<Employee>();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
             {
                 conn.Open();
 
@@ -95,7 +95,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
 
@@ -136,7 +136,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
 
@@ -161,7 +161,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
                     string query = "SELECT password FROM [User] WHERE username = @Username";
@@ -189,7 +189,7 @@ namespace DBLibrary
             try
             {
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
 
@@ -220,7 +220,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
                     var query = "DELETE from Employee where id = @id";
@@ -243,7 +243,7 @@ namespace DBLibrary
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
                     string updateUserInfoQuery = "UPDATE [User] SET first_name = @FirstName, last_name = @LastName, username = @Username, password = @Password, email = @Email WHERE id = @UserId";
