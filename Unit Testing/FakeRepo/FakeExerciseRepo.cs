@@ -33,10 +33,7 @@ namespace Unit_Testing.FakeRepo
             return true;
         }
 
-        public void AddExerciseToWorkout(int workoutId, int exerciseId)
-        {
-            _workoutExercises.Add((workoutId, exerciseId));
-        }
+        
 
         public Exercise? GetExerciseById(int exerciseId)
         {
@@ -53,19 +50,6 @@ namespace Unit_Testing.FakeRepo
         {
             return _strengthExercises.FirstOrDefault(e => e.GetId() == exerciseId);
         }
-
-        public List<Exercise>? GetExercisesForWorkout(int workoutId)
-        {
-            var exerciseIds = _workoutExercises.Where(we => we.WorkoutId == workoutId).Select(we => we.ExerciseId).ToList();
-            return exerciseIds.Select(GetExerciseById).ToList();
-        }
-
-        public void DeleteWorkout(int workoutId)
-        {
-            _workouts.RemoveAll(w => w.GetId() == workoutId);
-            _workoutExercises.RemoveAll(we => we.WorkoutId == workoutId);
-        }
-
         public void DeleteStrengthExercise(Strength strengthExercise)
         {
             _strengthExercises.RemoveAll(e => e.GetId() == strengthExercise.GetId());
@@ -75,17 +59,6 @@ namespace Unit_Testing.FakeRepo
         {
             _cardioExercises.RemoveAll(e => e.GetId() == cardioExercise.GetId());
         }
-
-        public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
-        {
-            return _workoutExercises.Where(we => we.ExerciseId == exerciseId).Select(we => we.WorkoutId).ToList();
-        }
-
-        public List<Workouts>? GetAllWorkouts()
-        {
-            return _workouts;
-        }
-
         public List<Cardio>? GetCardioExercises()
         {
             return _cardioExercises;
@@ -94,23 +67,6 @@ namespace Unit_Testing.FakeRepo
         public List<Strength>? GetStrengthExercises()
         {
             return _strengthExercises;
-        }
-
-        public Workouts? GetWorkout(Workouts workout)
-        {
-            return _workouts.FirstOrDefault(w => w.GetName() == workout.GetName() &&
-                                                  w.GetDescription() == workout.GetDescription() &&
-                                                  w.GetWorkoutLevel() == workout.GetWorkoutLevel());
-        }
-
-        public Workouts? GetWorkoutById(int workoutId)
-        {
-            return _workouts.FirstOrDefault(w => w.GetId() == workoutId);
-        }
-
-        public bool ExerciseAlreadyExistsInWorkout(int workoutId, int exerciseId)
-        {
-            return _workoutExercises.Any(we => we.WorkoutId == workoutId && we.ExerciseId == exerciseId);
         }
     }
 }

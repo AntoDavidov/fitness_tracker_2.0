@@ -52,12 +52,6 @@ namespace ManagerLibrary
         {
             return _exerciseRepository.GetCardioExercises();
         }
-
-        public bool AddWorkoutWithoutExercises(Workouts workout)
-        {
-            return _exerciseRepository.AddWorkoutWithoutExercises(workout);
-        }
-
         public Strength? GetStrengthExerciseById(int strengthId)
         {
             return _exerciseRepository.GetStrengthExerciseById(strengthId);
@@ -73,36 +67,6 @@ namespace ManagerLibrary
             return _exerciseRepository.GetExerciseById(exerciseId);
         }
 
-        public Workouts? FindWorkout(Workouts workout)
-        {
-            return _exerciseRepository.GetWorkout(workout);
-        }
-
-        public Workouts? GetWorkoutById(int workoutId)
-        {
-            return _exerciseRepository.GetWorkoutById(workoutId);
-        }
-
-        public void AddExerciseToWorkout(Workouts workout, Exercise exercise)
-        {
-            _exerciseRepository.AddExerciseToWorkout(workout.GetId(), exercise.GetId());
-        }
-
-        public List<Exercise> GetCurrentWorkoutExercises(Workouts workouts)
-        {
-            return _exerciseRepository.GetExercisesForWorkout(workouts.GetId());
-        }
-
-        public bool ExerciseExistsInWorkout(Workouts workouts, Exercise exercise)
-        {
-            return _exerciseRepository.ExerciseAlreadyExistsInWorkout(workouts.GetId(), exercise.GetId());
-        }
-
-        public List<Workouts> GetWorkouts()
-        {
-            return _exerciseRepository.GetAllWorkouts();
-        }
-
         public void DeleteExercise(Exercise exercise)
         {
             if (exercise is Strength strengthExercise)
@@ -115,16 +79,6 @@ namespace ManagerLibrary
             }
 
             cachedExercises = null; 
-        }
-
-        public void DeleteWorkout(Workouts workouts)
-        {
-            _exerciseRepository.DeleteWorkout(workouts.GetId());
-        }
-
-        public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
-        {
-            return _exerciseRepository.GetWorkoutIdsContainingExercise(exerciseId);
         }
     }
 }

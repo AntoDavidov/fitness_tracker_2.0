@@ -668,6 +668,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "ExerciseLibrary >= 1.0.0",
+      "IRepositories >= 1.0.0",
       "ManagerLibrary >= 1.0.0",
       "Microsoft.Extensions.DependencyInjection >= 8.0.0",
       "NameLibrary >= 1.0.0"
@@ -708,6 +709,9 @@
           "projectReferences": {
             "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\ExerciseLibrary.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ExerciseLibrary\\ExerciseLibrary.csproj"
+            },
+            "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\IRepositories\\IRepositories.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\IRepositories\\IRepositories.csproj"
             },
             "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\ManagerLibrary.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\ManagerLibrary\\ManagerLibrary.csproj"

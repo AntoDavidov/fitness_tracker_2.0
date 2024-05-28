@@ -9,6 +9,7 @@
       "Fitness-Tracker2.0WEBApp/1.0.0": {
         "dependencies": {
           "ExerciseLibrary": "1.0.0",
+          "IRepositories": "1.0.0",
           "ManagerLibrary": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "NameLibrary": "1.0.0"
@@ -101,6 +102,7 @@
       "DBLibrary/1.0.0": {
         "dependencies": {
           "ExerciseLibrary": "1.0.0",
+          "IRepositories": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "NameLibrary": "1.0.0",
           "System.Data.SqlClient": "4.8.6"
@@ -119,10 +121,20 @@
           "ExerciseLibrary.dll": {}
         }
       },
+      "IRepositories/1.0.0": {
+        "dependencies": {
+          "ExerciseLibrary": "1.0.0",
+          "NameLibrary": "1.0.0"
+        },
+        "runtime": {
+          "IRepositories.dll": {}
+        }
+      },
       "ManagerLibrary/1.0.0": {
         "dependencies": {
           "DBLibrary": "1.0.0",
           "ExerciseLibrary": "1.0.0",
+          "IRepositories": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "NameLibrary": "1.0.0"
         },
@@ -230,6 +242,11 @@
       "sha512": ""
     },
     "ExerciseLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IRepositories/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

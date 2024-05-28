@@ -90,3 +90,5 @@ C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0WEBApp\obj\Debug\net8
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0WEBApp\obj\Debug\net8.0\Fitness-Tracker2.0WEBApp.pdb
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0WEBApp\obj\Debug\net8.0\Fitness-Tracker2.0WEBApp.genruntimeconfig.cache
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0WEBApp\obj\Debug\net8.0\ref\Fitness-Tracker2.0WEBApp.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0WEBApp\bin\Debug\net8.0\IRepositories.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0WEBApp\bin\Debug\net8.0\IRepositories.pdb

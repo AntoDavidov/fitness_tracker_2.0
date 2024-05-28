@@ -1,6 +1,6 @@
 using ManagerLibrary;
 using DBLibrary;
-using DBLibrary.IRepositories;
+using IRepositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Register repository interfaces and their implementations
-builder.Services.AddScoped<IEmployeeRepository, EmployeeDBManager>();
-builder.Services.AddScoped<ICustomerRepository, CustomerDBManager>();
-builder.Services.AddScoped<IExerciseRepository, ExerciseDBManager>();
+builder.Services.AddScoped<IEmployeeRepo, EmployeeDBManager>();
+builder.Services.AddScoped<ICustomerRepo, CustomerDBManager>();
+builder.Services.AddScoped<IExerciseRepo, ExerciseDBManager>();
 
 // Register manager services
 builder.Services.AddScoped<EmployeeManager>();
