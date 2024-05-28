@@ -34,38 +34,74 @@ namespace Unit_Testing.FakeRepo
 
         public string GetEmployeeRole(string username, string password)
         {
-            var employee = _employees.FirstOrDefault(e => e.GetUsername() == username && e.GetPassword() == password);
-            return employee?.Role();
+            foreach (var employee in _employees)
+            {
+                if (employee.GetUsername() == username && employee.GetPassword() == password)
+                {
+                    return employee.Role();
+                }
+            }
+            return null;
         }
 
         public bool AddEmployee(string firstName, string lastName, string username, string password, string email, string role)
         {
-            if (_employees.Any(e => e.GetUsername() == username || e.GetEmail() == email))
-                return false;
+            foreach (var employee in _employees)
+            {
+                if (employee.GetUsername() == username || employee.GetEmail() == email)
+                {
+                    return false;
+                }
+            }
 
-            int newId = _employees.Max(e => e.GetId()) + 1;
+            int newId = 1;
+            foreach (var employee in _employees)
+            {
+                if (employee.GetId() >= newId)
+                {
+                    newId = employee.GetId() + 1;
+                }
+            }
             var newEmployee = new Employee(newId, firstName, lastName, username, password, email, role);
             _employees.Add(newEmployee);
             return true;
         }
-
         public bool UpdateEmployeeInfo(string firstName, string lastName, string username, string password, string email, string role)
         {
-            var employee = _employees.FirstOrDefault(e => e.GetUsername() == username);
+            Employee employee = null;
+            foreach (var emp in _employees)
+            {
+                if (emp.GetUsername() == username)
+                {
+                    employee = emp;
+                    break;
+                }
+            }
+
             if (employee == null)
                 return false;
 
-            employee.SetFirstName(firstName);
-            employee.SetLastName(lastName);
-            employee.SetPassword(password);
-            employee.SetEmail(email);
-            employee.SetRole(role);
+            // Create a new instance of Employee with updated information
+            var updatedEmployee = new Employee(employee.GetId(), firstName, lastName, username, password, email, role);
+
+            // Remove the old employee and add the updated employee to the list
+            _employees.Remove(employee);
+            _employees.Add(updatedEmployee);
+
             return true;
         }
-
         public bool DeleteEmployee(int id)
         {
-            var employee = _employees.FirstOrDefault(e => e.GetId() == id);
+            Employee employee = null;
+            foreach (var emp in _employees)
+            {
+                if (emp.GetId() == id)
+                {
+                    employee = emp;
+                    break;
+                }
+            }
+
             if (employee == null)
                 return false;
 

@@ -150,8 +150,8 @@ namespace Unit_Testing.Tests
             _employeeManager.AddEmployee(anotherEmployee);
 
             // Act
-            anotherEmployee.SetUsername("existingUser");
-            _employeeManager.UpdateEmployeeInfo(anotherEmployee);
+            var updatedAnotherEmployee = new Employee(anotherEmployee.GetId(), anotherEmployee.GetFirstName(), anotherEmployee.GetLastName(), "existingUser", anotherEmployee.GetPassword(), anotherEmployee.GetEmail(), anotherEmployee.Role());
+            _employeeManager.UpdateEmployeeInfo(updatedAnotherEmployee);
 
             // Assert
             // Expecting a DuplicateUsernameException
@@ -168,12 +168,13 @@ namespace Unit_Testing.Tests
             _employeeManager.AddEmployee(anotherEmployee);
 
             // Act
-            anotherEmployee.SetEmail("existing@example.com");
-            _employeeManager.UpdateEmployeeInfo(anotherEmployee);
+            var updatedAnotherEmployee = new Employee(anotherEmployee.GetId(), anotherEmployee.GetFirstName(), anotherEmployee.GetLastName(), anotherEmployee.GetUsername(), anotherEmployee.GetPassword(), "existing@example.com", anotherEmployee.Role());
+            _employeeManager.UpdateEmployeeInfo(updatedAnotherEmployee);
 
             // Assert
             // Expecting a DuplicateEmailException
         }
+
 
         [TestMethod]
         public void UpdateEmployeeInfo_ShouldUpdateEmployee_WhenUsernameAndEmailAreUnique()
@@ -183,19 +184,14 @@ namespace Unit_Testing.Tests
             _employeeManager.AddEmployee(existingEmployee);
 
             // Act
-            existingEmployee.SetFirstName("Updated");
-            existingEmployee.SetLastName("Name");
-            existingEmployee.SetUsername("updatedUser");
-            existingEmployee.SetEmail("updated@example.com");
-            _employeeManager.UpdateEmployeeInfo(existingEmployee);
+            var updatedEmployee = new Employee(existingEmployee.GetId(), "Updated", "Name", "updatedUser", existingEmployee.GetPassword(), "updated@example.com", existingEmployee.Role());
+            _employeeManager.UpdateEmployeeInfo(updatedEmployee);
 
-
-            List<Employee> allEmployees = _employeeManager.GetEmployees();
             // Assert
-            var updatedEmployee = _employeeManager.GetEmployeeByUsername("updatedUser");
-            Assert.IsNotNull(updatedEmployee);
-            Assert.AreEqual("Updated", updatedEmployee.GetFirstName());
-            Assert.AreEqual("updated@example.com", updatedEmployee.GetEmail());
+            var result = _employeeManager.GetEmployeeByUsername("updatedUser");
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Updated", result.GetFirstName());
+            Assert.AreEqual("updated@example.com", result.GetEmail());
         }
     }
 }

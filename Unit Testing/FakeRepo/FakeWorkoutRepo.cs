@@ -13,52 +13,118 @@ namespace Unit_Testing.FakeRepo
         private readonly List<Workouts> _workouts = new();
         private readonly List<(int WorkoutId, int ExerciseId)> _workoutExercises = new();
         private readonly FakeExerciseRepo _exerciseRepo;
-        public FakeWorkoutRepo() 
-        { 
-            
+
+        public FakeWorkoutRepo()
+        {
+
         }
+
         public void AddExerciseToWorkout(int workoutId, int exerciseId)
         {
             _workoutExercises.Add((workoutId, exerciseId));
         }
+
         public bool AddWorkoutWithoutExercises(Workouts workout)
         {
             _workouts.Add(workout);
             return true;
         }
+
         public void DeleteWorkout(int workoutId)
         {
-            _workouts.RemoveAll(w => w.GetId() == workoutId);
-            _workoutExercises.RemoveAll(we => we.WorkoutId == workoutId);
+            for (int i = _workouts.Count - 1; i >= 0; i--)
+            {
+                if (_workouts[i].GetId() == workoutId)
+                {
+                    _workouts.RemoveAt(i);
+                }
+            }
+            for (int i = _workoutExercises.Count - 1; i >= 0; i--)
+            {
+                if (_workoutExercises[i].WorkoutId == workoutId)
+                {
+                    _workoutExercises.RemoveAt(i);
+                }
+            }
         }
+
         public List<Exercise>? GetExercisesForWorkout(int workoutId)
         {
-            var exerciseIds = _workoutExercises.Where(we => we.WorkoutId == workoutId).Select(we => we.ExerciseId).ToList();
-            return exerciseIds.Select(_exerciseRepo.GetExerciseById).ToList();
+            List<int> exerciseIds = new List<int>();
+            foreach (var we in _workoutExercises)
+            {
+                if (we.WorkoutId == workoutId)
+                {
+                    exerciseIds.Add(we.ExerciseId);
+                }
+            }
+
+            List<Exercise> exercises = new List<Exercise>();
+            foreach (var exerciseId in exerciseIds)
+            {
+                var exercise = _exerciseRepo.GetExerciseById(exerciseId);
+                if (exercise != null)
+                {
+                    exercises.Add(exercise);
+                }
+            }
+            return exercises;
         }
+
         public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
         {
-            return _workoutExercises.Where(we => we.ExerciseId == exerciseId).Select(we => we.WorkoutId).ToList();
+            List<int> workoutIds = new List<int>();
+            foreach (var we in _workoutExercises)
+            {
+                if (we.ExerciseId == exerciseId)
+                {
+                    workoutIds.Add(we.WorkoutId);
+                }
+            }
+            return workoutIds;
         }
+
         public List<Workouts>? GetAllWorkouts()
         {
             return _workouts;
         }
+
         public Workouts? GetWorkout(Workouts workout)
         {
-            return _workouts.FirstOrDefault(w => w.GetName() == workout.GetName() &&
-                                                  w.GetDescription() == workout.GetDescription() &&
-                                                  w.GetWorkoutLevel() == workout.GetWorkoutLevel());
+            foreach (var w in _workouts)
+            {
+                if (w.GetName() == workout.GetName() &&
+                    w.GetDescription() == workout.GetDescription() &&
+                    w.GetWorkoutLevel() == workout.GetWorkoutLevel())
+                {
+                    return w;
+                }
+            }
+            return null;
         }
 
         public Workouts? GetWorkoutById(int workoutId)
         {
-            return _workouts.FirstOrDefault(w => w.GetId() == workoutId);
+            foreach (var w in _workouts)
+            {
+                if (w.GetId() == workoutId)
+                {
+                    return w;
+                }
+            }
+            return null;
         }
 
         public bool ExerciseAlreadyExistsInWorkout(int workoutId, int exerciseId)
         {
-            return _workoutExercises.Any(we => we.WorkoutId == workoutId && we.ExerciseId == exerciseId);
+            foreach (var we in _workoutExercises)
+            {
+                if (we.WorkoutId == workoutId && we.ExerciseId == exerciseId)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -19,7 +19,6 @@ namespace NameLibrary
             this.role = role;
         }
         public string Role() { return role; } 
-        public void SetRole(string role) { this.role = role; }
         public override string ToString()   
         {
             return base.ToString() + " Role: " + role;

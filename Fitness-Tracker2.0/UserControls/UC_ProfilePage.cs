@@ -10,14 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace Fitness_Tracker2._0.UserControls
 {
     public partial class ucProfilePage : UserControl
     {
         private Employee loggedInEmployee;
         private EmployeeManager employeeManager;
-
 
         public ucProfilePage(Employee loggedInEmployee, EmployeeManager _employeeManager)
         {
@@ -36,7 +34,6 @@ namespace Fitness_Tracker2._0.UserControls
             txtbEmail.Text = loggedInEmployee.GetEmail();
             cmbbRole.Text = loggedInEmployee.Role();
 
-            // You can populate other text boxes similarly if needed
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -49,17 +46,22 @@ namespace Fitness_Tracker2._0.UserControls
                 return;
             }
 
-            loggedInEmployee.SetFirstName(txtbFirstName.Text);
-            loggedInEmployee.SetLastName(txtbLastName.Text);
-            loggedInEmployee.SetUsername(txtbUsername.Text);
-            loggedInEmployee.SetEmail(txtbEmail.Text);
-            loggedInEmployee.SetPassword(txtbPassword.Text);
+            var updatedEmployee = new Employee(
+                loggedInEmployee.GetId(),
+                txtbFirstName.Text,
+                txtbLastName.Text,
+                txtbUsername.Text,
+                txtbPassword.Text,
+                txtbEmail.Text,
+                cmbbRole.Text
+            );
 
-            bool updateResult = employeeManager.UpdateEmployeeInfo(loggedInEmployee);
+            bool updateResult = employeeManager.UpdateEmployeeInfo(updatedEmployee);
 
             if (updateResult)
             {
                 MessageBox.Show("Profile updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                loggedInEmployee = updatedEmployee; //!! Updating the loggedInEmployeeInfo
                 PopulateTextBoxes();
             }
             else
