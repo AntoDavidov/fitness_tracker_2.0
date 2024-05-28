@@ -28,7 +28,7 @@ namespace Fitness_Tracker2._0
 
             if (username == "default" && password == "password")
             {
-                var adminHomePage = new frmAdminHomePage(manager);
+                var adminHomePage = new frmAdminHomePage(manager, exerciseManager);
                 adminHomePage.Show();
                 this.Hide();
                 return;
@@ -46,7 +46,7 @@ namespace Fitness_Tracker2._0
                 }
                 else if (role == "ADMIN")
                 {
-                    var adminHomePage = new frmAdminHomePage(manager);
+                    var adminHomePage = new frmAdminHomePage(manager, exerciseManager);
                     adminHomePage.Show();
                 }
                 else if (role == "Nutritionist")

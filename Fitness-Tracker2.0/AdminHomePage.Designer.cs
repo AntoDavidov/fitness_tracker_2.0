@@ -49,6 +49,8 @@
             label5 = new Label();
             label6 = new Label();
             btnDelete = new Button();
+            pctbGoBack = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pctbGoBack).BeginInit();
             SuspendLayout();
             // 
             // btnAddEmployee
@@ -57,7 +59,7 @@
             btnAddEmployee.FlatStyle = FlatStyle.Flat;
             btnAddEmployee.Font = new Font("Bahnschrift", 13.8F, FontStyle.Bold);
             btnAddEmployee.ForeColor = Color.WhiteSmoke;
-            btnAddEmployee.Location = new Point(12, 465);
+            btnAddEmployee.Location = new Point(411, 176);
             btnAddEmployee.Name = "btnAddEmployee";
             btnAddEmployee.Size = new Size(128, 50);
             btnAddEmployee.TabIndex = 0;
@@ -259,7 +261,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Bahnschrift", 13.8F, FontStyle.Bold);
             btnDelete.ForeColor = Color.WhiteSmoke;
-            btnDelete.Location = new Point(146, 465);
+            btnDelete.Location = new Point(411, 247);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(132, 50);
             btnDelete.TabIndex = 16;
@@ -267,12 +269,24 @@
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
+            // pctbGoBack
+            // 
+            pctbGoBack.Image = Properties.Resources._190238;
+            pctbGoBack.Location = new Point(29, 454);
+            pctbGoBack.Name = "pctbGoBack";
+            pctbGoBack.Size = new Size(82, 73);
+            pctbGoBack.SizeMode = PictureBoxSizeMode.StretchImage;
+            pctbGoBack.TabIndex = 17;
+            pctbGoBack.TabStop = false;
+            pctbGoBack.Click += pctbGoBack_Click;
+            // 
             // frmAdminHomePage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(996, 628);
+            Controls.Add(pctbGoBack);
             Controls.Add(btnDelete);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -296,6 +310,7 @@
             Controls.Add(btnAddEmployee);
             Name = "frmAdminHomePage";
             Text = "Home ";
+            ((System.ComponentModel.ISupportInitialize)pctbGoBack).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -323,5 +338,6 @@
         private Label label5;
         private Label label6;
         private Button btnDelete;
+        private PictureBox pctbGoBack;
     }
 }

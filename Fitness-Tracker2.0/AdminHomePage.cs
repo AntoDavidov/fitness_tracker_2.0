@@ -9,12 +9,14 @@ namespace Fitness_Tracker2._0
     public partial class frmAdminHomePage : Form
     {
         private EmployeeManager _employeeManager;
+        private ExerciseManager _exerciseManager;
 
-        public frmAdminHomePage(EmployeeManager employeeManager)
+        public frmAdminHomePage(EmployeeManager employeeManager, ExerciseManager exerciseManager)
         {
             InitializeComponent();
             _employeeManager = employeeManager;
             PopulateListBox();
+            _exerciseManager = exerciseManager;
         }
 
         private void PopulateListBox()
@@ -59,7 +61,7 @@ namespace Fitness_Tracker2._0
 
         private void btnDeleteEmployee_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -89,6 +91,13 @@ namespace Fitness_Tracker2._0
             {
                 MessageBox.Show("Please select an employee to delete.");
             }
+        }
+
+        private void pctbGoBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            frmLoginPage frmLoginPage = new frmLoginPage(_employeeManager, _exerciseManager);
+            frmLoginPage.Show();
         }
     }
 }
