@@ -1,22 +1,22 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ManagerLibrary;
-using DBLibrary.IRepositories;
 using NameLibrary;
-using DBLibrary.FakeRepositories;
 using ManagerLibrary.Exceptions;
+using IRepositories;
+using Unit_Testing.FakeRepo;
 
-namespace YourProject.Tests
+namespace Unit_Testing.Tests
 {
     [TestClass]
     public class EmployeeManagerTests
     {
-        private IEmployeeRepository _fakeEmployeeRepository;
+        private IEmployeeRepo _fakeEmployeeRepository;
         private EmployeeManager _employeeManager;
 
         [TestInitialize]
         public void Setup()
         {
-            _fakeEmployeeRepository = new FakeEmployeeRepository();
+            _fakeEmployeeRepository = new FakeEmployeeRepo();
             _employeeManager = new EmployeeManager(_fakeEmployeeRepository);
         }
 

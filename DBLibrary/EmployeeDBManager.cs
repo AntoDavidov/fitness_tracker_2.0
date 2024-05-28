@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using NameLibrary;
-using DBLibrary.IRepositories;
+using IRepositories;
 
 namespace DBLibrary
 {
-    public class EmployeeDBManager : DBDal, IEmployeeRepository
+    public class EmployeeDBManager : DBDal, IEmployeeRepo
     {
         public EmployeeDBManager()
         {

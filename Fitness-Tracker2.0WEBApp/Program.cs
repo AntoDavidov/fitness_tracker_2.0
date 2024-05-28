@@ -1,10 +1,19 @@
 using ManagerLibrary;
+using DBLibrary;
+using DBLibrary.IRepositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Register repository interfaces and their implementations
+builder.Services.AddScoped<IEmployeeRepository, EmployeeDBManager>();
+builder.Services.AddScoped<ICustomerRepository, CustomerDBManager>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseDBManager>();
+
+// Register manager services
 builder.Services.AddScoped<EmployeeManager>();
 builder.Services.AddScoped<CustomerManager>();
 builder.Services.AddScoped<ExerciseManager>();
@@ -14,8 +23,8 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromSeconds(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
-}
-);
+});
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -41,6 +50,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); // Ensure authentication is used
 app.UseAuthorization();
 
 app.UseSession();

@@ -1,8 +1,8 @@
 ﻿using DBLibrary;
-using DBLibrary.FakeRepositories;
-using DBLibrary.IRepositories;
 using ManagerLibrary;
 using Microsoft.Extensions.DependencyInjection;
+using IRepositories;
+using Unit_Testing.FakeRepo;
 
 namespace Fitness_Tracker2._0.Configuration
 {
@@ -12,13 +12,13 @@ namespace Fitness_Tracker2._0.Configuration
         {
             if (useFakeRepository)
             {
-                services.AddSingleton<IEmployeeRepository, FakeEmployeeRepository>();
-                services.AddSingleton<IExerciseRepository, FakeExerciseRepository>();
+                services.AddSingleton<IEmployeeRepo, FakeEmployeeRepo>();
+                services.AddSingleton<IExerciseRepo, FakeExerciseRepo>();
             }
             else
             {
-                services.AddSingleton<IEmployeeRepository, EmployeeDBManager>();
-                services.AddSingleton<IExerciseRepository, ExerciseDBManager>();
+                services.AddSingleton<IEmployeeRepo, EmployeeDBManager>();
+                services.AddSingleton<IExerciseRepo, ExerciseDBManager>();
             }
 
             services.AddSingleton<EmployeeManager>();

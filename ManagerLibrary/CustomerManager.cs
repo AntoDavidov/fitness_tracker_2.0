@@ -1,5 +1,5 @@
 ﻿using DBLibrary;
-using DBLibrary.IRepositories;
+using IRepositories;
 using NameLibrary;
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ namespace ManagerLibrary
 {
     public class CustomerManager : PasswordManager
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerRepo _customerRepository;
         private CustomerDBManager customerDBManager;
-        public CustomerManager(ICustomerRepository customerRepo)
+        public CustomerManager(ICustomerRepo customerRepo)
         {
             customerDBManager = new CustomerDBManager();
             _customerRepository = customerRepo;

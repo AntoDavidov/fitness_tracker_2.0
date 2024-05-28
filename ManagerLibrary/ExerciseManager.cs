@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using DBLibrary;
-using DBLibrary.IRepositories;
 using ExerciseLibrary;
+using IRepositories;
 
 namespace ManagerLibrary
 {
     public class ExerciseManager
     {
         private List<Exercise> cachedExercises;
-        private readonly IExerciseRepository _exerciseRepository;
+        private readonly IExerciseRepo _exerciseRepository;
 
-        public ExerciseManager(IExerciseRepository exerciseRepository)
+        public ExerciseManager(IExerciseRepo exerciseRepository)
         {
             _exerciseRepository = exerciseRepository;
             cachedExercises = null;

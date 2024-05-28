@@ -1,14 +1,14 @@
-﻿using DBLibrary.IRepositories;
-using ManagerLibrary.Exceptions;
+﻿using ManagerLibrary.Exceptions;
 using ManagerLibrary;
 using NameLibrary;
+using IRepositories;
 
 public class EmployeeManager : PasswordManager
 {
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IEmployeeRepo _employeeRepository;
     private List<Employee> cachedEmployees;
 
-    public EmployeeManager(IEmployeeRepository employeeRepository)
+    public EmployeeManager(IEmployeeRepo employeeRepository)
     {
         _employeeRepository = employeeRepository;
         cachedEmployees = null;

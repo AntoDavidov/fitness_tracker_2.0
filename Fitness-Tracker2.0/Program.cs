@@ -14,12 +14,10 @@ namespace Fitness_Tracker2._0
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Set up dependency injection
             var services = new ServiceCollection();
-            DependencyInjection.ConfigureServices(services, useFakeRepository: false); // Set to true for unit testing
+            DependencyInjection.ConfigureServices(services, useFakeRepository: false); 
             var serviceProvider = services.BuildServiceProvider();
 
-            // Resolve the EmployeeManager and pass it to the login form
             var employeeManager = serviceProvider.GetService<EmployeeManager>();
             var exerciseManager = serviceProvider.GetService<ExerciseManager>();    
             Application.Run(new frmLoginPage(employeeManager, exerciseManager));

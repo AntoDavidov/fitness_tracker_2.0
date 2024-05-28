@@ -1,13 +1,13 @@
-﻿using DBLibrary.IRepositories;
-using NameLibrary;
+﻿using NameLibrary;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using IRepositories;
 
 namespace DBLibrary
 {
-    public class CustomerDBManager : DBDal, ICustomerRepository
+    public class CustomerDBManager : DBDal, ICustomerRepo
     {
         public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, string level)
         {
@@ -52,9 +52,9 @@ namespace DBLibrary
                 {
                     conn.Open();
 
-                    string query = "SELECT u.user_id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level " +
+                    string query = "SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level " +
                                    "FROM [User] u " +
-                                   "INNER JOIN Customer c ON u.user_id = c.user_id " +
+                                   "INNER JOIN Customer c ON u.id = c.user_id " +
                                    "WHERE u.email = @Email AND u.password = @Password";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Email", email);
@@ -64,7 +64,7 @@ namespace DBLibrary
                     {
                         if (reader.Read())
                         {
-                            int id = reader.GetInt32(reader.GetOrdinal("user_id"));
+                            int id = reader.GetInt32(reader.GetOrdinal("id"));
                             string firstName = reader.GetString(reader.GetOrdinal("first_name"));
                             string lastName = reader.GetString(reader.GetOrdinal("last_name"));
                             string username = reader.GetString(reader.GetOrdinal("username"));

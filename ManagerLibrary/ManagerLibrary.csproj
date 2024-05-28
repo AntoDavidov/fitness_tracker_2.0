@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DBLibrary\DBLibrary.csproj" />
     <ProjectReference Include="..\ExerciseLibrary\ExerciseLibrary.csproj" />
+    <ProjectReference Include="..\IRepositories\IRepositories.csproj" />
     <ProjectReference Include="..\NameLibrary\NameLibrary.csproj" />
   </ItemGroup>
 

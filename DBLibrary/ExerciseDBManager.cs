@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using DBLibrary.IRepositories;
 using ExerciseLibrary;
+using IRepositories;
 
 namespace DBLibrary
 {
-    public class ExerciseDBManager : DBDal, IExerciseRepository
+    public class ExerciseDBManager : DBDal, IExerciseRepo
     {
         public ExerciseDBManager()
         {

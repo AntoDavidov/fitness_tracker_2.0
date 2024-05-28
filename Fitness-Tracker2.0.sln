@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fitness-Tracker2.0WEBApp", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unit Testing", "Unit Testing\Unit Testing.csproj", "{72894E85-E833-4207-9A34-76EEFA4F1DE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepositories", "IRepositories\IRepositories.csproj", "{2FA040E3-B061-4CDE-BC2A-ECCB93593067}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{72894E85-E833-4207-9A34-76EEFA4F1DE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72894E85-E833-4207-9A34-76EEFA4F1DE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72894E85-E833-4207-9A34-76EEFA4F1DE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA040E3-B061-4CDE-BC2A-ECCB93593067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA040E3-B061-4CDE-BC2A-ECCB93593067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA040E3-B061-4CDE-BC2A-ECCB93593067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA040E3-B061-4CDE-BC2A-ECCB93593067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

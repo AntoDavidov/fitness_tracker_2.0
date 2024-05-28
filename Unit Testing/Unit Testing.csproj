@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExerciseLibrary\ExerciseLibrary.csproj" />
+    <ProjectReference Include="..\IRepositories\IRepositories.csproj" />
     <ProjectReference Include="..\ManagerLibrary\ManagerLibrary.csproj" />
     <ProjectReference Include="..\NameLibrary\NameLibrary.csproj" />
   </ItemGroup>

@@ -18,6 +18,7 @@
     <ProjectReference Include="..\ExerciseLibrary\ExerciseLibrary.csproj" />
     <ProjectReference Include="..\ManagerLibrary\ManagerLibrary.csproj" />
     <ProjectReference Include="..\NameLibrary\NameLibrary.csproj" />
+    <ProjectReference Include="..\Unit Testing\Unit Testing.csproj" />
   </ItemGroup>
 
   <ItemGroup>
