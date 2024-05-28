@@ -3,14 +3,16 @@ using ManagerLibrary;
 using NameLibrary;
 using IRepositories;
 
-public class EmployeeManager : PasswordManager
+public class EmployeeManager
 {
     private readonly IEmployeeRepo _employeeRepository;
     private List<Employee> cachedEmployees;
+    private PasswordManager passwordManager;
 
     public EmployeeManager(IEmployeeRepo employeeRepository)
     {
         _employeeRepository = employeeRepository;
+        passwordManager = new PasswordManager();
         cachedEmployees = null;
     }
 
@@ -37,7 +39,7 @@ public class EmployeeManager : PasswordManager
             }
         }
 
-        string passwordHashed = HashPassword(employee.GetPassword());
+        string passwordHashed = passwordManager.HashPassword(employee.GetPassword());
         _employeeRepository.AddEmployee(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), passwordHashed, employee.GetEmail(), employee.Role());
 
         cachedEmployees = null;
@@ -54,7 +56,7 @@ public class EmployeeManager : PasswordManager
 
     public Employee VerifyEmployeeCredentials(string username, string password)
     {
-        string hashedPassword = HashPassword(password);
+        string hashedPassword = passwordManager.HashPassword(password);
         try
         {
             return _employeeRepository.VerifyEmployeeCredentials(username, hashedPassword);
@@ -69,7 +71,7 @@ public class EmployeeManager : PasswordManager
 
     public string GetEmployeeRole(string username, string password)
     {
-        string hashedPassword = HashPassword(password);
+        string hashedPassword = passwordManager.HashPassword(password);
         return _employeeRepository.GetEmployeeRole(username, hashedPassword);
     }
 
@@ -96,7 +98,7 @@ public class EmployeeManager : PasswordManager
             }
         }
 
-        string hashedPassword = HashPassword(employee.GetPassword());
+        string hashedPassword = passwordManager.HashPassword(employee.GetPassword());
         bool result = _employeeRepository.UpdateEmployeeInfo(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), hashedPassword, employee.GetEmail(), employee.Role());
         if (result)
         {

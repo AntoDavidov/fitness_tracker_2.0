@@ -16,19 +16,21 @@ namespace Fitness_Tracker2._0.UserControls
     {
         private frmTrainerWorkoutCreationPage _workoutCreationPage;
         private ExerciseManager _manager;
+        private WorkoutManager _workoutManager;
         private List<Exercise> selectedExercises;
         private Workouts currentWorkout;
-        public UC_SuggestionsPage(ExerciseManager exerciseManager)
+        public UC_SuggestionsPage(ExerciseManager exerciseManager, WorkoutManager workoutManager)
         {
             InitializeComponent();
             _manager = exerciseManager;
-            _workoutCreationPage = new frmTrainerWorkoutCreationPage(currentWorkout, _manager);
+            _workoutManager = workoutManager;
+            _workoutCreationPage = new frmTrainerWorkoutCreationPage(currentWorkout, _manager, _workoutManager);
             PopulateListBox();
         }
 
         private void PopulateListBox()
         {
-            foreach (Workouts workout in _manager.GetWorkouts())
+            foreach (Workouts workout in _workoutManager.GetWorkouts())
             {
                 lstbWorkout.Items.Add(workout.ToString());
             }
@@ -64,7 +66,7 @@ namespace Fitness_Tracker2._0.UserControls
 
 
             Workouts newWorkout = new Workouts(name, description, level);
-            _manager.AddWorkoutWithoutExercises(newWorkout);
+            _workoutManager.AddWorkoutWithoutExercises(newWorkout);
 
             txtName.Text = "";
             rchtxtbDescription.Text = "";
@@ -83,10 +85,10 @@ namespace Fitness_Tracker2._0.UserControls
                 return;
             }
 
-            Workouts selectedWorkout = _manager.GetWorkouts()[lstbWorkout.SelectedIndex];
+            Workouts selectedWorkout = _workoutManager.GetWorkouts()[lstbWorkout.SelectedIndex];
 
             // Pass the selected workout to the _workoutCreationPage
-            _workoutCreationPage = new frmTrainerWorkoutCreationPage(selectedWorkout, _manager);
+            _workoutCreationPage = new frmTrainerWorkoutCreationPage(selectedWorkout, _manager, _workoutManager);
             _workoutCreationPage.Show();
         }
 
@@ -96,7 +98,7 @@ namespace Fitness_Tracker2._0.UserControls
 
             lstbWorkout.Items.Clear();
 
-            foreach (Workouts workout in _manager.GetWorkouts())
+            foreach (Workouts workout in _workoutManager.GetWorkouts())
             {
                 if (workout.GetName().ToLower().StartsWith(searchText))
                 {
@@ -114,12 +116,12 @@ namespace Fitness_Tracker2._0.UserControls
                 return;
             }
 
-            Workouts selectedWorkout = _manager.GetWorkouts()[lstbWorkout.SelectedIndex];
+            Workouts selectedWorkout = _workoutManager.GetWorkouts()[lstbWorkout.SelectedIndex];
 
             DialogResult result = MessageBox.Show("Are you sure you want to delete this workout?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                _manager.DeleteWorkout(selectedWorkout);
+                _workoutManager.DeleteWorkout(selectedWorkout);
                 lstbWorkout.Items.RemoveAt(lstbWorkout.SelectedIndex);
 
             }

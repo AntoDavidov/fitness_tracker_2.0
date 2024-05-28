@@ -19,8 +19,9 @@ namespace Fitness_Tracker2._0
             var serviceProvider = services.BuildServiceProvider();
 
             var employeeManager = serviceProvider.GetService<EmployeeManager>();
-            var exerciseManager = serviceProvider.GetService<ExerciseManager>();    
-            Application.Run(new frmLoginPage(employeeManager, exerciseManager));
+            var exerciseManager = serviceProvider.GetService<ExerciseManager>();
+            var workoutManager = serviceProvider.GetService<WorkoutManager>();
+            Application.Run(new frmLoginPage(employeeManager, exerciseManager, workoutManager));
         }
     }
 }

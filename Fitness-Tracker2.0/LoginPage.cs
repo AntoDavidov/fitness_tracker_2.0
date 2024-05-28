@@ -9,13 +9,15 @@ namespace Fitness_Tracker2._0
     {
         private EmployeeManager manager;
         private ExerciseManager exerciseManager;
+        private WorkoutManager workoutManager;
 
-        public frmLoginPage(EmployeeManager employeeManager, ExerciseManager exerciseManager)
+        public frmLoginPage(EmployeeManager employeeManager, ExerciseManager exerciseManager, WorkoutManager workoutManager)
         {
             InitializeComponent();
             manager = employeeManager;
             this.exerciseManager = exerciseManager;
             txtbPassword.PasswordChar = '*';
+            this.workoutManager = workoutManager;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -28,7 +30,7 @@ namespace Fitness_Tracker2._0
 
             if (username == "default" && password == "password")
             {
-                var adminHomePage = new frmAdminHomePage(manager, exerciseManager);
+                var adminHomePage = new frmAdminHomePage(manager, exerciseManager, workoutManager);
                 adminHomePage.Show();
                 this.Hide();
                 return;
@@ -41,12 +43,12 @@ namespace Fitness_Tracker2._0
 
                 if (role == "TRAINER")
                 {
-                    var trainerUCPage = new frmTrainerUCPage(loggedInEmployee, manager, exerciseManager);
+                    var trainerUCPage = new frmTrainerUCPage(loggedInEmployee, manager, exerciseManager, workoutManager);
                     trainerUCPage.Show();
                 }
                 else if (role == "ADMIN")
                 {
-                    var adminHomePage = new frmAdminHomePage(manager, exerciseManager);
+                    var adminHomePage = new frmAdminHomePage(manager, exerciseManager, workoutManager);
                     adminHomePage.Show();
                 }
                 else if (role == "Nutritionist")

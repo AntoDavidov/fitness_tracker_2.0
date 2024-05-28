@@ -12,11 +12,14 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmployeeRepo, EmployeeDBManager>();
 builder.Services.AddScoped<ICustomerRepo, CustomerDBManager>();
 builder.Services.AddScoped<IExerciseRepo, ExerciseDBManager>();
+builder.Services.AddScoped<IWorkoutRepo, WorkoutDBManager>();
 
 // Register manager services
 builder.Services.AddScoped<EmployeeManager>();
 builder.Services.AddScoped<CustomerManager>();
 builder.Services.AddScoped<ExerciseManager>();
+builder.Services.AddScoped<WorkoutManager>();
+
 
 builder.Services.AddSession(options =>
 {

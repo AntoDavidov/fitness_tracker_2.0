@@ -10,8 +10,9 @@ namespace Fitness_Tracker2._0WEBApp.Pages
     [Authorize]
     public class DetailsModel : PageModel
     {
-        private readonly ExerciseManager _workoutManager;
+        private readonly ExerciseManager _exerciseManager;
         private readonly CustomerManager _customerManager;
+        private readonly WorkoutManager _workoutManager;
 
         public Workouts Workout { get; private set; }
 
@@ -21,10 +22,11 @@ namespace Fitness_Tracker2._0WEBApp.Pages
         [TempData]
         public string ErrorMessage { get; set; }
 
-        public DetailsModel(ExerciseManager workoutManager, CustomerManager customerManager)
+        public DetailsModel(ExerciseManager exerciseManager, CustomerManager customerManager, WorkoutManager workoutManager)
         {
-            _workoutManager = workoutManager;
+            _exerciseManager = exerciseManager;
             _customerManager = customerManager;
+            _workoutManager = workoutManager;
         }
 
         public IActionResult OnGet()

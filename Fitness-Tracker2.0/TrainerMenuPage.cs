@@ -18,14 +18,15 @@ namespace Fitness_Tracker2._0
         private Employee _employee;
         private EmployeeManager _employeeManager;
         private ExerciseManager _exerciseManager;
+        private WorkoutManager _workoutManager;
 
-        public frmTrainerUCPage(Employee loggedInEmployee, EmployeeManager employeeManager, ExerciseManager exerciseManager)
+        public frmTrainerUCPage(Employee loggedInEmployee, EmployeeManager employeeManager, ExerciseManager exerciseManager, WorkoutManager workoutManager)
         {
+            InitializeComponent();
             _employee = loggedInEmployee;
             _employeeManager = employeeManager;
             _exerciseManager = exerciseManager;
-            InitializeComponent();
-            
+            _workoutManager = workoutManager;
         }
 
         private void AddUserControl(UserControl userControl)
@@ -49,7 +50,7 @@ namespace Fitness_Tracker2._0
 
         private void btnSuggestions_Click(object sender, EventArgs e)
         {
-            UC_SuggestionsPage ucSuggestionsPage = new UC_SuggestionsPage(_exerciseManager);
+            UC_SuggestionsPage ucSuggestionsPage = new UC_SuggestionsPage(_exerciseManager, _workoutManager);
             AddUserControl(ucSuggestionsPage);
         }
 
@@ -62,7 +63,7 @@ namespace Fitness_Tracker2._0
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             this.Close();
-            frmLoginPage frmLoginPage = new frmLoginPage(_employeeManager, _exerciseManager); 
+            frmLoginPage frmLoginPage = new frmLoginPage(_employeeManager, _exerciseManager, _workoutManager); 
             frmLoginPage.Show();
         }
     }

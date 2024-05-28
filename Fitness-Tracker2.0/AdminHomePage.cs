@@ -10,13 +10,15 @@ namespace Fitness_Tracker2._0
     {
         private EmployeeManager _employeeManager;
         private ExerciseManager _exerciseManager;
+        private WorkoutManager _workoutManager;
 
-        public frmAdminHomePage(EmployeeManager employeeManager, ExerciseManager exerciseManager)
+        public frmAdminHomePage(EmployeeManager employeeManager, ExerciseManager exerciseManager, WorkoutManager workoutManager)
         {
             InitializeComponent();
             _employeeManager = employeeManager;
-            PopulateListBox();
             _exerciseManager = exerciseManager;
+            _workoutManager = workoutManager;
+            PopulateListBox();
         }
 
         private void PopulateListBox()
@@ -96,7 +98,7 @@ namespace Fitness_Tracker2._0
         private void pctbGoBack_Click(object sender, EventArgs e)
         {
             this.Close();
-            frmLoginPage frmLoginPage = new frmLoginPage(_employeeManager, _exerciseManager);
+            frmLoginPage frmLoginPage = new frmLoginPage(_employeeManager, _exerciseManager, _workoutManager);
             frmLoginPage.Show();
         }
     }

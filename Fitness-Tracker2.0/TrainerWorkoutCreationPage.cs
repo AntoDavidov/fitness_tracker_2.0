@@ -15,13 +15,15 @@ namespace Fitness_Tracker2._0
     public partial class frmTrainerWorkoutCreationPage : Form
     {
         private ExerciseManager exerciseManager;
+        private WorkoutManager workoutManager;
         private Workouts currentWorkout;
         private Exercise selectedEx;
 
-        public frmTrainerWorkoutCreationPage(Workouts workouts, ExerciseManager _exerciseManager)
+        public frmTrainerWorkoutCreationPage(Workouts workouts, ExerciseManager _exerciseManager, WorkoutManager _workoutManager)
         {
             InitializeComponent();
             this.exerciseManager = _exerciseManager;
+            this.workoutManager = _workoutManager;
             cmbFilter.SelectedIndexChanged += cmbFilter_SelectedIndexChanged;
             currentWorkout = workouts;
             PopulateExercisesListBox();
@@ -60,7 +62,7 @@ namespace Fitness_Tracker2._0
             lstbCurrentWorkoutExercises.Items.Clear();
             if (currentWorkout != null)
             {
-                foreach (Exercise exercise in exerciseManager.GetCurrentWorkoutExercises(currentWorkout))
+                foreach (Exercise exercise in workoutManager.GetCurrentWorkoutExercises(currentWorkout))
                 {
                     lstbCurrentWorkoutExercises.Items.Add(exercise.ToString());
                 }
@@ -110,7 +112,7 @@ namespace Fitness_Tracker2._0
             Exercise exercise = exerciseManager.GetExerciseById(id);
 
             // Check if the exercise already exists in the workout
-            if (currentWorkout != null && exerciseManager.ExerciseExistsInWorkout(currentWorkout, exercise))
+            if (currentWorkout != null && workoutManager.ExerciseExistsInWorkout(currentWorkout, exercise))
             {
                 MessageBox.Show("This exercise is already added to the workout.", "Duplicate Exercise", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -119,7 +121,7 @@ namespace Fitness_Tracker2._0
             // If the exercise doesn't exist in the workout, add it
             if (currentWorkout != null)
             {
-                exerciseManager.AddExerciseToWorkout(currentWorkout, exercise);
+                workoutManager.AddExerciseToWorkout(currentWorkout, exercise);
                 PopulateWorkoutExercisesListBox();
             }
         }

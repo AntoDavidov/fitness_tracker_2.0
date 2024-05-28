@@ -9,13 +9,15 @@ namespace Fitness_Tracker2._0WEBApp.Pages
     [Authorize]
     public class ApplicationModel : PageModel
     {
-        private readonly ExerciseManager _workoutManager;
+        private readonly ExerciseManager _exerciseManager;
+        private readonly WorkoutManager _workoutManager;
         public List<Workouts> Workouts { get; private set; }
         public int CurrentPage { get; private set; }
         public int TotalPages { get; private set; }
 
-        public ApplicationModel(ExerciseManager workoutManager) 
+        public ApplicationModel(ExerciseManager exerciseManager, WorkoutManager workoutManager) 
         { 
+            _exerciseManager = exerciseManager;
             _workoutManager = workoutManager;
         }
 

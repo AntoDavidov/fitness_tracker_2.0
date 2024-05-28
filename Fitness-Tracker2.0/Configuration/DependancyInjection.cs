@@ -14,15 +14,18 @@ namespace Fitness_Tracker2._0.Configuration
             {
                 services.AddSingleton<IEmployeeRepo, FakeEmployeeRepo>();
                 services.AddSingleton<IExerciseRepo, FakeExerciseRepo>();
+                services.AddSingleton<IWorkoutRepo, FakeWorkoutRepo>();
             }
             else
             {
                 services.AddSingleton<IEmployeeRepo, EmployeeDBManager>();
                 services.AddSingleton<IExerciseRepo, ExerciseDBManager>();
+                services.AddSingleton<IWorkoutRepo, WorkoutDBManager>();
             }
 
             services.AddSingleton<EmployeeManager>();
             services.AddSingleton<ExerciseManager>();
+            services.AddSingleton<WorkoutManager>();
         }
     }
 }
