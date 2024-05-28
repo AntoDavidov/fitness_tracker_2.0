@@ -23,7 +23,8 @@ namespace Fitness_Tracker2._0
             string username = txtbUsername.Text;
             string password = txtbPassword.Text;
 
-            bool loggedIn = manager.VerifyEmployeeCredentials(username, password);
+            // Get the logged-in employee object
+            Employee loggedInEmployee = manager.VerifyEmployeeCredentials(username, password);
 
             if (username == "default" && password == "password")
             {
@@ -33,15 +34,14 @@ namespace Fitness_Tracker2._0
                 return;
             }
 
-            if (loggedIn)
+            if (loggedInEmployee != null)
             {
                 MessageBox.Show("Welcome " + username);
-                string role = manager.GetEmployeeRole(username, password)?.Trim();
+                string role = loggedInEmployee.Role()?.Trim();
 
                 if (role == "TRAINER")
                 {
-                    var loggedEmployee = manager.GetEmployeeByUsername(username);
-                    var trainerUCPage = new frmTrainerUCPage(loggedEmployee, manager, exerciseManager);
+                    var trainerUCPage = new frmTrainerUCPage(loggedInEmployee, manager, exerciseManager);
                     trainerUCPage.Show();
                 }
                 else if (role == "ADMIN")

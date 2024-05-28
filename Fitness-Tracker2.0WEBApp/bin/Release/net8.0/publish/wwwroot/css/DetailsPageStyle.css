@@ -1,0 +1,46 @@
+﻿.workouts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.workout-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.details-button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+    .details-button:hover {
+        background-color: #0056b3;
+    }
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+    .pagination-button:hover {
+        background-color: #0056b3;
+    }

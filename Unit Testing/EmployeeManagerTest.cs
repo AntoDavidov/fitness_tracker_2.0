@@ -21,32 +21,34 @@ namespace YourProject.Tests
         }
 
         [TestMethod]
-        public void VerifyEmployeeCredentials_ShouldReturnTrue_ForValidCredentials()
+        public void VerifyEmployeeCredentials_ShouldReturnEmployee_ForValidCredentials()
         {
             // Arrange
             var username = "trainer";
             var password = "password";
 
             // Act
-            var result = _employeeManager.VerifyEmployeeCredentials(username, password);
+            Employee result = _employeeManager.VerifyEmployeeCredentials(username, password);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.IsNotNull(result); // Ensure that the result is not null
+            Assert.AreEqual(username, result.GetUsername()); // Ensure that the returned employee has the correct username
         }
 
         [TestMethod]
-        public void VerifyEmployeeCredentials_ShouldReturnFalse_ForInvalidCredentials()
+        public void VerifyEmployeeCredentials_ShouldReturnNull_ForInvalidCredentials()
         {
             // Arrange
             var username = "nonExistingUser";
             var password = "invalidPassword";
 
             // Act
-            var result = _employeeManager.VerifyEmployeeCredentials(username, password);
+            Employee result = _employeeManager.VerifyEmployeeCredentials(username, password);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.IsNull(result); 
         }
+
 
         [TestMethod]
         public void GetEmployeeByUsername_ShouldReturnEmployee_WhenEmployeeExists()

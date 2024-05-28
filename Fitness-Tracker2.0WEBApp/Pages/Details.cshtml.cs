@@ -44,7 +44,6 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 
             if (customerId == -1)
             {
-                // Customer ID not found
                 return RedirectToPage("/Error");
             }
 

@@ -52,7 +52,7 @@ public class EmployeeManager : PasswordManager
         return cachedEmployees;
     }
 
-    public bool VerifyEmployeeCredentials(string username, string password)
+    public Employee VerifyEmployeeCredentials(string username, string password)
     {
         string hashedPassword = HashPassword(password);
         try
@@ -62,9 +62,10 @@ public class EmployeeManager : PasswordManager
         catch (Exception ex)
         {
             Console.WriteLine("Error verifying employee credentials: " + ex.Message);
-            return false;
+            return null;
         }
     }
+
 
     public string GetEmployeeRole(string username, string password)
     {

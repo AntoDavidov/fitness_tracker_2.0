@@ -4,10 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DBLibrary
 {
@@ -34,7 +30,7 @@ namespace DBLibrary
                     string insertCustomerQuery = "INSERT INTO Customer (user_id, user_weight, member_level) VALUES (@UserId, @UserWeight, @MemberLevel);";
                     SqlCommand insertCustomerCommand = new SqlCommand(insertCustomerQuery, conn);
                     insertCustomerCommand.Parameters.AddWithValue("@UserId", userId);
-                    insertCustomerCommand.Parameters.AddWithValue("@UserWeight", weight);
+                    insertCustomerCommand.Parameters.AddWithValue("@UserWeight", Convert.ToDecimal(weight));
                     insertCustomerCommand.Parameters.AddWithValue("@MemberLevel", level);
                     insertCustomerCommand.ExecuteNonQuery();
                 }
@@ -46,6 +42,7 @@ namespace DBLibrary
                 return false;
             }
         }
+
         public Customer VerifyCustomerCredentials(string email, string password)
         {
             try
@@ -55,25 +52,25 @@ namespace DBLibrary
                 {
                     conn.Open();
 
-                    string query = "SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level " +
+                    string query = "SELECT u.user_id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level " +
                                    "FROM [User] u " +
-                                   "INNER JOIN Customer c ON u.id = c.user_id " +
+                                   "INNER JOIN Customer c ON u.user_id = c.user_id " +
                                    "WHERE u.email = @Email AND u.password = @Password";
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Password", password);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            int id = reader.GetInt32(reader.GetOrdinal("id"));
+                            int id = reader.GetInt32(reader.GetOrdinal("user_id"));
                             string firstName = reader.GetString(reader.GetOrdinal("first_name"));
                             string lastName = reader.GetString(reader.GetOrdinal("last_name"));
                             string username = reader.GetString(reader.GetOrdinal("username"));
                             string dbPassword = reader.GetString(reader.GetOrdinal("password")); // Database hashed password
                             string userEmail = reader.GetString(reader.GetOrdinal("email"));
-                            double weight = reader.GetDouble(reader.GetOrdinal("user_weight"));
+                            double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("user_weight")));
                             string level = reader.GetString(reader.GetOrdinal("member_level"));
 
                             // Verify the hashed password from the database
@@ -94,13 +91,12 @@ namespace DBLibrary
 
             return null;
         }
+
         public bool AddWorkoutToFavourites(int customerId, int workoutId)
         {
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
-
-            try
             {
-                
+                try
                 {
                     conn.Open();
 
@@ -129,17 +125,18 @@ namespace DBLibrary
                         return false;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Unable to add an workout to favourites: {ex}");
-            }
-            finally
-            {
-                if (conn.State != ConnectionState.Closed)
-                    conn.Close();
+                catch (Exception ex)
+                {
+                    throw new Exception($"Unable to add a workout to favorites: {ex}");
+                }
+                finally
+                {
+                    if (conn.State != ConnectionState.Closed)
+                        conn.Close();
+                }
             }
         }
+
         public int GetCustomerIdByEmail(string email)
         {
             try
@@ -148,7 +145,7 @@ namespace DBLibrary
                 {
                     conn.Open();
 
-                    string query = "SELECT id FROM Customer WHERE user_id = (SELECT id FROM [User] WHERE email = @Email);";
+                    string query = "SELECT user_id FROM Customer WHERE user_id = (SELECT user_id FROM [User] WHERE email = @Email);";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Email", email);
 
@@ -165,7 +162,7 @@ namespace DBLibrary
                 Console.WriteLine("Error retrieving customerId by email: " + ex.Message);
             }
 
-            return -1; 
+            return -1;
         }
     }
 }

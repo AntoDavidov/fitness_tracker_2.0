@@ -2,22 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using DBLibrary.IRepositories;
 using ExerciseLibrary;
-
 
 namespace DBLibrary
 {
     public class ExerciseDBManager : DBDal, IExerciseRepository
     {
-
         public ExerciseDBManager()
         {
-
         }
 
         public bool AddStrengthExercise(Strength strength)
@@ -43,9 +36,8 @@ namespace DBLibrary
                     insertStrengthExerciseCommand.Parameters.AddWithValue("@Muscle", strength.GetMuscleGroup().ToString());
                     insertStrengthExerciseCommand.Parameters.AddWithValue("@Repetitions", strength.GetReps());
                     insertStrengthExerciseCommand.Parameters.AddWithValue("@Sets", strength.GetSets());
-                    insertStrengthExerciseCommand.Parameters.AddWithValue("@Weight", strength.GetWeight());
+                    insertStrengthExerciseCommand.Parameters.AddWithValue("@Weight", Convert.ToDecimal(strength.GetWeight()));
                     insertStrengthExerciseCommand.ExecuteNonQuery();
-
                 }
                 Console.WriteLine("Exercise added successfully.");
                 return true;
@@ -56,6 +48,7 @@ namespace DBLibrary
                 return false;
             }
         }
+
         public bool AddCardioExercise(Cardio cardio)
         {
             try
@@ -71,6 +64,7 @@ namespace DBLibrary
                     insertExerciseCommand.Parameters.AddWithValue("@Description", cardio.GetDescription());
                     int exerciseId = Convert.ToInt32(insertExerciseCommand.ExecuteScalar());
 
+                    // Insert into CardioExercise table
                     string insertCardioExerciseQuery = "INSERT INTO CardioExercise ([exercise_id], [duration]) VALUES (@ExerciseId, @Duration);";
                     SqlCommand insertCardioExerciseCommand = new SqlCommand(insertCardioExerciseQuery, connection);
                     insertCardioExerciseCommand.Parameters.AddWithValue("@ExerciseId", exerciseId);
@@ -86,6 +80,7 @@ namespace DBLibrary
                 return false;
             }
         }
+
         public bool AddWorkoutWithoutExercises(Workouts workout)
         {
             try
@@ -110,6 +105,7 @@ namespace DBLibrary
                 return false;
             }
         }
+
         public void AddExerciseToWorkout(int workoutId, int exerciseId)
         {
             using SqlConnection connection = new SqlConnection(GetConnectionString());
@@ -190,6 +186,7 @@ namespace DBLibrary
 
             return null; // Return null if exercise with the given ID is not found or an error occurs
         }
+
         public Cardio? GetCardioExerciseById(int exerciseId)
         {
             Cardio cardioExercise = null;
@@ -225,6 +222,7 @@ namespace DBLibrary
 
             return cardioExercise;
         }
+
         public Workouts GetWorkoutById(int workoutId)
         {
             Workouts workout = null;
@@ -235,7 +233,7 @@ namespace DBLibrary
                     connection.Open();
 
                     // Query to get the workout details
-                    string workoutQuery = "SELECT Id, Name, Description, workout_level FROM Workout WHERE Id = @WorkoutId";
+                    string workoutQuery = "SELECT id, Name, Description, workout_level FROM Workout WHERE id = @WorkoutId";
                     SqlCommand workoutCmd = new SqlCommand(workoutQuery, connection);
                     workoutCmd.Parameters.AddWithValue("@WorkoutId", workoutId);
 
@@ -243,7 +241,7 @@ namespace DBLibrary
                     {
                         if (workoutReader.Read())
                         {
-                            int id = workoutReader.GetInt32(workoutReader.GetOrdinal("Id"));
+                            int id = workoutReader.GetInt32(workoutReader.GetOrdinal("id"));
                             string name = workoutReader.GetString(workoutReader.GetOrdinal("Name"));
                             string description = workoutReader.GetString(workoutReader.GetOrdinal("Description"));
                             string workoutLevel = workoutReader.GetString(workoutReader.GetOrdinal("workout_level"));
@@ -306,7 +304,7 @@ namespace DBLibrary
                             MuscleGroup muscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), muscleGroupString);
                             int repetitions = reader.GetInt32(reader.GetOrdinal("repetitions"));
                             int sets = reader.GetInt32(reader.GetOrdinal("sets"));
-                            double weight = reader.GetDouble(reader.GetOrdinal("weight"));
+                            double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("weight")));
 
                             strengthExercise = new Strength(id, name, description, muscleGroup, repetitions, sets, weight);
                         }
@@ -320,6 +318,7 @@ namespace DBLibrary
 
             return strengthExercise;
         }
+
         public Workouts? GetWorkout(Workouts workout)
         {
             using (SqlConnection connection = new SqlConnection(GetConnectionString()))
@@ -329,7 +328,7 @@ namespace DBLibrary
                     using (SqlCommand command = connection.CreateCommand())
                     {
                         command.CommandText =
-                            "SELECT Id, Name, Description, workout_level" +
+                            "SELECT id, Name, Description, workout_level " +
                             "FROM Workout " +
                             "WHERE Name = @name " +
                             "AND Description = @description " +
@@ -346,7 +345,7 @@ namespace DBLibrary
                                 while (reader.Read())
                                 {
                                     retrievedWorkout = new Workouts(
-                                        (int)reader["ID"],
+                                        (int)reader["id"],
                                         (string)reader["Name"],
                                         (string)reader["Description"],
                                         (string)reader["workout_level"]
@@ -368,6 +367,7 @@ namespace DBLibrary
                 }
             }
         }
+
         public bool ExerciseAlreadyExistsInWorkout(int workoutId, int exerciseId)
         {
             bool exists = false;
@@ -389,6 +389,7 @@ namespace DBLibrary
             }
             return exists;
         }
+
         public List<Exercise>? GetExercisesForWorkout(int workoutId)
         {
             List<Exercise> exercises = new List<Exercise>();
@@ -428,6 +429,7 @@ namespace DBLibrary
 
             return exercises;
         }
+
         public void DeleteWorkout(int workoutId)
         {
             using SqlConnection connection = new SqlConnection(GetConnectionString());
@@ -441,8 +443,8 @@ namespace DBLibrary
                 deleteWorkoutExerciseCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
                 deleteWorkoutExerciseCommand.ExecuteNonQuery();
 
-                // Now, delete the workout from the Workouts table
-                var deleteWorkoutQuery = "DELETE FROM Workout WHERE Id = @WorkoutId";
+                // Now, delete the workout from the Workout table
+                var deleteWorkoutQuery = "DELETE FROM Workout WHERE id = @WorkoutId";
                 using SqlCommand deleteWorkoutCommand = new SqlCommand(deleteWorkoutQuery, connection);
                 deleteWorkoutCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
                 deleteWorkoutCommand.ExecuteNonQuery();
@@ -458,6 +460,7 @@ namespace DBLibrary
                     connection.Close();
             }
         }
+
         public void DeleteStrengthExercise(Strength strengthExercise)
         {
             using (SqlConnection connection = new SqlConnection(GetConnectionString()))
@@ -483,12 +486,13 @@ namespace DBLibrary
                     SqlCommand deleteStrengthCmd = new SqlCommand(deleteStrengthQuery, connection);
                     deleteStrengthCmd.Parameters.AddWithValue("@ExerciseId", strengthExercise.GetId());
                     deleteStrengthCmd.ExecuteNonQuery();
-                    
+
+                    // Delete the exercise from the Exercise table
                     string deleteExerciseQuery = "DELETE FROM Exercise WHERE id = @ExerciseId";
                     SqlCommand deleteExerciseCmd = new SqlCommand(deleteExerciseQuery, connection);
                     deleteExerciseCmd.Parameters.AddWithValue("@ExerciseId", strengthExercise.GetId());
                     deleteExerciseCmd.ExecuteNonQuery();
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -496,6 +500,7 @@ namespace DBLibrary
                 }
             }
         }
+
         public void DeleteCardioExercise(Cardio cardioExercise)
         {
             using SqlConnection connection = new SqlConnection(GetConnectionString());
@@ -522,7 +527,7 @@ namespace DBLibrary
                 deleteExerciseCmd.ExecuteNonQuery();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
@@ -532,6 +537,7 @@ namespace DBLibrary
                     connection.Close();
             }
         }
+
         public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
         {
             List<int> workoutIds = new List<int>();
@@ -562,6 +568,7 @@ namespace DBLibrary
             }
             return workoutIds;
         }
+
         public List<Workouts>? GetAllWorkouts()
         {
             List<Workouts> workouts = new List<Workouts>();
@@ -583,9 +590,10 @@ namespace DBLibrary
                                 int id = reader.GetInt32(reader.GetOrdinal("id"));
                                 string name = reader.GetString(reader.GetOrdinal("Name"));
                                 string description = reader.GetString(reader.GetOrdinal("Description"));
+                                string workoutLevel = reader.GetString(reader.GetOrdinal("workout_level"));
 
                                 // Create a new Workout object and add it to the list
-                                Workouts workout = new Workouts(id, name, description);
+                                Workouts workout = new Workouts(id, name, description, workoutLevel);
                                 workouts.Add(workout);
                             }
                         }
@@ -599,6 +607,7 @@ namespace DBLibrary
 
             return workouts;
         }
+
         public List<Cardio>? GetCardioExercises()
         {
             List<Cardio> cardioExercises = new List<Cardio>();
@@ -636,6 +645,7 @@ namespace DBLibrary
 
             return cardioExercises;
         }
+
         public List<Strength>? GetStrengthExercises()
         {
             List<Strength> strengthExercises = new List<Strength>();
@@ -662,7 +672,7 @@ namespace DBLibrary
 
                                 int repetitions = reader.GetInt32(reader.GetOrdinal("repetitions"));
                                 int sets = reader.GetInt32(reader.GetOrdinal("sets"));
-                                double weight = reader.GetDouble(reader.GetOrdinal("weight"));
+                                double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("weight")));
 
                                 Strength strengthExercise = new Strength(id, name, description, muscleGroup, repetitions, sets, weight);
                                 strengthExercises.Add(strengthExercise);
@@ -678,17 +688,5 @@ namespace DBLibrary
 
             return strengthExercises;
         }
-
     }
-
-
-
 }
-
-
-
-
-
-
-
-

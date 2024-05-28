@@ -18,9 +18,10 @@ namespace DBLibrary.FakeRepositories
             };
         }
 
-        public bool VerifyEmployeeCredentials(string username, string password)
+        public Employee VerifyEmployeeCredentials(string username, string password)
         {
-            return _employees.Any(e => e.GetUsername() == username && e.GetPassword() == password);
+            var employee = _employees.FirstOrDefault(e => e.GetUsername() == username && e.GetPassword() == password);
+            return employee;
         }
 
         public Employee GetEmployeeByUsername(string username)
