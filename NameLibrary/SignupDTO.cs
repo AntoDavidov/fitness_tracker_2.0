@@ -33,9 +33,9 @@ namespace NameLibrary
 
 
         [Required]
-        public float Weight { get; set; }
+        public double Weight { get; set; }
 
         [Required]
-        public string Level { get; set; }
+        public int Level { get; set; }
     }
 }

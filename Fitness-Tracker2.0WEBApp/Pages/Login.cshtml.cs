@@ -40,7 +40,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 return Page();
             }
 
-            Customer customer = _manager.VerifyLogin(Login);
+            Customer customer = _manager.VerifyCustomerCredentials(Login.Email, Login.Password);
 
             if (customer != null)
             {

@@ -7,46 +7,38 @@ using System.Threading.Tasks;
 
 namespace NameLibrary
 {
+
     public class Customer : User
     {
         private double userWeight;
-        private Level userLevel;
+        private int userLevel;
 
-        public Customer(string firstName, string lastName, string username, string password, string email, double weight, string level) : base(firstName, lastName, username, password, email)
+        public Customer(string firstName, string lastName, string username, string password, string email, double weight, int level) : base(firstName, lastName, username, password, email)
         {
             this.userWeight = weight;
-            this.userLevel = ParseLevel(level);
+            this.userLevel = level;
         }
 
-        public Customer(int id, string firstName, string lastName, string username, string password, string email, double weight, string level) : base(id, firstName, lastName, username, password, email)
+        public Customer(int id, string firstName, string lastName, string username, string password, string email, double weight, int level) : base(id, firstName, lastName, username, password, email)
         {
             this.userWeight = weight;
-            this.userLevel = ParseLevel(level);
+            this.userLevel = level;
         }
 
         public Customer() { }
 
         public double GetWeight() { return userWeight; }
 
-        public Level GetLevel() { return userLevel; }
+        public int GetLevel() { return userLevel; }
 
-        private Level ParseLevel(string level)
+        public Level GetLevelEnum()
         {
-            if (Enum.TryParse<Level>(level, out Level parsedLevel))
-            {
-                return parsedLevel;
-            }
-            else
-            {
-                // Handle invalid level
-                throw new ArgumentException("Invalid level value.");
-            }
+            return (Level)userLevel;
         }
 
         public override string ToString()
         {
-            return base.ToString() + $"Your level: {userLevel}";
+            return base.ToString() + $"Your level: {(Level)userLevel}";
         }
     }
-
 }

@@ -1,10 +1,6 @@
 ﻿using IRepositories;
 using NameLibrary;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Unit_Testing.FakeRepo
 {
@@ -17,14 +13,14 @@ namespace Unit_Testing.FakeRepo
         {
             _customers = new List<Customer>
             {
-                new Customer("John", "Smith", "customer1", "password", "customer1@example.com", 70, "BEGINNER"),
-                new Customer("Jane", "Smith", "customer2", "password", "customer2@example.com", 65, "INTERMEDIATE")
+                new Customer(1, "John", "Smith", "1customer1", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "1customer1@example.com", 70, 1),
+                new Customer(2, "Jane", "Smith", "2customer2", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "2customer2@example.com", 65, 2)
             };
 
             _customerFavouriteWorkouts = new Dictionary<int, List<int>>();
         }
 
-        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, string level)
+        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, int level)
         {
             foreach (var customer in _customers)
             {
@@ -48,7 +44,7 @@ namespace Unit_Testing.FakeRepo
                     return customer;
                 }
             }
-            return null; //Nobody is found
+            return null;
         }
 
         public bool AddWorkoutToFavourites(int customerId, int workoutId)
@@ -62,7 +58,7 @@ namespace Unit_Testing.FakeRepo
             {
                 if (id == workoutId)
                 {
-                    return false; // Workout is already in favourites
+                    return false;
                 }
             }
 
@@ -80,6 +76,11 @@ namespace Unit_Testing.FakeRepo
                 }
             }
             return -1;
+        }
+
+        public List<Customer> GetAllCustomers()
+        {
+            return _customers;
         }
     }
 }

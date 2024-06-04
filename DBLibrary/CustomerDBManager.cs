@@ -9,7 +9,7 @@ namespace DBLibrary
 {
     public class CustomerDBManager : DBDal, ICustomerRepo
     {
-        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, string level)
+        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, int level)
         {
             try
             {
@@ -46,7 +46,6 @@ namespace DBLibrary
         {
             try
             {
-                Console.WriteLine($"Verifying credentials for email: {email}");
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
@@ -70,14 +69,9 @@ namespace DBLibrary
                             string dbPassword = reader.GetString(reader.GetOrdinal("password")); // Database hashed password
                             string userEmail = reader.GetString(reader.GetOrdinal("email"));
                             double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("user_weight")));
-                            string level = reader.GetString(reader.GetOrdinal("member_level"));
+                            int level = reader.GetInt32(reader.GetOrdinal("member_level"));
 
-                            //bool passwordVerified = VerifyPassword(password, dbPassword);
-
-                            //if (passwordVerified)
-                            //{
-                                return new Customer(id, firstName, lastName, username, dbPassword, userEmail, weight, level);
-                            //}
+                            return new Customer(id, firstName, lastName, username, dbPassword, userEmail, weight, level);
                         }
                     }
                 }
@@ -158,6 +152,42 @@ namespace DBLibrary
             }
 
             return -1;
+        }
+        public List<Customer> GetAllCustomers()
+        {
+            List<Customer> customers = new List<Customer>();
+
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+
+                string query = @"SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level
+                         FROM [User] u
+                         INNER JOIN Customer c ON u.id = c.user_id";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = reader.GetInt32(reader.GetOrdinal("id"));
+                            string firstName = reader.GetString(reader.GetOrdinal("first_name"));
+                            string lastName = reader.GetString(reader.GetOrdinal("last_name"));
+                            string username = reader.GetString(reader.GetOrdinal("username"));
+                            string password = reader.GetString(reader.GetOrdinal("password"));
+                            string email = reader.GetString(reader.GetOrdinal("email"));
+                            double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("user_weight")));
+                            int level = reader.GetInt32(reader.GetOrdinal("member_level"));
+
+                            Customer customer = new Customer(id, firstName, lastName, username, password, email, weight, level);
+                            customers.Add(customer);
+                        }
+                    }
+                }
+            }
+
+            return customers;
         }
     }
 }
