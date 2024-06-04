@@ -58,14 +58,12 @@ namespace DBLibrary
                 {
                     connection.Open();
 
-                    // Insert into Exercise table
                     string insertExerciseQuery = "INSERT INTO Exercise ([name], [description]) VALUES (@Name, @Description); SELECT SCOPE_IDENTITY();";
                     SqlCommand insertExerciseCommand = new SqlCommand(insertExerciseQuery, connection);
                     insertExerciseCommand.Parameters.AddWithValue("@Name", cardio.GetName());
                     insertExerciseCommand.Parameters.AddWithValue("@Description", cardio.GetDescription());
                     int exerciseId = Convert.ToInt32(insertExerciseCommand.ExecuteScalar());
 
-                    // Insert into CardioExercise table
                     string insertCardioExerciseQuery = "INSERT INTO CardioExercise ([exercise_id], [duration]) VALUES (@ExerciseId, @Duration);";
                     SqlCommand insertCardioExerciseCommand = new SqlCommand(insertCardioExerciseQuery, connection);
                     insertCardioExerciseCommand.Parameters.AddWithValue("@ExerciseId", exerciseId);
@@ -90,7 +88,6 @@ namespace DBLibrary
                 {
                     connection.Open();
 
-                    // Check if the exercise exists in the CardioExercise table
                     string cardioQuery = "SELECT TOP 1 * FROM CardioExercise WHERE exercise_id = @ExerciseId";
                     SqlCommand cardioCmd = new SqlCommand(cardioQuery, connection);
                     cardioCmd.Parameters.AddWithValue("@ExerciseId", exerciseId);
@@ -99,13 +96,11 @@ namespace DBLibrary
                     {
                         if (cardioReader.Read())
                         {
-                            // If a record is found, it's a cardio exercise
                             Cardio cardioExercise = GetCardioExerciseById(exerciseId);
                             return cardioExercise;
                         }
                     }
 
-                    // Check if the exercise exists in the StrengthExercise table
                     string strengthQuery = "SELECT TOP 1 * FROM StrengthExercise WHERE exercise_id = @ExerciseId";
                     SqlCommand strengthCmd = new SqlCommand(strengthQuery, connection);
                     strengthCmd.Parameters.AddWithValue("@ExerciseId", exerciseId);
@@ -212,11 +207,9 @@ namespace DBLibrary
                 {
                     connection.Open();
 
-                    // Check if the exercise exists in any workout
                     List<int> workoutIds = workoutDBManager.GetWorkoutIdsContainingExercise(strengthExercise.GetId());
                     foreach (int workoutId in workoutIds)
                     {
-                        // Delete the exercise from the workout
                         string deleteFromWorkoutQuery = "DELETE FROM WorkoutExercise WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId";
                         SqlCommand deleteFromWorkoutCmd = new SqlCommand(deleteFromWorkoutQuery, connection);
                         deleteFromWorkoutCmd.Parameters.AddWithValue("@WorkoutId", workoutId);
@@ -224,13 +217,11 @@ namespace DBLibrary
                         deleteFromWorkoutCmd.ExecuteNonQuery();
                     }
 
-                    // Delete the exercise from the StrengthExercise table
                     string deleteStrengthQuery = "DELETE FROM StrengthExercise WHERE exercise_id = @ExerciseId";
                     SqlCommand deleteStrengthCmd = new SqlCommand(deleteStrengthQuery, connection);
                     deleteStrengthCmd.Parameters.AddWithValue("@ExerciseId", strengthExercise.GetId());
                     deleteStrengthCmd.ExecuteNonQuery();
 
-                    // Delete the exercise from the Exercise table
                     string deleteExerciseQuery = "DELETE FROM Exercise WHERE id = @ExerciseId";
                     SqlCommand deleteExerciseCmd = new SqlCommand(deleteExerciseQuery, connection);
                     deleteExerciseCmd.Parameters.AddWithValue("@ExerciseId", strengthExercise.GetId());

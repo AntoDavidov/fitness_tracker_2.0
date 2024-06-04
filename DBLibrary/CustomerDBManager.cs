@@ -16,7 +16,6 @@ namespace DBLibrary
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
-                    // Insert into User table
                     string insertUserQuery = "INSERT INTO [User] (first_name, last_name, username, [password], email) VALUES (@FirstName, @LastName, @Username, @Password, @Email); SELECT SCOPE_IDENTITY();";
                     SqlCommand insertUserCommand = new SqlCommand(insertUserQuery, conn);
                     insertUserCommand.Parameters.AddWithValue("@FirstName", firstName);
@@ -73,13 +72,12 @@ namespace DBLibrary
                             double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("user_weight")));
                             string level = reader.GetString(reader.GetOrdinal("member_level"));
 
-                            // Verify the hashed password from the database
-                            bool passwordVerified = VerifyPassword(password, dbPassword);
+                            //bool passwordVerified = VerifyPassword(password, dbPassword);
 
-                            if (passwordVerified)
-                            {
+                            //if (passwordVerified)
+                            //{
                                 return new Customer(id, firstName, lastName, username, dbPassword, userEmail, weight, level);
-                            }
+                            //}
                         }
                     }
                 }
@@ -100,7 +98,6 @@ namespace DBLibrary
                 {
                     conn.Open();
 
-                    // Check if the workout is already in favorites
                     string checkQuery = "SELECT COUNT(*) FROM CustomerWorkout WHERE CustomerId = @CustomerId AND WorkoutId = @WorkoutId";
                     SqlCommand checkCommand = new SqlCommand(checkQuery, conn);
                     checkCommand.Parameters.AddWithValue("@CustomerId", customerId);
@@ -109,7 +106,6 @@ namespace DBLibrary
 
                     if (count == 0)
                     {
-                        // Insert into CustomerWorkout table
                         string insertQuery = "INSERT INTO CustomerWorkout (CustomerId, WorkoutId) VALUES (@CustomerId, @WorkoutId)";
                         SqlCommand insertCommand = new SqlCommand(insertQuery, conn);
                         insertCommand.Parameters.AddWithValue("@CustomerId", customerId);
@@ -120,7 +116,6 @@ namespace DBLibrary
                     }
                     else
                     {
-                        // Workout already exists in favorites
                         Console.WriteLine("Workout already exists in favorites.");
                         return false;
                     }

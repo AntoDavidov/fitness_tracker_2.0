@@ -53,7 +53,7 @@ namespace Fitness_Tracker2._0.UserControls
                 txtbUsername.Text,
                 txtbPassword.Text,
                 txtbEmail.Text,
-                cmbbRole.Text
+                cmbbRole.SelectedIndex + 1 
             );
 
             bool updateResult = employeeManager.UpdateEmployeeInfo(updatedEmployee);

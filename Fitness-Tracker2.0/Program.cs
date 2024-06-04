@@ -1,8 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
-using ManagerLibrary; // Add this directive
-using Fitness_Tracker2._0.Configuration; // Add this directive
+using ManagerLibrary; 
+using Fitness_Tracker2._0.Configuration;
+using IRepositories;
 
 namespace Fitness_Tracker2._0
 {

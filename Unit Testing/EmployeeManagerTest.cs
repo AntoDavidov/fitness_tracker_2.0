@@ -46,9 +46,8 @@ namespace Unit_Testing.Tests
             Employee result = _employeeManager.VerifyEmployeeCredentials(username, password);
 
             // Assert
-            Assert.IsNull(result); 
+            Assert.IsNull(result);
         }
-
 
         [TestMethod]
         public void GetEmployeeByUsername_ShouldReturnEmployee_WhenEmployeeExists()
@@ -83,9 +82,9 @@ namespace Unit_Testing.Tests
         public void AddEmployee_ShouldThrowDuplicateUsernameException_WhenUsernameAlreadyExists()
         {
             // Arrange
-            var existingEmployee = new Employee("John", "Doe", "existingUser", "password", "email@example.com", "role");
+            var existingEmployee = new Employee(1, "John", "Doe", "existingUser", "password", "email@example.com", 1);
             _employeeManager.AddEmployee(existingEmployee);
-            var newEmployeeWithSameUsername = new Employee("Jane", "Smith", "existingUser", "password", "newemail@example.com", "role");
+            var newEmployeeWithSameUsername = new Employee(2, "Jane", "Smith", "existingUser", "password", "newemail@example.com", 1);
 
             // Act
             _employeeManager.AddEmployee(newEmployeeWithSameUsername);
@@ -99,9 +98,9 @@ namespace Unit_Testing.Tests
         public void AddEmployee_ShouldThrowDuplicateEmailException_WhenEmailAlreadyExists()
         {
             // Arrange
-            var existingEmployee = new Employee("John", "Doe", "user1", "password", "existing@example.com", "role");
+            var existingEmployee = new Employee(1, "John", "Doe", "user1", "password", "existing@example.com", 1);
             _employeeManager.AddEmployee(existingEmployee);
-            var newEmployeeWithSameEmail = new Employee("Jane", "Smith", "newUser", "password", "existing@example.com", "role");
+            var newEmployeeWithSameEmail = new Employee(2, "Jane", "Smith", "newUser", "password", "existing@example.com", 1);
 
             // Act
             _employeeManager.AddEmployee(newEmployeeWithSameEmail);
@@ -114,7 +113,7 @@ namespace Unit_Testing.Tests
         public void AddEmployee_ShouldAddEmployee_WhenUsernameAndEmailAreUnique()
         {
             // Arrange
-            var newEmployee = new Employee("John", "Doe", "uniqueUser", "password", "unique@example.com", "role");
+            var newEmployee = new Employee(3, "John", "Doe", "uniqueUser", "password", "unique@example.com", 1);
 
             // Act
             _employeeManager.AddEmployee(newEmployee);
@@ -144,13 +143,13 @@ namespace Unit_Testing.Tests
         public void UpdateEmployeeInfo_ShouldThrowDuplicateUsernameException_WhenUsernameAlreadyExists()
         {
             // Arrange
-            var existingEmployee = new Employee(1, "John", "Doe", "existingUser", "password", "email@example.com", "role");
+            var existingEmployee = new Employee(1, "John", "Doe", "existingUser", "password", "email@example.com", 1);
             _employeeManager.AddEmployee(existingEmployee);
-            var anotherEmployee = new Employee(2, "Jane", "Smith", "anotherUser", "password", "another@example.com", "role");
+            var anotherEmployee = new Employee(2, "Jane", "Smith", "anotherUser", "password", "another@example.com", 1);
             _employeeManager.AddEmployee(anotherEmployee);
 
             // Act
-            var updatedAnotherEmployee = new Employee(anotherEmployee.GetId(), anotherEmployee.GetFirstName(), anotherEmployee.GetLastName(), "existingUser", anotherEmployee.GetPassword(), anotherEmployee.GetEmail(), anotherEmployee.Role());
+            var updatedAnotherEmployee = new Employee(anotherEmployee.GetId(), anotherEmployee.GetFirstName(), anotherEmployee.GetLastName(), "existingUser", anotherEmployee.GetPassword(), anotherEmployee.GetEmail(), anotherEmployee.RoleId());
             _employeeManager.UpdateEmployeeInfo(updatedAnotherEmployee);
 
             // Assert
@@ -162,29 +161,28 @@ namespace Unit_Testing.Tests
         public void UpdateEmployeeInfo_ShouldThrowDuplicateEmailException_WhenEmailAlreadyExists()
         {
             // Arrange
-            var existingEmployee = new Employee(3, "John", "Doe", "user1", "password", "existing@example.com", "TRAINER");
+            var existingEmployee = new Employee(3, "John", "Doe", "user1", "password", "existing@example.com", 1);
             _employeeManager.AddEmployee(existingEmployee);
-            var anotherEmployee = new Employee(4, "Jane", "Smith", "newUser", "password", "another@example.com", "TRAINER");
+            var anotherEmployee = new Employee(4, "Jane", "Smith", "newUser", "password", "another@example.com", 1);
             _employeeManager.AddEmployee(anotherEmployee);
 
             // Act
-            var updatedAnotherEmployee = new Employee(anotherEmployee.GetId(), anotherEmployee.GetFirstName(), anotherEmployee.GetLastName(), anotherEmployee.GetUsername(), anotherEmployee.GetPassword(), "existing@example.com", anotherEmployee.Role());
+            var updatedAnotherEmployee = new Employee(anotherEmployee.GetId(), anotherEmployee.GetFirstName(), anotherEmployee.GetLastName(), anotherEmployee.GetUsername(), anotherEmployee.GetPassword(), "existing@example.com", anotherEmployee.RoleId());
             _employeeManager.UpdateEmployeeInfo(updatedAnotherEmployee);
 
             // Assert
             // Expecting a DuplicateEmailException
         }
 
-
         [TestMethod]
         public void UpdateEmployeeInfo_ShouldUpdateEmployee_WhenUsernameAndEmailAreUnique()
         {
             // Arrange
-            var existingEmployee = new Employee(3, "John", "Davidov", "user1", "password", "existing@example.com", "TRAINER");
+            var existingEmployee = new Employee(3, "John", "Davidov", "user1", "password", "existing@example.com", 1);
             _employeeManager.AddEmployee(existingEmployee);
 
             // Act
-            var updatedEmployee = new Employee(existingEmployee.GetId(), "Updated", "Name", "updatedUser", existingEmployee.GetPassword(), "updated@example.com", existingEmployee.Role());
+            var updatedEmployee = new Employee(existingEmployee.GetId(), "Updated", "Name", "updatedUser", existingEmployee.GetPassword(), "updated@example.com", existingEmployee.RoleId());
             _employeeManager.UpdateEmployeeInfo(updatedEmployee);
 
             // Assert

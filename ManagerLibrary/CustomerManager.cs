@@ -12,11 +12,9 @@ namespace ManagerLibrary
     public class CustomerManager
     {
         private readonly ICustomerRepo _customerRepository;
-        private CustomerDBManager customerDBManager;
         private PasswordManager passwordManager;
         public CustomerManager(ICustomerRepo customerRepo)
         {
-            customerDBManager = new CustomerDBManager();
             passwordManager = new PasswordManager();
             _customerRepository = customerRepo;
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ManagerLibrary;
 using ManagerLibrary.Exceptions;
@@ -19,6 +21,16 @@ namespace Fitness_Tracker2._0
             _exerciseManager = exerciseManager;
             _workoutManager = workoutManager;
             PopulateListBox();
+            PopulateComboBox();
+        }
+
+        private void PopulateComboBox()
+        {
+            cmbRole.Items.Clear();
+            cmbRole.Items.Add("Trainer");
+            cmbRole.Items.Add("HR");
+            cmbRole.Items.Add("Nutritionist");
+            cmbRole.SelectedIndex = 0; // Default selection
         }
 
         private void PopulateListBox()
@@ -40,9 +52,9 @@ namespace Fitness_Tracker2._0
                 string username = txtbUsername.Text;
                 string password = txtbPassword.Text;
                 string email = txtbEmail.Text;
-                string role = cmbRole.Text;
+                int roleId = cmbRole.SelectedIndex + 1; // Get roleId from ComboBox index
 
-                Employee newEmployee = new Employee(firstName, lastName, username, password, email, role);
+                Employee newEmployee = new Employee(firstName, lastName, username, password, email, roleId);
                 _employeeManager.AddEmployee(newEmployee);
                 PopulateListBox();
                 MessageBox.Show("Employee added successfully!");

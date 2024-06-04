@@ -11,7 +11,6 @@ namespace Unit_Testing
     {
         public string HashPassword(string password)
         {
-            // Assuming the hash function is the same as in your production PasswordManager
             using (var sha256 = SHA256.Create())
             {
                 var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));

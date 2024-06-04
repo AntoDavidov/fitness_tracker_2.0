@@ -4,7 +4,7 @@ namespace ManagerLibrary.Exceptions
 {
     public class DuplicateEmailException : Exception
     {
-        public DuplicateEmailException() : base("An employee with the same email already exists.")
+        public DuplicateEmailException() : base("A user with the same email already exists.")
         {
         }
 

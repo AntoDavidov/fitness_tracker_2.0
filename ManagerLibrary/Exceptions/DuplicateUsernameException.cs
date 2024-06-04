@@ -4,7 +4,7 @@ namespace ManagerLibrary.Exceptions
 {
     public class DuplicateUsernameException : Exception
     {
-        public DuplicateUsernameException() : base("An employee with the same username already exists.")
+        public DuplicateUsernameException() : base("A user with the same username already exists.")
         {
         }
 

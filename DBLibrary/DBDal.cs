@@ -19,29 +19,29 @@ namespace DBLibrary
             return password.Equals(hashedPassword);
         }
 
-        public bool EmailAlreadyExists(string email)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
+        //public bool EmailAlreadyExists(string email)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
 
-                    string query = "SELECT COUNT(*) FROM [User] WHERE email = @Email";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Email", email);
+        //            string query = "SELECT COUNT(*) FROM [User] WHERE email = @Email";
+        //            SqlCommand cmd = new SqlCommand(query, conn);
+        //            cmd.Parameters.AddWithValue("@Email", email);
 
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error checking if email exists: " + ex.Message);
-                return false;
-            }
+        //            int count = Convert.ToInt32(cmd.ExecuteScalar());
+        //            return count > 0;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error checking if email exists: " + ex.Message);
+        //        return false;
+        //    }
             
-        }
+        //}
         public string GetConnectionString()
         {
             return connectionString;
