@@ -47,7 +47,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, customer.GetEmail()),
-                    new Claim(ClaimTypes.Name, customer.GetEmail()),  // Use the email as the name claim
+                    new Claim(ClaimTypes.Name, customer.GetUsername()),  
                     new Claim("Username", customer.GetUsername())
                 };
 

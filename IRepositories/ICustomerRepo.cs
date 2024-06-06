@@ -1,4 +1,5 @@
-﻿using NameLibrary;
+﻿using ExerciseLibrary;
+using NameLibrary;
 using System.Collections.Generic;
 
 namespace IRepositories
@@ -10,5 +11,11 @@ namespace IRepositories
         bool AddWorkoutToFavourites(int customerId, int workoutId);
         int GetCustomerIdByEmail(string email);
         List<Customer> GetAllCustomers();
+        List<Workouts> GetFavoriteWorkouts(int customerId);
+        Dictionary<int, List<int>> GetCustomerFavoriteWorkouts(); 
+        List<Workouts> GetWorkoutsByIds(List<int> workoutIds); 
+        void MarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId);
+        void UnmarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId);
+        List<int> GetCompletedExercises(int customerId, int workoutId);
     }
 }

@@ -337,5 +337,17 @@ namespace DBLibrary
 
             return exercises;
         }
+        public void RemoveExerciseFromWorkout(int workoutId, int exerciseId)
+        {
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+                string query = "DELETE FROM WorkoutExercise WHERE WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                cmd.Parameters.AddWithValue("@ExerciseId", exerciseId);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

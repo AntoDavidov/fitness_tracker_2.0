@@ -44,11 +44,11 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 }
                 catch (DuplicateUsernameException)
                 {
-                    ModelState.AddModelError("", "Username already exists.");
+                    ModelState.AddModelError("SignupDTO.UserName", "Username already exists.");
                 }
                 catch (DuplicateEmailException)
                 {
-                    ModelState.AddModelError("", "Email already exists.");
+                    ModelState.AddModelError("SignupDTO.Email", "Email already exists.");
                 }
                 return Page();
             }

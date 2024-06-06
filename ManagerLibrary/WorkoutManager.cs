@@ -58,6 +58,10 @@ namespace ManagerLibrary
         {
             return _workoutRepo.GetWorkoutIdsContainingExercise(exerciseId);
         }
+        public void RemoveExerciseFromWorkout(Workouts workout, Exercise exercise)
+        {
+            _workoutRepo.RemoveExerciseFromWorkout(workout.GetId(), exercise.GetId());
+        }
 
     }
 }

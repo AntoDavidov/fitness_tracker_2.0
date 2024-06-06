@@ -35,7 +35,7 @@ namespace NameLibrary
         [Required]
         public double Weight { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Level is required.")]
         public int Level { get; set; }
     }
 }

@@ -34,6 +34,7 @@
             lblWorkoutName = new Label();
             label1 = new Label();
             pictureBox1 = new PictureBox();
+            btnRemoveExercise = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -104,12 +105,27 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
+            // btnRemoveExercise
+            // 
+            btnRemoveExercise.BackColor = Color.Red;
+            btnRemoveExercise.FlatStyle = FlatStyle.Flat;
+            btnRemoveExercise.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            btnRemoveExercise.ForeColor = Color.White;
+            btnRemoveExercise.Location = new Point(906, 44);
+            btnRemoveExercise.Name = "btnRemoveExercise";
+            btnRemoveExercise.Size = new Size(191, 43);
+            btnRemoveExercise.TabIndex = 7;
+            btnRemoveExercise.Text = "Remove exercise";
+            btnRemoveExercise.UseVisualStyleBackColor = false;
+            btnRemoveExercise.Click += btnRemoveExercise_Click;
+            // 
             // frmTrainerWorkoutCreationPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1125, 594);
+            Controls.Add(btnRemoveExercise);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Controls.Add(lblWorkoutName);
@@ -132,5 +148,6 @@
         private Label lblWorkoutName;
         private Label label1;
         private PictureBox pictureBox1;
+        private Button btnRemoveExercise;
     }
 }

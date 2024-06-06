@@ -1,0 +1,21 @@
+﻿@page
+@model Fitness_Tracker2._0WEBApp.Pages.FavoriteWorkoutsModel
+@{
+    ViewData["Title"] = "Favorite Workouts";
+}
+
+<h2>Favorite Workouts</h2>
+
+@if (Model.FavoriteWorkouts != null && Model.FavoriteWorkouts.Any())
+{
+    <ul>
+        @foreach (var workout in Model.FavoriteWorkouts)
+        {
+            <li>@workout.GetName()</li>
+        }
+    </ul>
+}
+else
+{
+    <p>You have no favorite workouts.</p>
+}

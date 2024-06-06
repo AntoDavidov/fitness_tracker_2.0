@@ -1,6 +1,60 @@
 ﻿@page
-@model IndexModel
+@model Fitness_Tracker2._0WEBApp.Pages.IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
+@section Styles {
+    <link rel="stylesheet" href="~/css/indexStyle.css" asp-append-version="true" />
+}
 
+<div class="index-container">
+    <h1 class="index-title">Welcome to Fitness Tracker!</h1>
+
+    <p class="index-text">Your personalized fitness companion.</p>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h2 class="index-subtitle">Hello, @User.Identity.Name</h2>
+
+        <h3 class="index-subtitle">Your Progress</h3>
+        <p class="index-text">Workouts Completed: @Model.WorkoutsCompleted</p>
+        <p class="index-text">Favorite Workouts: @Model.FavoriteWorkoutsCount</p>
+
+        <h3 class="index-subtitle">Recent Activity</h3>
+        <ul class="index-list">
+            @foreach (var activity in Model.RecentActivities)
+            {
+                <li class="index-list-item">@activity</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <h2 class="index-subtitle">Join Us Today!</h2>
+        <p class="index-text">Sign up to start tracking your workouts and progress.</p>
+        <a asp-page="/SignUp" class="index-btn">Sign Up</a>
+        <a asp-page="/Login" class="index-btn">Log In</a>
+    }
+
+    <h3 class="index-subtitle">Featured Workouts</h3>
+    <div class="index-featured-workouts">
+        @* @foreach (var workout in Model.FeaturedWorkouts)
+        {
+        <div class="index-featured-workout">
+        <h4 class="index-featured-workout-title">@workout.GetName()</h4>
+        <p>@workout.GetDescription()</p>
+        <a asp-page="/Details" asp-route-id="@workout.GetId()" class="index-btn index-featured-workout-btn">View Details</a>
+        </div>
+        } *@
+    </div>
+
+    <h3 class="index-subtitle">Motivational Quote of the Day</h3>
+    <p class="index-text">@Model.MotivationalQuote</p>
+
+    <h3 class="index-subtitle">Quick Links</h3>
+    <ul class="index-list">
+        <li class="index-list-item"><a asp-page="/Discover">Discover Workouts</a></li>
+        <li class="index-list-item"><a asp-page="/FavoriteWorkouts">My Favorites</a></li>
+        <li class="index-list-item"><a asp-page="/StartWorkout">Start a New Workout</a></li>
+    </ul>
+</div>

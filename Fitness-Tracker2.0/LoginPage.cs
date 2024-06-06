@@ -41,19 +41,19 @@ namespace Fitness_Tracker2._0
                 MessageBox.Show("Welcome " + username);
                 string role = loggedInEmployee.Role()?.Trim();
 
-                if (role == "TRAINER")
+                if (loggedInEmployee.Role() == "Trainer")
                 {
                     var trainerUCPage = new frmTrainerUCPage(loggedInEmployee, manager, exerciseManager, workoutManager);
                     trainerUCPage.Show();
                 }
-                else if (role == "ADMIN")
+                else if (loggedInEmployee.Role() == "HR")
                 {
                     var adminHomePage = new frmAdminHomePage(manager, exerciseManager, workoutManager);
                     adminHomePage.Show();
                 }
-                else if (role == "Nutritionist")
+                else if (loggedInEmployee.Role() == "Nutritionist")
                 {
-                    // Will implement in the future!
+                    MessageBox.Show("Nutritionist still not implemented!");
                 }
                 else
                 {

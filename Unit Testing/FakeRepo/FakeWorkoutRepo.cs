@@ -126,5 +126,18 @@ namespace Unit_Testing.FakeRepo
             }
             return false;
         }
+        public void RemoveExerciseFromWorkout(int workoutId, int exerciseId)
+        {
+            for(int i = 0; i < _workoutExercises.Count; i++)
+            {
+                if (_workoutExercises[i].WorkoutId == workoutId && _workoutExercises[i].ExerciseId == exerciseId)
+                {
+                    _workoutExercises.RemoveAt(i);
+                    break;
+                }
+
+            }
+            
+        }
     }
 }

@@ -7,7 +7,6 @@ namespace NameLibrary
     {
         private int roleId;
 
-        // Role lookup dictionary
         private static readonly Dictionary<int, string> RoleLookup = new Dictionary<int, string>
         {
             { 1, "Trainer" },

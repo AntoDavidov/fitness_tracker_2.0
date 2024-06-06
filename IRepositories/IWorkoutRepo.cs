@@ -18,5 +18,6 @@ namespace IRepositories
         List<int> GetWorkoutIdsContainingExercise(int exerciseId);
         void DeleteWorkout(int workoutId);
         List<Exercise>? GetExercisesForWorkout(int workoutId);
+        void RemoveExerciseFromWorkout(int workoutId, int exerciseId);
     }
 }

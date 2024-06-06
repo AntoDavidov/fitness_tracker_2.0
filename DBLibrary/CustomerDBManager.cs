@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using IRepositories;
+using ExerciseLibrary;
 
 namespace DBLibrary
 {
@@ -84,6 +85,7 @@ namespace DBLibrary
             return null;
         }
 
+
         public bool AddWorkoutToFavourites(int customerId, int workoutId)
         {
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
@@ -134,7 +136,7 @@ namespace DBLibrary
                 {
                     conn.Open();
 
-                    string query = "SELECT user_id FROM Customer WHERE user_id = (SELECT user_id FROM [User] WHERE email = @Email);";
+                    string query = "SELECT user_id FROM Customer WHERE user_id = (SELECT id FROM [User] WHERE email = @Email);";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Email", email);
 
@@ -188,6 +190,153 @@ namespace DBLibrary
             }
 
             return customers;
+        }
+        public List<Workouts> GetFavoriteWorkouts(int customerId)
+        {
+            List<Workouts> favoriteWorkouts = new List<Workouts>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT w.Id, w.Name, w.Description, w.workout_level 
+                                     FROM Workout w
+                                     INNER JOIN CustomerWorkout cf ON w.Id = cf.WorkoutId
+                                     WHERE cf.CustomerId = @CustomerId";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CustomerId", customerId);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                                string name = reader.GetString(reader.GetOrdinal("Name"));
+                                string description = reader.GetString(reader.GetOrdinal("Description"));
+                                string level = reader.GetString(reader.GetOrdinal("workout_level"));
+
+                                Workouts workout = new Workouts(id, name, description, level);
+                                favoriteWorkouts.Add(workout);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error fetching favorite workouts: " + ex.Message);
+            }
+
+            return favoriteWorkouts;
+        }
+        public Dictionary<int, List<int>> GetCustomerFavoriteWorkouts()
+        {
+            var result = new Dictionary<int, List<int>>();
+            using (var conn = new SqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+                var query = @"SELECT c.user_id AS CustomerId, cw.WorkoutId AS WorkoutId
+                          FROM Customer c
+                          INNER JOIN CustomerWorkout cw ON c.user_id = cw.CustomerId;";
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int customerId = reader.GetInt32(0);
+                            int workoutId = reader.GetInt32(1);
+                            if (!result.ContainsKey(customerId))
+                            {
+                                result[customerId] = new List<int>();
+                            }
+                            result[customerId].Add(workoutId);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<Workouts> GetWorkoutsByIds(List<int> workoutIds)
+        {
+            var result = new List<Workouts>();
+            if (workoutIds == null || workoutIds.Count == 0)
+                return result;
+
+            using (var conn = new SqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+                var query = @"SELECT w.id, w.name, w.description
+                          FROM Workout w
+                          WHERE w.id IN (" + string.Join(",", workoutIds) + ")";
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int id = reader.GetInt32(0);
+                            string name = reader.GetString(1);
+                            string description = reader.GetString(2);
+                            result.Add(new Workouts(id, name, description));
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+        public void MarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId)
+        {
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+                string query = "INSERT INTO CompletedExercises (CustomerId, WorkoutId, ExerciseId) VALUES (@CustomerId, @WorkoutId, @ExerciseId)";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@CustomerId", customerId);
+                cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                cmd.Parameters.AddWithValue("@ExerciseId", exerciseId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UnmarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId)
+        {
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+                string query = "DELETE FROM CompletedExercises WHERE CustomerId = @CustomerId AND WorkoutId = @WorkoutId AND ExerciseId = @ExerciseId";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@CustomerId", customerId);
+                cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                cmd.Parameters.AddWithValue("@ExerciseId", exerciseId);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public List<int> GetCompletedExercises(int customerId, int workoutId)
+        {
+            List<int> completedExercises = new List<int>();
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                conn.Open();
+                string query = "SELECT ExerciseId FROM CompletedExercises WHERE CustomerId = @CustomerId AND WorkoutId = @WorkoutId";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@CustomerId", customerId);
+                cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        completedExercises.Add(reader.GetInt32(0));
+                    }
+                }
+            }
+            return completedExercises;
         }
     }
 }

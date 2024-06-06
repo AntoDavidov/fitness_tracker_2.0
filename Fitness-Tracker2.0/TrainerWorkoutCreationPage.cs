@@ -36,6 +36,7 @@ namespace Fitness_Tracker2._0
             lstbExercises.MouseDown += lstbExercises_MouseDown;
             lstbCurrentWorkoutExercises.DragEnter += lstbCurrentWorkoutExercises_DragEnter;
             lstbCurrentWorkoutExercises.DragDrop += lstbExercises_DragDrop;
+            //btnRemoveExercise.Click += btnRemoveExercise_Click;
         }
 
         private void PopulateExercisesListBox()
@@ -45,20 +46,20 @@ namespace Fitness_Tracker2._0
             {
                 foreach (Strength strengthExercise in exerciseManager.GetOnlyStrengthExercises())
                 {
-                    lstbExercises.Items.Add(strengthExercise.ToString()); 
+                    lstbExercises.Items.Add(strengthExercise.ToString());
                 }
             }
             else if (cmbFilter.SelectedIndex == 1)
             {
                 foreach (Cardio cardioExercise in exerciseManager.GetOnlyCardioExercises())
                 {
-                    lstbExercises.Items.Add(cardioExercise.ToString()); 
+                    lstbExercises.Items.Add(cardioExercise.ToString());
                 }
             }
         }
 
         private void PopulateWorkoutExercisesListBox()
-        { 
+        {
             lstbCurrentWorkoutExercises.Items.Clear();
             if (currentWorkout != null)
             {
@@ -139,6 +140,26 @@ namespace Fitness_Tracker2._0
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnRemoveExercise_Click(object sender, EventArgs e)
+        {
+            if(lstbCurrentWorkoutExercises.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an exercise to remove.", "No Exercise Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+
+
+            }
+            string ex = lstbCurrentWorkoutExercises.SelectedItem.ToString();
+            int id = Convert.ToInt32(ex.Split(":")[0]);
+            Exercise exercise = exerciseManager.GetExerciseById(id);
+
+            if (currentWorkout != null)
+            {
+                workoutManager.RemoveExerciseFromWorkout(currentWorkout, exercise);
+                PopulateWorkoutExercisesListBox();
+            }
         }
     }
 

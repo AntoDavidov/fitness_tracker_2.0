@@ -2,6 +2,7 @@
 using NameLibrary;
 using IRepositories;
 using System.Collections.Generic;
+using ExerciseLibrary;
 
 namespace ManagerLibrary
 {
@@ -54,5 +55,28 @@ namespace ManagerLibrary
         {
             return _customerRepository.GetAllCustomers();
         }
+        public Dictionary<int, List<int>> GetCustomerFavoriteWorkouts()
+        {
+            return _customerRepository.GetCustomerFavoriteWorkouts();
+        }
+        public List<Workouts> GetFavoriteWorkouts(int customerId)
+        {
+            return _customerRepository.GetFavoriteWorkouts(customerId);
+        }
+        public void MarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId)
+        {
+            _customerRepository.MarkExerciseAsCompleted(customerId, workoutId, exerciseId);
+        }
+
+        public void UnmarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId)
+        {
+            _customerRepository.UnmarkExerciseAsCompleted(customerId, workoutId, exerciseId);
+        }
+
+        public List<int> GetCompletedExercises(int customerId, int workoutId)
+        {
+            return _customerRepository.GetCompletedExercises(customerId, workoutId);
+        }
+
     }
 }

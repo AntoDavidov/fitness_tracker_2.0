@@ -30,6 +30,9 @@ else
         <input type="hidden" asp-for="Id" />
         <button type="submit" asp-page-handler="AddToFavorites">Add to Favorites</button>
     </form>
+    <form method="get" asp-page="/WorkoutProgress" asp-route-id="@Model.Workout.GetId()">
+        <button type="submit" class="btn btn-primary">BEGIN</button>
+    </form>
 }
 
 <a href="/Application">Back to list</a>

@@ -94,6 +94,7 @@ namespace ManagerLibrary
             cachedEmployees = null;
         }
 
+        //Made those two methods from Jesus' feedback
         private void CheckForDuplicateUsername(Employee employee)
         {
             foreach (var e in cachedEmployees)

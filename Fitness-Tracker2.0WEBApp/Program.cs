@@ -19,6 +19,7 @@ builder.Services.AddScoped<EmployeeManager>();
 builder.Services.AddScoped<CustomerManager>();
 builder.Services.AddScoped<ExerciseManager>();
 builder.Services.AddScoped<WorkoutManager>();
+builder.Services.AddScoped<RecommendationService>();
 
 
 builder.Services.AddSession(options =>
