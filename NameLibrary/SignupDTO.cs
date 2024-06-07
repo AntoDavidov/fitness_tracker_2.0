@@ -12,7 +12,7 @@ namespace NameLibrary
         public int ID { get; set; }
 
 
-        [Required, MinLength(3, ErrorMessage = "Minimum 3 characters.")]
+        [Required, MinLength(3, ErrorMessage = "Minimum 3 characters")]
         public string FirstName { get; set; }
 
 
@@ -20,7 +20,7 @@ namespace NameLibrary
         public string LastName { get; set; }
 
 
-        [Required, MinLength(5, ErrorMessage = "A username can be from 5 - 30 characters.")]
+        [Required, MinLength(5, ErrorMessage = "A username can be from 5 - 30 characters")]
         public string UserName { get; set; }
 
 
@@ -35,7 +35,10 @@ namespace NameLibrary
         [Required]
         public double Weight { get; set; }
 
-        [Required(ErrorMessage = "Level is required.")]
+        [Required(ErrorMessage = "Level is required")]
         public int Level { get; set; }
+
+        [Required(ErrorMessage = "Age is required")]
+        public int Age { get; set; }
     }
 }

@@ -1,11 +1,13 @@
 using ExerciseLibrary;
 using ManagerLibrary;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 
 namespace Fitness_Tracker2._0WEBApp.Pages
 {
+    [Authorize]
     public class RecommendationsModel : PageModel
     {
         private RecommendationService recommendationService;

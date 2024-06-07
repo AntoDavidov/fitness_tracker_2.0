@@ -5,15 +5,18 @@ using NameLibrary;
 using System.Linq;
 using ExerciseLibrary;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fitness_Tracker2._0WEBApp.Pages
 {
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly WorkoutManager _workoutManager;
         private readonly CustomerManager _customerManager;
 
         public Workouts Workout { get; set; }
+        public int TotalCaloriesBurned { get; private set; }
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
         [BindProperty]
@@ -25,7 +28,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             _customerManager = customerManager;
         }
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
             Workout = _workoutManager.GetWorkoutById(id);
 
@@ -33,6 +36,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             {
                 ErrorMessage = "Workout not found.";
             }
+            return Page();
         }
 
         public IActionResult OnPostAddToFavorites()
@@ -62,6 +66,34 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             }
 
             Workout = workout; 
+            return Page();
+        }
+        public IActionResult OnPostCalculateCalories()
+        {
+            var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
+            if (customerId == -1)
+            {
+                ErrorMessage = "User not found.";
+                return Page();
+            }
+
+            var workout = _workoutManager.GetWorkoutById(Id);
+            if (workout == null)
+            {
+                ErrorMessage = "Workout not found.";
+                return Page();
+            }
+
+            var customer = _customerManager.GetCustomerById(customerId);
+            if (customer == null)
+            {
+                ErrorMessage = "Customer not found.";
+                return Page();
+            }
+
+            TotalCaloriesBurned = workout.CalculateCaloriesBurnedForTheWholeWorkout(customer);
+
+            Workout = workout;
             return Page();
         }
     }

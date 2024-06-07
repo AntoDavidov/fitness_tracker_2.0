@@ -57,10 +57,10 @@ namespace Unit_Testing.Tests
         {
             // Arrange
             var existingCustomer = new Customer(3, "John", "Doe", "customer1", "password", "email@example.com", 70, (int)Level.Beginner); // BEGINNER = 1
-            _customerManager.AddCustomer(existingCustomer.GetFirstName(), existingCustomer.GetLastName(), existingCustomer.GetUsername(), existingCustomer.GetPassword(), existingCustomer.GetEmail(), existingCustomer.GetWeight(), existingCustomer.GetLevel());
+            _customerManager.AddCustomer(existingCustomer.GetFirstName(), existingCustomer.GetLastName(), existingCustomer.GetUsername(), existingCustomer.GetPassword(), existingCustomer.GetEmail(), existingCustomer.GetWeight(), existingCustomer.GetLevel(), existingCustomer.GetAge());
 
             // Act
-            _customerManager.AddCustomer("Jane", "Smith", "customer1", "password", "newemail@example.com", 65, (int)Level.Intermediate); // INTERMEDIATE = 2
+            _customerManager.AddCustomer("Jane", "Smith", "customer1", "password", "newemail@example.com", 65, (int)Level.Intermediate, 20); // INTERMEDIATE = 2
 
             // Assert
             // Expecting a DuplicateUsernameException
@@ -72,10 +72,10 @@ namespace Unit_Testing.Tests
         {
             // Arrange
             var existingCustomer = new Customer(5, "John", "Doe", "user1", "password", "samecustomer@example.com", 70, (int)Level.Beginner); // BEGINNER = 1
-            _customerManager.AddCustomer(existingCustomer.GetFirstName(), existingCustomer.GetLastName(), existingCustomer.GetUsername(), existingCustomer.GetPassword(), existingCustomer.GetEmail(), existingCustomer.GetWeight(), existingCustomer.GetLevel());
+            _customerManager.AddCustomer(existingCustomer.GetFirstName(), existingCustomer.GetLastName(), existingCustomer.GetUsername(), existingCustomer.GetPassword(), existingCustomer.GetEmail(), existingCustomer.GetWeight(), existingCustomer.GetLevel(), existingCustomer.GetAge());
 
             // Act
-            _customerManager.AddCustomer("Jane", "Smith", "newUser", "password", "samecustomer@example.com", 65, (int)Level.Intermediate); // INTERMEDIATE = 2
+            _customerManager.AddCustomer("Jane", "Smith", "newUser", "password", "samecustomer@example.com", 65, (int)Level.Intermediate, 23); // INTERMEDIATE = 2
 
             // Assert
             // Expecting a DuplicateEmailException
@@ -88,7 +88,7 @@ namespace Unit_Testing.Tests
             var newCustomer = new Customer(7, "John", "Doe", "uniqueUser", "password", "unique@example.com", 70, (int)Level.Beginner); // BEGINNER = 1
 
             // Act
-            _customerManager.AddCustomer(newCustomer.GetFirstName(), newCustomer.GetLastName(), newCustomer.GetUsername(), newCustomer.GetPassword(), newCustomer.GetEmail(), newCustomer.GetWeight(), newCustomer.GetLevel());
+            _customerManager.AddCustomer(newCustomer.GetFirstName(), newCustomer.GetLastName(), newCustomer.GetUsername(), newCustomer.GetPassword(), newCustomer.GetEmail(), newCustomer.GetWeight(), newCustomer.GetLevel(), newCustomer.GetAge());
             var addedCustomer = _fakeCustomerRepository.GetAllCustomers().FirstOrDefault(c => c.GetUsername() == "uniqueUser");
 
             // Assert

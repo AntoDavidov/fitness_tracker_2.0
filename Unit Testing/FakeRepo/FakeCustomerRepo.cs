@@ -15,8 +15,8 @@ namespace Unit_Testing.FakeRepo
         {
             _customers = new List<Customer>
             {
-                new Customer(1, "John", "Smith", "1customer1", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "1customer1@example.com", 70, 1),
-                new Customer(2, "Jane", "Smith", "2customer2", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "2customer2@example.com", 65, 2)
+                new Customer(1, "John", "Smith", "1customer1", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "1customer1@example.com", 70, 1, 20),
+                new Customer(2, "Jane", "Smith", "2customer2", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "2customer2@example.com", 65, 2, 23)
             };
 
             _customerFavouriteWorkouts = new Dictionary<int, List<int>>
@@ -26,7 +26,7 @@ namespace Unit_Testing.FakeRepo
             };
         }
 
-        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, int level)
+        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, int level, int age)
         {
             foreach (var customer in _customers)
             {
@@ -36,7 +36,7 @@ namespace Unit_Testing.FakeRepo
                 }
             }
 
-            var newCustomer = new Customer(firstName, lastName, username, password, email, weight, level);
+            var newCustomer = new Customer(firstName, lastName, username, password, email, weight, level, age);
             _customers.Add(newCustomer);
             return true;
         }
@@ -82,6 +82,10 @@ namespace Unit_Testing.FakeRepo
                 }
             }
             return -1;
+        }
+        public Customer GetCustomerById(int id)
+        {
+            return _customers[id];
         }
 
         public List<Customer> GetAllCustomers()

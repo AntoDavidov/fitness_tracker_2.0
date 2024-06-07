@@ -30,9 +30,14 @@ namespace ExerciseLibrary
         }
         public override int CalculateCaloriesBurned(Customer customer)
         {
-            double basalMetabolicRate = 10 * customer.GetWeight();
+            double weight = customer.GetWeight();
+            int age = customer.GetAge();
+
+            // Using a simplified version of the BMR calculation
+            double basalMetabolicRate = 10 * weight - 5 * age;
+            double MET = 8;
             double totalHours = duration.TotalHours;
-            int totalCaloriesBurned = (int)(basalMetabolicRate * totalHours);
+            int totalCaloriesBurned = (int)(basalMetabolicRate * MET * totalHours);
             return totalCaloriesBurned;
         }
     }

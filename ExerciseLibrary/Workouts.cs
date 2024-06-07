@@ -68,6 +68,15 @@ namespace ExerciseLibrary
         {
             return $"{id}: {name}";
         }
+        public int CalculateCaloriesBurnedForTheWholeWorkout(Customer customer)
+        {
+            int totalCalories = 0;  
+            foreach(var exercise in exercises)
+            {
+                totalCalories += exercise.CalculateCaloriesBurned(customer);
+            }
+            return totalCalories;
+        }
         public void AddExercise(Exercise exercise)
         {
             exercises.Add(exercise);

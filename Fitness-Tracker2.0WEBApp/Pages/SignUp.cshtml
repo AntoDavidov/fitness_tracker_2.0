@@ -9,7 +9,10 @@
         Your account has been created successfully!
     </div>
 }
-<link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+@section Styles{
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+}
+
 <form class="signup-form" method="post">
     <div class="form-left">
         <div class="mb-3">
@@ -48,6 +51,11 @@
             <label for="weight" class="form-label">Weight (kg)</label>
             <span asp-validation-for="SignupDTO.Weight" class="text-danger"></span>
             <input asp-for="SignupDTO.Weight" class="form-control" type="text">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <span asp-validation-for="SignupDTO.Age" class="text-danger"></span>
+            <input asp-for="SignupDTO.Age" class="form-control" type="text" />
         </div>
         <button type="submit" class="btn btn-red">Submit</button>
     </div>

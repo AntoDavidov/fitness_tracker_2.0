@@ -1,38 +1,80 @@
 ﻿@page
 @model Fitness_Tracker2._0WEBApp.Pages.DetailsModel
 @{
+    ViewData["Title"] = "Workout Details";
 }
+
 @section Styles {
-    <link rel="stylesheet" href="~/css/DetailsPageStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/detailsForWorkoutPageStyle.css" asp-append-version="true" />
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
-    <div class="alert alert-danger">
+    <div class="details-alert details-alert-danger">
         @Model.ErrorMessage
     </div>
 }
-else
-{
-    <h1>@Model.Workout.GetName()</h1>
-    <p>@Model.Workout.GetDescription()</p>
-    <p>Level: @Model.Workout.GetWorkoutLevel()</p>
 
-    <h2>Exercises</h2>
-    <ul>
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="details-alert details-alert-success">
+        @Model.SuccessMessage
+    </div>
+}
+
+<div class="details-container">
+    <h2 class="details-title">@Model.Workout.GetName()</h2>
+    <p class="details-description">@Model.Workout.GetDescription()</p>
+    <p class="details-level">Level: @Model.Workout.GetWorkoutLevel()</p>
+
+    <h3 class="details-exercises-title">Exercises</h3>
+    <ul class="details-exercises-list">
         @foreach (var exercise in Model.Workout.GetExercises())
         {
-            <li>@exercise.ToString()</li>
+            <li>
+                <strong>@exercise.GetName()</strong>: @exercise.GetDescription()
+
+                @if (exercise is ExerciseLibrary.Strength strengthExercise)
+                {
+                    <ul>
+                        <li>Reps: @strengthExercise.GetReps()</li>
+                        <li>Sets: @strengthExercise.GetSets()</li>
+                        <li>Weight: @strengthExercise.GetWeight() kg</li>
+                        <li>Muscle Group: @strengthExercise.GetMuscleGroup()</li>
+                    </ul>
+                }
+                @if (exercise is ExerciseLibrary.Cardio cardioExercise)
+                {
+                <ul>
+                    <li>Duration: @cardioExercise.GetDuration()</li>
+                </ul>
+                }
+            </li>
         }
     </ul>
 
-    <form method="post">
-        <input type="hidden" asp-for="Id" />
-        <button type="submit" asp-page-handler="AddToFavorites">Add to Favorites</button>
+    <h3 class="details-actions-title">Actions</h3>
+    <form method="post" asp-page-handler="AddToFavorites" class="details-form">
+        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+        <button type="submit" class="details-button">Add to Favorites</button>
     </form>
-    <form method="get" asp-page="/WorkoutProgress" asp-route-id="@Model.Workout.GetId()">
-        <button type="submit" class="btn btn-primary">BEGIN</button>
-    </form>
-}
 
-<a href="/Application">Back to list</a>
+    <h3 class="details-calculate-title">Calculate Calories Burned</h3>
+    <form method="post" asp-page-handler="CalculateCalories" class="details-form">
+        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+        <button type="submit" class="details-button">Calculate</button>
+    </form>
+
+    @if (Model.TotalCaloriesBurned > 0)
+    {
+        <p class="details-calories-result">Total Calories Burned: @Model.TotalCaloriesBurned</p>
+    }
+
+    
+
+    <a asp-page="/Application" class="details-back-link">Back to list</a>
+</div>
+
+@section Scripts{
+    <script src="~/js/JavaScript.js"></script>
+}

@@ -17,7 +17,7 @@ namespace ManagerLibrary
             passwordManager = new PasswordManager();
         }
 
-        public void AddCustomer(string firstName, string lastName, string username, string password, string email, double weight, int level)
+        public void AddCustomer(string firstName, string lastName, string username, string password, string email, double weight, int level, int age)
         {
             foreach (var existingCustomer in _customerRepository.GetAllCustomers())
             {
@@ -32,7 +32,7 @@ namespace ManagerLibrary
             }
 
             string passwordHashed = passwordManager.HashPassword(password);
-            _customerRepository.AddCustomerToDB(firstName, lastName, username, passwordHashed, email, weight, level);
+            _customerRepository.AddCustomerToDB(firstName, lastName, username, passwordHashed, email, weight, level, age);
         }
 
         public Customer VerifyCustomerCredentials(string email, string password)
@@ -49,6 +49,10 @@ namespace ManagerLibrary
         public int GetCustomerIdByEmail(string email)
         {
             return _customerRepository.GetCustomerIdByEmail(email);
+        }
+        public Customer GetCustomerById(int id)
+        {
+            return _customerRepository.GetCustomerById(id);
         }
 
         public List<Customer> GetAllCustomers()

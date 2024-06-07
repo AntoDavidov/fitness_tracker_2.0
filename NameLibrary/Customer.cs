@@ -12,11 +12,13 @@ namespace NameLibrary
     {
         private double userWeight;
         private int userLevel;
+        private int age;
 
-        public Customer(string firstName, string lastName, string username, string password, string email, double weight, int level) : base(firstName, lastName, username, password, email)
+        public Customer(string firstName, string lastName, string username, string password, string email, double weight, int level, int age) : base(firstName, lastName, username, password, email)
         {
             this.userWeight = weight;
             this.userLevel = level;
+            this.age = age;
         }
 
         public Customer(int id, string firstName, string lastName, string username, string password, string email, double weight, int level) : base(id, firstName, lastName, username, password, email)
@@ -24,12 +26,19 @@ namespace NameLibrary
             this.userWeight = weight;
             this.userLevel = level;
         }
+        public Customer(int id, string firstName, string lastName, string username, string password, string email, double weight, int level, int age) : base(id, firstName, lastName, username, password, email)
+        {
+            this.userWeight = weight;
+            this.userLevel = level;
+            this.age = age;
+        }
 
         public Customer() { }
 
         public double GetWeight() { return userWeight; }
 
         public int GetLevel() { return userLevel; }
+        public int GetAge() { return age; }
 
         public Level GetLevelEnum()
         {

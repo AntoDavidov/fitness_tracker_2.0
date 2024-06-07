@@ -36,7 +36,8 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                         SignupDTO.Password,
                         SignupDTO.Email,
                         SignupDTO.Weight,
-                        SignupDTO.Level
+                        SignupDTO.Level,
+                        SignupDTO.Age
                     );
 
                     SignUpSuccessfull = true;

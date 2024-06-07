@@ -10,7 +10,7 @@ namespace DBLibrary
 {
     public class CustomerDBManager : DBDal, ICustomerRepo
     {
-        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, int level)
+        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, int level, int age)
         {
             try
             {
@@ -27,11 +27,12 @@ namespace DBLibrary
                     int userId = Convert.ToInt32(insertUserCommand.ExecuteScalar());
 
                     // Insert into Customer table
-                    string insertCustomerQuery = "INSERT INTO Customer (user_id, user_weight, member_level) VALUES (@UserId, @UserWeight, @MemberLevel);";
+                    string insertCustomerQuery = "INSERT INTO Customer (user_id, user_weight, member_level, age) VALUES (@UserId, @UserWeight, @MemberLevel, @Age);";
                     SqlCommand insertCustomerCommand = new SqlCommand(insertCustomerQuery, conn);
                     insertCustomerCommand.Parameters.AddWithValue("@UserId", userId);
                     insertCustomerCommand.Parameters.AddWithValue("@UserWeight", Convert.ToDecimal(weight));
                     insertCustomerCommand.Parameters.AddWithValue("@MemberLevel", level);
+                    insertCustomerCommand.Parameters.AddWithValue("@Age", age);
                     insertCustomerCommand.ExecuteNonQuery();
                 }
                 return true;
@@ -51,7 +52,7 @@ namespace DBLibrary
                 {
                     conn.Open();
 
-                    string query = "SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level " +
+                    string query = "SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level, c.age " +
                                    "FROM [User] u " +
                                    "INNER JOIN Customer c ON u.id = c.user_id " +
                                    "WHERE u.email = @Email AND u.password = @Password";
@@ -71,8 +72,9 @@ namespace DBLibrary
                             string userEmail = reader.GetString(reader.GetOrdinal("email"));
                             double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("user_weight")));
                             int level = reader.GetInt32(reader.GetOrdinal("member_level"));
+                            int age = reader.GetInt32(reader.GetOrdinal("age"));
 
-                            return new Customer(id, firstName, lastName, username, dbPassword, userEmail, weight, level);
+                            return new Customer(id, firstName, lastName, username, dbPassword, userEmail, weight, level, age);
                         }
                     }
                 }
@@ -155,6 +157,52 @@ namespace DBLibrary
 
             return -1;
         }
+        public Customer GetCustomerById(int customerId)
+        {
+            Customer customer = null;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level, c.age
+                             FROM [User] u
+                             INNER JOIN Customer c ON u.id = c.user_id
+                             WHERE c.user_id = @CustomerId";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CustomerId", customerId);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("id"));
+                                string firstName = reader.GetString(reader.GetOrdinal("first_name"));
+                                string lastName = reader.GetString(reader.GetOrdinal("last_name"));
+                                string username = reader.GetString(reader.GetOrdinal("username"));
+                                string password = reader.GetString(reader.GetOrdinal("password"));
+                                string email = reader.GetString(reader.GetOrdinal("email"));
+                                double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("user_weight")));
+                                int level = reader.GetInt32(reader.GetOrdinal("member_level"));
+                                int age = reader.GetInt32(reader.GetOrdinal("age"));
+
+                                customer = new Customer(id, firstName, lastName, username, password, email, weight, level, age);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error fetching customer by ID: " + ex.Message);
+            }
+
+            return customer;
+        }
         public List<Customer> GetAllCustomers()
         {
             List<Customer> customers = new List<Customer>();
@@ -163,7 +211,7 @@ namespace DBLibrary
             {
                 conn.Open();
 
-                string query = @"SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level
+                string query = @"SELECT u.id, u.first_name, u.last_name, u.username, u.password, u.email, c.user_weight, c.member_level, c.age
                          FROM [User] u
                          INNER JOIN Customer c ON u.id = c.user_id";
 
@@ -181,8 +229,9 @@ namespace DBLibrary
                             string email = reader.GetString(reader.GetOrdinal("email"));
                             double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("user_weight")));
                             int level = reader.GetInt32(reader.GetOrdinal("member_level"));
+                            int age = reader.GetInt32(reader.GetOrdinal("age"));
 
-                            Customer customer = new Customer(id, firstName, lastName, username, password, email, weight, level);
+                            Customer customer = new Customer(id, firstName, lastName, username, password, email, weight, level, age);
                             customers.Add(customer);
                         }
                     }

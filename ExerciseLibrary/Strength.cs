@@ -35,15 +35,12 @@ namespace ExerciseLibrary
         {
             return base.ToString() + $" Primary muscle: {muscleGroup} ";
         }
-        public string ExerciseInfo()
-        {
-            return $"{reps} x {sets} at {weightLifted} kg";
-        }
         public override int CalculateCaloriesBurned(Customer customer)
         {
             int caloriesPerRep = 2;
             int totalReps = reps * sets;
-            double caloriesBurnedPerRep = caloriesPerRep * (weightLifted / 100); 
+            double ageFactor = 1 - (customer.GetAge() - 20) * 0.01;
+            double caloriesBurnedPerRep = caloriesPerRep * (weightLifted / 100) * ageFactor; 
             int totalCaloriesBurned = (int)(totalReps * caloriesBurnedPerRep);
             return totalCaloriesBurned;
             
