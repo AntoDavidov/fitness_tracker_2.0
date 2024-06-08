@@ -1,5 +1,4 @@
-﻿
-.details-container {
+﻿.details-container {
     max-width: 800px;
     margin: auto;
     padding: 20px;
@@ -24,7 +23,8 @@
 
 .details-exercises-title,
 .details-actions-title,
-.details-calculate-title {
+.details-calculate-title,
+.details-rating-title {
     font-size: 1.5em;
     color: #ff4d4d;
     margin-top: 20px;
@@ -105,4 +105,25 @@
     font-weight: bold;
     color: #ff4d4d;
     text-align: center;
+}
+
+.details-rating-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.details-rating-label {
+    margin-right: 10px;
+}
+
+.details-rating-input {
+    padding: 5px;
+    width: 50px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.details-rating-form button {
+    margin-top: 10px;
 }

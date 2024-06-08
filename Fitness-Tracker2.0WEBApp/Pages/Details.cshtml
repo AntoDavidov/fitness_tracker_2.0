@@ -70,6 +70,17 @@
         <p class="details-calories-result">Total Calories Burned: @Model.TotalCaloriesBurned</p>
     }
 
+    <h3>Average Rating: @Model.CalculatedRating.ToString("0.00") (out of @Model.RatingCount Users)</h3>
+
+    <h3 class="details-rating-title">Add Your Rating</h3>
+    <div class="details-rating-section">
+        <form method="post" asp-page-handler="AddRating" class="details-rating-form">
+            <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+            <label for="rating" class="details-rating-label">Rating (1-5):</label>
+            <input type="number" asp-for="RatingValue" min="1" max="5" class="details-rating-input" />
+            <button type="submit" class="details-button">Submit Rating</button>
+        </form>
+    </div>
     
 
     <a asp-page="/Application" class="details-back-link">Back to list</a>
