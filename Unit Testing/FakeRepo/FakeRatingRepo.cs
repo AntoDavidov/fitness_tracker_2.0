@@ -19,7 +19,7 @@ namespace Unit_Testing.FakeRepo
 
             foreach (var rating in ratings)
             {
-                if (rating.GetWorkoutID() == workoutId)
+                if (rating.GetWorkout().GetId() == workoutId)
                 {
                     ratingsForWorkout.Add(rating);
                 }
@@ -34,13 +34,17 @@ namespace Unit_Testing.FakeRepo
 
             foreach (var rating in ratings)
             {
-                if (rating.GetWorkoutID() == workoutId)
+                if (rating.GetWorkout().GetId() == workoutId)
                 {
                     count++;
                 }
             }
 
             return count;
+        }
+        public bool RatingExists(int workoutId, int customerId)
+        {
+            return ratings.Any(r => r.GetWorkout().GetId() == workoutId && r.GetCustomer().GetId() == customerId);
         }
     }
 }

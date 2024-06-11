@@ -72,15 +72,20 @@
 
     <h3>Average Rating: @Model.CalculatedRating.ToString("0.00") (out of @Model.RatingCount Users)</h3>
 
-    <h3 class="details-rating-title">Add Your Rating</h3>
-    <div class="details-rating-section">
-        <form method="post" asp-page-handler="AddRating" class="details-rating-form">
+    @if (!Model.HasAlreadyRated)
+    {
+        <h3 class="details-rating-title">Add Your Rating</h3>
+        <form method="post" asp-page-handler="AddRating" class="details-form">
             <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
-            <label for="rating" class="details-rating-label">Rating (1-5):</label>
-            <input type="number" asp-for="RatingValue" min="1" max="5" class="details-rating-input" />
+            <label for="rating">Rating (1-5):</label>
+            <input type="number" asp-for="RatingValue" min="1" max="5" class="details-input" />
             <button type="submit" class="details-button">Submit Rating</button>
         </form>
-    </div>
+    }
+    else
+    {
+        <p class="details-already-rated">You have already rated this workout.</p>
+    }
     
 
     <a asp-page="/Application" class="details-back-link">Back to list</a>

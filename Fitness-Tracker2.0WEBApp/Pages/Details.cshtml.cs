@@ -7,6 +7,9 @@ using ExerciseLibrary;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using ManagerLibrary.ConcreteStrategyClasses;
+using ManagerLibrary.Exceptions;
+using System.ComponentModel.DataAnnotations;
+using ExerciseLibrary.Rating;
 
 namespace Fitness_Tracker2._0WEBApp.Pages
 {
@@ -21,15 +24,17 @@ namespace Fitness_Tracker2._0WEBApp.Pages
         public int TotalCaloriesBurned { get; private set; }
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
+        public bool HasAlreadyRated { get; private set; }
         public double CalculatedRating { get; set; }
         public int RatingCount { get; set; }
 
         [BindProperty]
+        [Required(ErrorMessage = "Workout ID is required.")]
         public int Id { get; set; }
 
         [BindProperty]
+        [Range(1, 5, ErrorMessage = "Rating value must be between 1 and 5.")]
         public int RatingValue { get; set; }
-
 
         public DetailsModel(WorkoutManager workoutManager, CustomerManager customerManager, RatingManager ratingManager)
         {
@@ -40,102 +45,178 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 
         public IActionResult OnGet(int id)
         {
-            Workout = _workoutManager.GetWorkoutById(id);
-
-            if (Workout == null)
+            try
             {
-                ErrorMessage = "Workout not found.";
-                return Page();
+                Workout = _workoutManager.GetWorkoutById(id);
+                if (Workout == null)
+                {
+                    throw new WorkoutNotFoundException(id);
+                }
+
+                var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
+                if (customerId == -1)
+                {
+                    throw new UserNotFoundException(User.FindFirstValue(ClaimTypes.Email));
+                }
+
+                HasAlreadyRated = _ratingManager.GetRatingsByWorkoutId(id).Any(r => r.GetCustomer().GetId() == customerId);
+
+                _ratingManager.SetRatingStrategy(new AverageRating());
+
+                CalculatedRating = _ratingManager.GetCalculatedRating(id);
+                RatingCount = _ratingManager.GetRatingCount(id);
             }
-
-            _ratingManager.SetRatingsStrategy(new AverageRating(_ratingManager.GetRatingRepo()));
-            CalculatedRating = _ratingManager.GetCalculatedRatings(id);
-            RatingCount = _ratingManager.GetRatingCount(id);
-
+            catch (WorkoutNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            catch (UserNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
+            }
             return Page();
         }
-
 
         public IActionResult OnPostAddToFavorites()
         {
-            var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
-            if (customerId == -1)
+            if (!ModelState.IsValid)
             {
-                ErrorMessage = "User not found.";
+                ErrorMessage = "Invalid input.";
                 return Page();
             }
 
-            var workout = _workoutManager.GetWorkoutById(Id);
-            if (workout == null)
+            try
             {
-                ErrorMessage = "Workout not found.";
-                return Page();
+                var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
+                if (customerId == -1)
+                {
+                    throw new UserNotFoundException(User.FindFirstValue(ClaimTypes.Email));
+                }
+
+                var workout = _workoutManager.GetWorkoutById(Id);
+                if (workout == null)
+                {
+                    throw new WorkoutNotFoundException(Id);
+                }
+
+                bool addedSuccessfully = _customerManager.AddWorkoutToFavourites(customerId, Id);
+                if (addedSuccessfully)
+                {
+                    SuccessMessage = "Workout added to favorites successfully!";
+                }
+                else
+                {
+                    ErrorMessage = "Workout is already in your favorites.";
+                }
+
+                Workout = workout;
+            }
+            catch (UserNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
             }
 
-            bool addedSuccessfully = _customerManager.AddWorkoutToFavourites(customerId, Id);
-            if (addedSuccessfully)
-            {
-                SuccessMessage = "Workout added to favorites successfully!";
-            }
-            else
-            {
-                ErrorMessage = "Workout is already in your favorites.";
-            }
-
-            Workout = workout; 
             return Page();
         }
+
         public IActionResult OnPostCalculateCalories()
         {
-            var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
-            if (customerId == -1)
+            if (!ModelState.IsValid)
             {
-                ErrorMessage = "User not found.";
+                ErrorMessage = "Invalid input.";
                 return Page();
             }
 
-            var workout = _workoutManager.GetWorkoutById(Id);
-            if (workout == null)
+            try
             {
-                ErrorMessage = "Workout not found.";
-                return Page();
+                var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
+                if (customerId == -1)
+                {
+                    throw new UserNotFoundException(User.FindFirstValue(ClaimTypes.Email));
+                }
+
+                var workout = _workoutManager.GetWorkoutById(Id);
+                if (workout == null)
+                {
+                    throw new WorkoutNotFoundException(Id);
+                }
+
+                var customer = _customerManager.GetCustomerById(customerId);
+                if (customer == null)
+                {
+                    throw new UserNotFoundException(User.FindFirstValue(ClaimTypes.Email));
+                }
+
+                TotalCaloriesBurned = workout.CalculateCaloriesBurnedForTheWholeWorkout(customer);
+
+                Workout = workout;
+            }
+            catch (UserNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
             }
 
-            var customer = _customerManager.GetCustomerById(customerId);
-            if (customer == null)
-            {
-                ErrorMessage = "Customer not found.";
-                return Page();
-            }
-
-            TotalCaloriesBurned = workout.CalculateCaloriesBurnedForTheWholeWorkout(customer);
-
-            Workout = workout;
             return Page();
         }
+
         public IActionResult OnPostAddRating()
         {
-            var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
-            if (customerId == -1)
+            if (!ModelState.IsValid)
             {
-                ErrorMessage = "User not found.";
+                ErrorMessage = "Invalid input.";
                 return Page();
             }
 
-            if(RatingValue >= 0)
+            try
             {
-                _ratingManager.AddRating(Id, customerId, RatingValue);
+                var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
+                if (customerId == -1)
+                {
+                    throw new UserNotFoundException(User.FindFirstValue(ClaimTypes.Email));
+                }
+
+                var workout = _workoutManager.GetWorkoutById(Id);
+                if (workout == null)
+                {
+                    throw new WorkoutNotFoundException(Id);
+                }
+
+                var customer = _customerManager.GetCustomerById(customerId);
+                if (customer == null)
+                {
+                    throw new UserNotFoundException(User.FindFirstValue(ClaimTypes.Email));
+                }
+
+                _ratingManager.AddRating(new Rating(workout, customer, RatingValue));
                 SuccessMessage = "Rating added successfully!";
 
+                _ratingManager.SetRatingStrategy(new AverageRating());
+                CalculatedRating = _ratingManager.GetCalculatedRating(Id);
+
+                Workout = workout;
+            }
+            catch (UserNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            catch (WorkoutNotFoundException ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            catch (RatingAlreadyExistsException ex)
+            {
+                ErrorMessage = ex.Message;
             }
 
-            _ratingManager.SetRatingsStrategy(new AverageRating(_ratingManager.GetRatingRepo()));
-            CalculatedRating = _ratingManager.GetCalculatedRatings(Id);
-
-            Workout = _workoutManager.GetWorkoutById(Id);
             return Page();
-
-
         }
     }
 }

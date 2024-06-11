@@ -52,7 +52,7 @@ namespace Fitness_Tracker2._0
                 string username = txtbUsername.Text;
                 string password = txtbPassword.Text;
                 string email = txtbEmail.Text;
-                int roleId = cmbRole.SelectedIndex + 1; // Get roleId from ComboBox index
+                int roleId = cmbRole.SelectedIndex + 1; 
 
                 Employee newEmployee = new Employee(firstName, lastName, username, password, email, roleId);
                 _employeeManager.AddEmployee(newEmployee);
@@ -71,6 +71,7 @@ namespace Fitness_Tracker2._0
             {
                 MessageBox.Show("An unexpected error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            // you should never catch all exceptions
         }
 
         private void btnDeleteEmployee_Click(object sender, EventArgs e)

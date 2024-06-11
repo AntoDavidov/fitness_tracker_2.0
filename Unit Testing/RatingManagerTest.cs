@@ -1,14 +1,15 @@
-﻿using IRepositories;
-using ManagerLibrary.ConcreteStrategyClasses;
+﻿using ExerciseLibrary;
+using ExerciseLibrary.Rating;
+using IRepositories;
 using ManagerLibrary;
+using ManagerLibrary.ConcreteStrategyClasses;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NameLibrary;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Unit_Testing.FakeRepo;
 
-namespace Unit_Testing
+namespace Unit_Testing.Tests
 {
     [TestClass]
     public class RatingManagerTests
@@ -27,64 +28,46 @@ namespace Unit_Testing
         public void AddRating_ShouldAddRating()
         {
             // Arrange
-            int workoutId = 1;
-            int customerId = 1;
-            int ratingValue = 5;
+            Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
+            Customer customer = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
+            Rating rating = new Rating(workout, customer, 5);
 
             // Act
-            _ratingManager.AddRating(workoutId, customerId, ratingValue);
+            _ratingManager.AddRating(rating);
 
             // Assert
-            var ratings = _fakeRatingRepo.GetRatingsByWorkoutId(workoutId);
+            var ratings = _fakeRatingRepo.GetRatingsByWorkoutId(workout.GetId());
             Assert.AreEqual(1, ratings.Count);
-            Assert.AreEqual(ratingValue, ratings[0].GetRatingValue());
+            Assert.AreEqual(5, ratings[0].GetRatingValue());
         }
 
         [TestMethod]
-        public void CalculateAverageRating_ShouldReturnCorrectAverage()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void AddRating_ShouldThrowException_WhenRatingAlreadyExists()
         {
             // Arrange
-            int workoutId = 1;
-            _ratingManager.AddRating(workoutId, 1, 5);
-            _ratingManager.AddRating(workoutId, 2, 3);
-
-            _ratingManager.SetRatingsStrategy(new AverageRating(_fakeRatingRepo));
+            Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
+            Customer customer = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
+            Rating rating = new Rating(workout, customer, 4);
 
             // Act
-            double averageRating = _ratingManager.GetCalculatedRatings(workoutId);
+            _ratingManager.AddRating(rating);
 
-            // Assert
-            Assert.AreEqual(4.0, averageRating);
+            // Adding the same rating again should throw an exception
+            _ratingManager.AddRating(rating);
         }
 
-        [TestMethod]
-        public void CalculatePercentageRating_ShouldReturnCorrectPercentage()
-        {
-            // Arrange
-            int workoutId = 1;
-            _ratingManager.AddRating(workoutId, 1, 5);
-            _ratingManager.AddRating(workoutId, 2, 3);
-            _ratingManager.AddRating(workoutId, 3, 4);
-
-            _ratingManager.SetRatingsStrategy(new PercantageRating(_fakeRatingRepo));
-
-            // Act
-            double percentageRating = _ratingManager.GetCalculatedRatings(workoutId);
-
-            // Assert
-            Assert.AreEqual(66.67, percentageRating, 0.01);
-        }
         [TestMethod]
         public void AddRating_ShouldIncreaseRatingCount()
         {
             // Arrange
-            int workoutId = 1;
-            int customerId = 1;
-            int ratingValue = 5;
+            Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
+            Customer customer = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
+            Rating rating = new Rating(workout, customer, 5);
 
             // Act
-            _ratingManager.AddRating(workoutId, customerId, ratingValue);
-            int count = _ratingManager.GetRatingCount(workoutId);
+            _ratingManager.AddRating(rating);
+            int count = _ratingManager.GetRatingCount(workout.GetId());
 
             // Assert
             Assert.AreEqual(1, count);
@@ -94,16 +77,16 @@ namespace Unit_Testing
         public void GetRatingCount_ShouldReturnCorrectCount()
         {
             // Arrange
-            int workoutId = 1;
-            int customerId1 = 1;
-            int customerId2 = 2;
-            int ratingValue1 = 4;
-            int ratingValue2 = 5;
+            Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
+            Customer customer1 = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
+            Customer customer2 = new Customer(2, "Jane", "Doe", "jane", "password", "jane@example.com", 65, 2, 30);
+            Rating rating1 = new Rating(workout, customer1, 4);
+            Rating rating2 = new Rating(workout, customer2, 5);
 
             // Act
-            _ratingManager.AddRating(workoutId, customerId1, ratingValue1);
-            _ratingManager.AddRating(workoutId, customerId2, ratingValue2);
-            int count = _ratingManager.GetRatingCount(workoutId);
+            _ratingManager.AddRating(rating1);
+            _ratingManager.AddRating(rating2);
+            int count = _ratingManager.GetRatingCount(workout.GetId());
 
             // Assert
             Assert.AreEqual(2, count);
@@ -113,13 +96,53 @@ namespace Unit_Testing
         public void GetRatingCount_ShouldReturnZeroForNoRatings()
         {
             // Arrange
-            int workoutId = 1;
+            Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
 
             // Act
-            int count = _ratingManager.GetRatingCount(workoutId);
+            int count = _ratingManager.GetRatingCount(workout.GetId());
 
             // Assert
             Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
+        public void CalculateAverageRating_ShouldReturnCorrectAverage()
+        {
+            // Arrange
+            Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
+            Customer customer1 = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
+            Customer customer2 = new Customer(2, "Jane", "Doe", "jane", "password", "jane@example.com", 65, 2, 30);
+            _ratingManager.AddRating(new Rating(workout, customer1, 5));
+            _ratingManager.AddRating(new Rating(workout, customer2, 3));
+
+            _ratingManager.SetRatingStrategy(new AverageRating());
+
+            // Act
+            double averageRating = _ratingManager.GetCalculatedRating(workout.GetId());
+
+            // Assert
+            Assert.AreEqual(4.0, averageRating);
+        }
+
+        [TestMethod]
+        public void CalculatePercentageRating_ShouldReturnCorrectPercentage()
+        {
+            // Arrange
+            Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
+            Customer customer1 = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
+            Customer customer2 = new Customer(2, "Jane", "Doe", "jane", "password", "jane@example.com", 65, 2, 30);
+            Customer customer3 = new Customer(3, "Bob", "Smith", "bob", "password", "bob@example.com", 80, 3, 35);
+            _ratingManager.AddRating(new Rating(workout, customer1, 5));
+            _ratingManager.AddRating(new Rating(workout, customer2, 3));
+            _ratingManager.AddRating(new Rating(workout, customer3, 4));
+
+            _ratingManager.SetRatingStrategy(new PercantageRating());
+
+            // Act
+            double percentageRating = _ratingManager.GetCalculatedRating(workout.GetId());
+
+            // Assert
+            Assert.AreEqual(66.67, percentageRating, 0.01);
         }
     }
 }

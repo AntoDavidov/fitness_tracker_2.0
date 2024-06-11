@@ -10,21 +10,21 @@ namespace ExerciseLibrary.Rating
     public class Rating
     {
         private int id;
-        private int workoutId;
-        private int customerId;
+        private Workouts workout;
+        private Customer customer;
         private int ratingValue;
 
-        public Rating(int workoutID, int customerID, int ratingValue)
+        public Rating(Workouts workoutID, Customer customerID, int ratingValue)
         {
-            this.workoutId = workoutID;
-            this.customerId = customerID;
+            this.workout = workoutID;
+            this.customer = customerID;
             this.ratingValue = ratingValue;
         }
-        public Rating(int id, int workoutId, int customerId, int ratingValue)
+        public Rating(int id, Workouts workoutId, Customer customerId, int ratingValue)
         {
             this.id = id;
-            this.workoutId = workoutId;
-            this.customerId = customerId;
+            this.workout = workoutId;
+            this.customer = customerId;
             this.ratingValue = ratingValue;
         }   
 
@@ -33,14 +33,14 @@ namespace ExerciseLibrary.Rating
             return id;
         }
 
-        public int GetWorkoutID()
+        public Workouts GetWorkout()
         {
-            return workoutId;
+            return workout;
         }
 
-        public int GetCustomerID()
+        public Customer GetCustomer()
         {
-            return customerId;
+            return customer;
         }
 
         public int GetRatingValue()

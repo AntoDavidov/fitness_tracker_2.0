@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NameLibrary
+namespace NameLibrary.DTOs
 {
     public class LoginDTO
     {
@@ -16,6 +16,6 @@ namespace NameLibrary
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public bool RememberMe {  get; set; } 
+        public bool RememberMe { get; set; }
     }
 }

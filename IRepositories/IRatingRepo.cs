@@ -12,5 +12,6 @@ namespace IRepositories
         void AddRating(Rating rating);
         List<Rating> GetRatingsByWorkoutId(int workoutId);
         int GetRatingCount(int workoutId);
+        bool RatingExists(int workoutId, int customerId);
     }
 }

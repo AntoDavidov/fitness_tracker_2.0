@@ -37,6 +37,7 @@ namespace ExerciseLibrary
         }
         public override int CalculateCaloriesBurned(Customer customer)
         {
+            //add a reference
             int caloriesPerRep = 2;
             int totalReps = reps * sets;
             double ageFactor = 1 - (customer.GetAge() - 20) * 0.01;

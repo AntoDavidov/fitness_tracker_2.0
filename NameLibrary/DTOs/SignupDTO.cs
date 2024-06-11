@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NameLibrary
+namespace NameLibrary.DTOs
 {
     public class SignupDTO
     {

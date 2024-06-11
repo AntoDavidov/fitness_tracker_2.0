@@ -2,7 +2,7 @@ using ExerciseLibrary;
 using ManagerLibrary;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NameLibrary;
+using NameLibrary.DTOs;
 using System.Security.Claims;
 
 namespace Fitness_Tracker2._0WEBApp.Pages

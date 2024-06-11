@@ -33,7 +33,7 @@ namespace ExerciseLibrary
             double weight = customer.GetWeight();
             int age = customer.GetAge();
 
-            // Using a simplified version of the BMR calculation
+            //add reference 
             double basalMetabolicRate = 10 * weight - 5 * age;
             double MET = 8;
             double totalHours = duration.TotalHours;

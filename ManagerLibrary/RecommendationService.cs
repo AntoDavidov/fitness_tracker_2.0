@@ -16,31 +16,38 @@ namespace ManagerLibrary
 
         public List<Workouts> GetRecommendedWorkouts(int customerId)
         {
+            // Get the favorite workouts of all customers
             var customerFavorites = _customerRepo.GetCustomerFavoriteWorkouts();
+
+            // If the given customer has no favorite workouts, return an empty list
             if (!customerFavorites.ContainsKey(customerId))
                 return new List<Workouts>();
 
+            // Get the favorite workouts of the given customer
             var targetCustomerFavorites = customerFavorites[customerId];
-            var otherCustomerFavorites = new HashSet<int>();
 
-            // Collect other customers' favorite workout IDs
+            // Create a list to store recommended workout IDs
+            var recommendedWorkoutIds = new List<int>();
+
+            // Loop through all customers' favorite workouts
             foreach (var kvp in customerFavorites)
             {
+                // Skip the given customer's workouts
                 if (kvp.Key != customerId)
                 {
+                    // Loop through each workout ID in other customers' favorites
                     foreach (var workoutId in kvp.Value)
                     {
-                        if (!targetCustomerFavorites.Contains(workoutId))
+                        // If the given customer doesn't already like this workout and it's not already in the list, add it to the recommendations
+                        if (!targetCustomerFavorites.Contains(workoutId) && !recommendedWorkoutIds.Contains(workoutId))
                         {
-                            otherCustomerFavorites.Add(workoutId);
+                            recommendedWorkoutIds.Add(workoutId);
                         }
                     }
                 }
             }
 
-            // Convert the HashSet to a list
-            var recommendedWorkoutIds = new List<int>(otherCustomerFavorites);
-
+            // Get the workout details for the recommended workout IDs and return them
             return _customerRepo.GetWorkoutsByIds(recommendedWorkoutIds);
         }
     }

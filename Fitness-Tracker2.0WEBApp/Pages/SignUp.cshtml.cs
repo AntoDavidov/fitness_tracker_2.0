@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ManagerLibrary;
-using NameLibrary;
 using ManagerLibrary.Exceptions;
+using NameLibrary.DTOs;
 
 namespace Fitness_Tracker2._0WEBApp.Pages
 {

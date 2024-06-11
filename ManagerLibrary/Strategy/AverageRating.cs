@@ -4,21 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExerciseLibrary.Rating;
 
 namespace ManagerLibrary.ConcreteStrategyClasses
 {
     public class AverageRating : ICalculateRating
     {
-        private readonly IRatingRepo _ratingRepo;
-
-        public AverageRating(IRatingRepo ratingRepo)
+        public double CalculateRating(List<Rating> ratings, int workoutId)
         {
-            _ratingRepo = ratingRepo;
-        }
-
-        public double CalculateRating(int workoutId)
-        {
-            var ratings = _ratingRepo.GetRatingsByWorkoutId(workoutId);
             if (ratings.Count == 0)
             {
                 return 0;
