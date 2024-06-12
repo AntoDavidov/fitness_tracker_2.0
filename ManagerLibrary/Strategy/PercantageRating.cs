@@ -1,37 +1,36 @@
 ﻿using IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ExerciseLibrary.Rating;
+using System.Collections.Generic;
 
 namespace ManagerLibrary.ConcreteStrategyClasses
 {
     public class PercantageRating : ICalculateRating
     {
-        public double CalculateRating(List<Rating> ratings, int workoutId)
+        public double[] CalculateRating(List<Rating> ratings, int workoutId)
         {
-            if(ratings.Count == 0) 
-            { 
-                return 0;
+            double[] ratingDistribution = new double[5];
+
+            if (ratings.Count == 0)
+            {
+                return ratingDistribution;
             }
 
-            int totalRating = 0;
-            int highRatings = 0;
-
-            foreach( var rating in ratings)
+            foreach (var rating in ratings)
             {
-                totalRating++;
-                if(rating.GetRatingValue() >= 4)
+                int ratingValue = rating.GetRatingValue();
+                if (ratingValue >= 1 && ratingValue <= 5)
                 {
-                    highRatings++;
+                    ratingDistribution[ratingValue - 1]++;
                 }
             }
-            return (double)highRatings / totalRating * 100;
 
+            int totalRatings = ratings.Count;
+            for (int i = 0; i < ratingDistribution.Length; i++)
+            {
+                ratingDistribution[i] = (ratingDistribution[i] / totalRatings) * 100;
+            }
 
-
+            return ratingDistribution;
         }
     }
 }

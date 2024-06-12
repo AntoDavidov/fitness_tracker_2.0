@@ -21,8 +21,8 @@ namespace Unit_Testing.FakeRepo
 
             _customerFavouriteWorkouts = new Dictionary<int, List<int>>
             {
-                { 1, new List<int> { 1, 2, 3 } }, // Customer 1 favorites
-                { 2, new List<int> { 1, 5, 6 } }  // Customer 2 favorites
+                { 1, new List<int> { 1, 2, 3 } }, 
+                { 2, new List<int> { 1, 5, 6 } }  
             };
         }
 

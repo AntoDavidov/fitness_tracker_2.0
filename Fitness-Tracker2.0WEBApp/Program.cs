@@ -2,26 +2,28 @@ using ManagerLibrary;
 using DBLibrary;
 using IRepositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ManagerLibrary.Strategy;
+using ManagerLibrary.ConcreteStrategyClasses;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Register repository interfaces and their implementations
 builder.Services.AddScoped<IEmployeeRepo, EmployeeDBManager>();
 builder.Services.AddScoped<ICustomerRepo, CustomerDBManager>();
 builder.Services.AddScoped<IExerciseRepo, ExerciseDBManager>();
 builder.Services.AddScoped<IWorkoutRepo, WorkoutDBManager>();
 builder.Services.AddScoped<IRatingRepo, RatingDBManager>();
 
-// Register manager services
 builder.Services.AddScoped<EmployeeManager>();
 builder.Services.AddScoped<CustomerManager>();
 builder.Services.AddScoped<ExerciseManager>();
 builder.Services.AddScoped<WorkoutManager>();
 builder.Services.AddScoped<RecommendationService>();
 builder.Services.AddScoped<RatingManager>();
+builder.Services.AddScoped<RatingClient>();
+builder.Services.AddScoped<RatingCalculator>();
 
 
 builder.Services.AddSession(options =>

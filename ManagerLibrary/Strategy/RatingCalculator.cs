@@ -1,12 +1,8 @@
 ﻿using ExerciseLibrary.Rating;
 using IRepositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ManagerLibrary.ConcreteStrategyClasses
+namespace ManagerLibrary.Strategy
 {
     public class RatingCalculator
     {
@@ -17,14 +13,13 @@ namespace ManagerLibrary.ConcreteStrategyClasses
             _ratingStrategy = ratingStrategy;
         }
 
-        public double Calculate(List<Rating> ratings, int workoutId)
+        public double[] Calculate(List<Rating> ratings, int workoutId)
         {
             if (_ratingStrategy == null)
-                throw new InvalidOperationException("Strategy not set.");
-
+            {
+                throw new InvalidOperationException("Rating strategy is not set.");
+            }
             return _ratingStrategy.CalculateRating(ratings, workoutId);
         }
     }
-
-
 }

@@ -12,50 +12,46 @@ namespace Unit_Testing.FakeRepo
     {
         private readonly List<Strength> _strengthExercises = new();
         private readonly List<Cardio> _cardioExercises = new();
+        private readonly List<Exercise> _exercises = new(); 
         //private readonly List<Workouts> _workouts = new();
         //private readonly List<(int WorkoutId, int ExerciseId)> _workoutExercises = new();
 
         public bool AddStrengthExercise(Strength strength)
         {
-            _strengthExercises.Add(strength);
+            _exercises.Add(strength);
             return true;
         }
 
         public bool AddCardioExercise(Cardio cardio)
         {
-            _cardioExercises.Add(cardio);
+            _exercises.Add(cardio);
             return true;
         }
 
         public Exercise? GetExerciseById(int exerciseId)
         {
-            foreach (var exercise in _strengthExercises)
+            foreach (var exercise in _exercises)
             {
                 if (exercise.GetId() == exerciseId)
                 {
                     return exercise;
                 }
             }
-
-            foreach (var exercise in _cardioExercises)
-            {
-                if (exercise.GetId() == exerciseId)
-                {
-                    return exercise;
-                }
-            }
-
             return null;
         }
 
         public Cardio? GetCardioExerciseById(int exerciseId)
         {
-            foreach (var exercise in _cardioExercises)
+            foreach (var exercise in _exercises)
             {
-                if (exercise.GetId() == exerciseId)
+                if (exercise is Cardio cardio)
                 {
-                    return exercise;
+                    if (cardio.GetId() == exerciseId)
+                    {
+                        return cardio;
+                    }
                 }
+                
             }
 
             return null;
@@ -65,9 +61,12 @@ namespace Unit_Testing.FakeRepo
         {
             foreach (var exercise in _strengthExercises)
             {
-                if (exercise.GetId() == exerciseId)
+                if (exercise is Strength strength)
                 {
-                    return exercise;
+                    if (strength.GetId() == exerciseId)
+                    {
+                        return strength;
+                    }
                 }
             }
 

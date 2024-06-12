@@ -177,3 +177,4 @@ C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\bin\Debug\net8.0-win
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\bin\Debug\net8.0-windows\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\bin\Debug\net8.0-windows\Unit Testing.dll
 C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\bin\Debug\net8.0-windows\Unit Testing.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\Fitness-Tracker2.0\obj\Debug\net8.0-windows\Fitness_Tracker2._0.HRMenuPage.resources

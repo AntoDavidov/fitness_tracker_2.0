@@ -50,7 +50,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(897, 63);
+            panel1.Size = new Size(897, 67);
             panel1.TabIndex = 4;
             // 
             // pictureBox1
@@ -83,7 +83,7 @@
             panel2.Controls.Add(btnStrength);
             panel2.Controls.Add(btnProfile);
             panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 63);
+            panel2.Location = new Point(0, 67);
             panel2.Name = "panel2";
             panel2.Size = new Size(897, 71);
             panel2.TabIndex = 5;
@@ -147,9 +147,9 @@
             // panelContainer
             // 
             panelContainer.Dock = DockStyle.Fill;
-            panelContainer.Location = new Point(0, 134);
+            panelContainer.Location = new Point(0, 138);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(897, 430);
+            panelContainer.Size = new Size(897, 426);
             panelContainer.TabIndex = 6;
             // 
             // frmTrainerUCPage

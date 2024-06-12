@@ -27,6 +27,10 @@ namespace Unit_Testing.FakeRepo
         {
             return _employees.FirstOrDefault(e => e.GetUsername() == username);
         }
+        public Employee GetEmployeeById(int id)
+        {
+            return _employees.FirstOrDefault(e => e.GetId() == id);
+        }
 
         public string GetEmployeeRole(string username, string password)
         {

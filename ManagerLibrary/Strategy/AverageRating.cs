@@ -1,32 +1,31 @@
 ﻿using IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ExerciseLibrary.Rating;
+using System.Collections.Generic;
 
 namespace ManagerLibrary.ConcreteStrategyClasses
 {
     public class AverageRating : ICalculateRating
     {
-        public double CalculateRating(List<Rating> ratings, int workoutId)
+        public double[] CalculateRating(List<Rating> ratings, int workoutId)
         {
+            double[] ratingDistribution = new double[5];
+
             if (ratings.Count == 0)
             {
-                return 0;
+                return ratingDistribution;
             }
 
             int totalRating = 0;
-            int count = 0;
 
             foreach (var rating in ratings)
             {
                 totalRating += rating.GetRatingValue();
-                count++;
             }
 
-            return (double)totalRating / count;
+            double averageRating = (double)totalRating / ratings.Count;
+            ratingDistribution[0] = averageRating;
+
+            return ratingDistribution;
         }
     }
 }

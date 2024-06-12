@@ -5,20 +5,26 @@ using ExerciseLibrary;
 using ExerciseLibrary.Rating;
 using IRepositories;
 using NameLibrary;
-
-
 using DBLibrary.Exceptions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DBLibrary
 {
     public class RatingDBManager : DBDal, IRatingRepo
     {
-        private  readonly WorkoutDBManager workoutDBManager;
-        private readonly CustomerDBManager customerDBManager;
+        private readonly WorkoutDBManager _workoutDBManager;
+        private readonly CustomerDBManager _customerDBManager;
 
-        
+        public RatingDBManager()
+        {
+            _workoutDBManager = new WorkoutDBManager();
+            _customerDBManager = new CustomerDBManager();
+        }
+
         public void AddRating(Rating rating)
         {
+            if (rating == null) throw new ArgumentNullException(nameof(rating));
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
@@ -36,15 +42,16 @@ namespace DBLibrary
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 Console.WriteLine("Error adding rating: " + ex.Message);
+                throw new ConnectionExceptionSQL("Error adding rating!");
             }
         }
 
         public List<Rating> GetRatingsByWorkoutId(int workoutId)
         {
-            List<Rating> ratings = new List<Rating>();
+            var ratings = new List<Rating>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
@@ -64,26 +71,31 @@ namespace DBLibrary
                                 int cId = reader.GetInt32(reader.GetOrdinal("CustomerId"));
                                 int ratingValue = reader.GetInt32(reader.GetOrdinal("RatingValue"));
 
-                                Workouts workout = workoutDBManager.GetWorkoutById(wId);
-                                Customer customer = customerDBManager.GetCustomerById(cId);
+                                Workouts workout = _workoutDBManager.GetWorkoutById(wId);
+                                Customer customer = _customerDBManager.GetCustomerById(cId);
 
-                                Rating rating = new Rating(workout, customer, ratingValue);
+                                if (workout == null || customer == null)
+                                {
+                                    throw new InvalidOperationException("Workout or Customer not found.");
+                                }
+
+                                var rating = new Rating(workout, customer, ratingValue);
                                 ratings.Add(rating);
-
                             }
                         }
                     }
                 }
             }
-            catch
+            catch (SqlException ex)
             {
+                Console.WriteLine("Error adding rating: " + ex.Message);
                 throw new ConnectionExceptionSQL("Error connection!");
             }
             return ratings;
         }
-        public int GetRatingCount(int workoutId) 
+
+        public int GetRatingCount(int workoutId)
         {
-            int count = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
@@ -94,29 +106,38 @@ namespace DBLibrary
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
-                        count = (int)cmd.ExecuteScalar();
+                        return (int)cmd.ExecuteScalar();
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 Console.WriteLine("Error fetching rating count: " + ex.Message);
+                throw new ConnectionExceptionSQL("Error fetching rating count!");
             }
-            return count;
         }
+
         public bool RatingExists(int workoutId, int customerId)
         {
-            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM Rating WHERE WorkoutId = @WorkoutId AND CustomerId = @CustomerId";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
-                    cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
-                    cmd.Parameters.AddWithValue("@CustomerId", customerId);
-                    int count = (int)cmd.ExecuteScalar();
-                    return count > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(*) FROM Rating WHERE WorkoutId = @WorkoutId AND CustomerId = @CustomerId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@WorkoutId", workoutId);
+                        cmd.Parameters.AddWithValue("@CustomerId", customerId);
+                        int count = (int)cmd.ExecuteScalar();
+                        return count > 0;
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error checking rating existence: " + ex.Message);
+                throw new ConnectionExceptionSQL("Error checking rating existence!");
             }
         }
     }

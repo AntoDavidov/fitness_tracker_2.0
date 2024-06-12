@@ -47,21 +47,7 @@ namespace ManagerLibrary
         public Employee VerifyEmployeeCredentials(string username, string password)
         {
             string hashedPassword = passwordManager.HashPassword(password);
-            try
-            {
-                return _employeeRepository.VerifyEmployeeCredentials(username, hashedPassword);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error verifying employee credentials: " + ex.Message);
-                return null;
-            }
-        }
-
-        public string GetEmployeeRole(string username, string password)
-        {
-            string hashedPassword = passwordManager.HashPassword(password);
-            return _employeeRepository.GetEmployeeRole(username, hashedPassword);
+            return _employeeRepository.VerifyEmployeeCredentials(username, hashedPassword);
         }
 
         public bool UpdateEmployeeInfo(Employee employee)
@@ -86,6 +72,10 @@ namespace ManagerLibrary
         public Employee GetEmployeeByUsername(string username)
         {
             return _employeeRepository.GetEmployeeByUsername(username);
+        }
+        public Employee GetEmployeeById(int id)
+        {
+            return _employeeRepository.GetEmployeeById(id);
         }
 
         public void DeleteEmployee(int id)

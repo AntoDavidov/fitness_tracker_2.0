@@ -130,6 +130,48 @@ namespace DBLibrary
 
             return null;
         }
+        public Employee GetEmployeeById(int id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT e.user_id, u.first_name, u.last_name, u.username, u.password, u.email, r.roleId
+                             FROM Employee e 
+                             INNER JOIN [User] u ON e.user_id = u.id 
+                             INNER JOIN Roles r ON e.roleId = r.roleId 
+                             WHERE e.user_id = @id";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string firstName = reader.GetString(reader.GetOrdinal("first_name"));
+                                string lastName = reader.GetString(reader.GetOrdinal("last_name"));
+                                string username = reader.GetString(reader.GetOrdinal("username"));
+                                string password = reader.GetString(reader.GetOrdinal("password"));
+                                string email = reader.GetString(reader.GetOrdinal("email"));
+                                int roleId = reader.GetInt32(reader.GetOrdinal("roleId"));
+
+                                return new Employee(id, firstName, lastName, username, password, email, roleId);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error fetching employee by username: " + ex.Message);
+            }
+
+            return null;
+        }
 
 
         public Employee VerifyEmployeeCredentials(string username, string password)

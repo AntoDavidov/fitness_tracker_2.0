@@ -9,6 +9,6 @@ namespace IRepositories
 {
     public interface ICalculateRating
     {
-        double CalculateRating(List<Rating> ratings, int workoutId);
+        double[] CalculateRating(List<Rating> ratings, int workoutId);
     }
 }

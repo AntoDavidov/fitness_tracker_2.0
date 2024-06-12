@@ -1,22 +1,19 @@
 ﻿using ExerciseLibrary.Rating;
 using IRepositories;
 using ManagerLibrary.ConcreteStrategyClasses;
-using ManagerLibrary.Strategy;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ManagerLibrary.Strategy
 {
     public class RatingClient
     {
         private readonly RatingCalculator _ratingCalculator;
+        private readonly RatingManager _ratingManager;
 
-        public RatingClient()
+        public RatingClient(RatingManager ratingManager, RatingCalculator ratingCalculator)
         {
-            _ratingCalculator = new RatingCalculator();
+            _ratingManager = ratingManager;
+            _ratingCalculator = ratingCalculator;
         }
 
         public void SetRatingStrategy(ICalculateRating ratingStrategy)
@@ -24,10 +21,10 @@ namespace ManagerLibrary.Strategy
             _ratingCalculator.SetRatingStrategy(ratingStrategy);
         }
 
-        public double GetWorkoutRating(List<Rating> ratings, int workoutId)
+        public double[] GetWorkoutRating(int workoutId)
         {
+            var ratings = _ratingManager.GetRatingsByWorkoutId(workoutId);
             return _ratingCalculator.Calculate(ratings, workoutId);
         }
     }
-
 }
