@@ -1,0 +1,73 @@
+﻿
+body {
+    background-color: #121212;
+    color: #fff;
+}
+
+h2 {
+    color: #ff4d4d;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.favorite-workouts-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.favorite-workout-card {
+    background-color: #1e1e1e;
+    border: 1px solid #ff4d4d;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .favorite-workout-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .favorite-workout-card h3 {
+        color: #ff4d4d;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .favorite-workout-card p {
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+.details-button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    background-color: #ff4d4d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+    .details-button:hover {
+        background-color: #cc0000;
+        transform: translateY(-3px);
+    }
+
+.empty-message {
+    text-align: center;
+    color: #ff4d4d;
+    font-size: 1.2em;
+    margin-top: 20px;
+}

@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\detailsForWorkoutPageStyle.css"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\favoriteWorkoutsStyle.css",
+      "PackagePath": "staticwebassets\\css\\favoriteWorkoutsStyle.css"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\indexStyle.css",
       "PackagePath": "staticwebassets\\css\\indexStyle.css"
     },

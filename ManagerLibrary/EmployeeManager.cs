@@ -43,6 +43,10 @@ namespace ManagerLibrary
             }
             return cachedEmployees;
         }
+        public List<Employee> SearchEmployeeByName(string fullname)
+        {
+           return _employeeRepository.SearchEmployeesByName(fullname);
+        }
 
         public Employee VerifyEmployeeCredentials(string username, string password)
         {
@@ -60,8 +64,15 @@ namespace ManagerLibrary
             CheckForDuplicateUsername(employee);
             CheckForDuplicateEmail(employee);
 
-            string hashedPassword = passwordManager.HashPassword(employee.GetPassword());
-            bool result = _employeeRepository.UpdateEmployeeInfo(employee.GetId(), employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), hashedPassword, employee.GetEmail(), employee.RoleId());
+            bool result = _employeeRepository.UpdateEmployeeInfo(
+                employee.GetId(),
+                employee.GetFirstName(),
+                employee.GetLastName(),
+                employee.GetUsername(),
+                employee.GetEmail(),
+                employee.RoleId()
+            );
+
             if (result)
             {
                 cachedEmployees = _employeeRepository.GetAllEmployees();
@@ -84,7 +95,6 @@ namespace ManagerLibrary
             cachedEmployees = null;
         }
 
-        //Made those two methods from Jesus' feedback
         private void CheckForDuplicateUsername(Employee employee)
         {
             foreach (var e in cachedEmployees)
@@ -105,6 +115,19 @@ namespace ManagerLibrary
                     throw new DuplicateEmailException();
                 }
             }
+        }
+
+        public bool ChangeEmployeePassword(int employeeId, string oldPassword, string newPassword)
+        {
+            var employee = GetEmployeeById(employeeId);
+
+            if (!passwordManager.VerifyPassword(oldPassword, employee.GetPassword()))
+            {
+                throw new InvalidOldPasswordException();
+            }
+
+            string newHashedPassword = passwordManager.HashPassword(newPassword);
+            return _employeeRepository.UpdateEmployeePassword(employeeId, newHashedPassword);
         }
     }
 }

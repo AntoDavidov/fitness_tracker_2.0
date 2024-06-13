@@ -20,14 +20,32 @@ namespace ManagerLibrary
             return _workoutRepo.AddWorkoutWithoutExercises(workout);
         }
 
-        public Workouts? FindWorkout(Workouts workout)
-        {
-            return _workoutRepo.GetWorkout(workout);
-        }
-
         public Workouts? GetWorkoutById(int workoutId)
         {
             return _workoutRepo.GetWorkoutById(workoutId);
+        }
+        public List<Workouts> GetTopRatedWorkouts(int TopN)
+        {
+            return _workoutRepo.GetTopRatedWorkouts(TopN);
+        }
+        //remove
+        public List<Workouts> GetWorkoutsByPage(int pageIndex, int pageSize)
+        {
+            return _workoutRepo.GetWorkoutsByPage(pageIndex, pageSize);
+        }
+        //remove
+        public int GetTotalWorkoutsCount()
+        {
+            return _workoutRepo.GetTotalWorkoutsCount();
+        }
+        public List<Workouts> GetFilteredWorkouts(int? level, bool includeLevel, int pageIndex, int pageSize)
+        {
+            return _workoutRepo.GetFilteredWorkouts(level, includeLevel, pageIndex, pageSize);
+        }
+
+        public int GetFilteredWorkoutsCount(int? level, bool includeLevel)
+        {
+            return _workoutRepo.GetFilteredWorkoutsCount(level, includeLevel);
         }
 
         public void AddExerciseToWorkout(Workouts workout, Exercise exercise)
@@ -54,10 +72,11 @@ namespace ManagerLibrary
             _workoutRepo.DeleteWorkout(workouts.GetId());
         }
 
-        public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
-        {
-            return _workoutRepo.GetWorkoutIdsContainingExercise(exerciseId);
-        }
+        //public List<int> GetWorkoutIdsContainingExercise(int exerciseId)
+        //{
+        //    return _workoutRepo.GetWorkoutIdsContainingExercise(exerciseId);
+        //}
+
         public void RemoveExerciseFromWorkout(Workouts workout, Exercise exercise)
         {
             _workoutRepo.RemoveExerciseFromWorkout(workout.GetId(), exercise.GetId());

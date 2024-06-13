@@ -12,13 +12,17 @@ namespace Unit_Testing.Tests
     public class RecommendationServiceTests
     {
         private ICustomerRepo _fakeCustomerRepository;
+        private IWorkoutRepo _fakeWorkoutRepository;
+        private WorkoutManager _workoutManager;
         private RecommendationService _recommendationService;
 
         [TestInitialize]
         public void Setup()
         {
             _fakeCustomerRepository = new FakeCustomerRepo();
-            _recommendationService = new RecommendationService(_fakeCustomerRepository);
+            _fakeWorkoutRepository = new FakeWorkoutRepo();
+            _workoutManager = new WorkoutManager(_fakeWorkoutRepository);
+            _recommendationService = new RecommendationService(_fakeCustomerRepository, _workoutManager);
         }
 
         [TestMethod]

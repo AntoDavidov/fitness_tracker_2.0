@@ -17,7 +17,7 @@ namespace ManagerLibrary
             passwordManager = new PasswordManager();
         }
 
-        public void AddCustomer(string firstName, string lastName, string username, string password, string email, double weight, int level, int age)
+        public void AddCustomer(string firstName, string lastName, string username, string password, string email, double weight, Level level, int age)
         {
             foreach (var existingCustomer in _customerRepository.GetAllCustomers())
             {
@@ -59,28 +59,23 @@ namespace ManagerLibrary
         {
             return _customerRepository.GetAllCustomers();
         }
-        public Dictionary<int, List<int>> GetCustomerFavoriteWorkouts()
+        public List<Workouts> GetFavoriteWorkoutsByPage(int userId, int pageIndex, int pageSize)
         {
-            return _customerRepository.GetCustomerFavoriteWorkouts();
+            return _customerRepository.GetFavoriteWorkoutsByPage(userId, pageIndex, pageSize);
         }
+        public int GetTotalFavoriteWorkoutsCount(int userId)
+        {
+            return _customerRepository.GetTotalFavoriteWorkouts(userId);
+        }
+
+
+        //public Dictionary<int, List<int>> GetAllCustomerFavoriteWorkouts()
+        //{
+        //    return _customerRepository.GetAllCustomerFavoriteWorkouts();
+        //}
         public List<Workouts> GetFavoriteWorkouts(int customerId)
         {
             return _customerRepository.GetFavoriteWorkouts(customerId);
         }
-        public void MarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId)
-        {
-            _customerRepository.MarkExerciseAsCompleted(customerId, workoutId, exerciseId);
-        }
-
-        public void UnmarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId)
-        {
-            _customerRepository.UnmarkExerciseAsCompleted(customerId, workoutId, exerciseId);
-        }
-
-        public List<int> GetCompletedExercises(int customerId, int workoutId)
-        {
-            return _customerRepository.GetCompletedExercises(customerId, workoutId);
-        }
-
     }
 }

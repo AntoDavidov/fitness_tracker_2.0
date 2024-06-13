@@ -1,4 +1,5 @@
-﻿using ExerciseLibrary.Rating;
+﻿using ExerciseLibrary;
+using ExerciseLibrary.Rating;
 using System;
 using System.Collections.Generic;
 using System.Linq;

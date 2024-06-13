@@ -36,7 +36,7 @@ namespace NameLibrary.DTOs
         public double Weight { get; set; }
 
         [Required(ErrorMessage = "Level is required")]
-        public int Level { get; set; }
+        public Level Level { get; set; }
 
         [Required(ErrorMessage = "Age is required")]
         public int Age { get; set; }

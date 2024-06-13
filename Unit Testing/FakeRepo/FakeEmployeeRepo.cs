@@ -67,7 +67,7 @@ namespace Unit_Testing.FakeRepo
             return true;
         }
 
-        public bool UpdateEmployeeInfo(int userId, string firstName, string lastName, string username, string password, string email, int roleId)
+        public bool UpdateEmployeeInfo(int userId, string firstName, string lastName, string username, string email, int roleId)
         {
             Employee employee = null;
             foreach (var emp in _employees)
@@ -82,15 +82,27 @@ namespace Unit_Testing.FakeRepo
             if (employee == null)
                 return false;
 
-            var updatedEmployee = new Employee(userId, firstName, lastName, username, password, email, roleId);
+            var updatedEmployee = new Employee(userId, firstName, lastName, username, email, roleId);
 
-            // Remove the old employee and add the updated employee to the list
             _employees.Remove(employee);
             _employees.Add(updatedEmployee);
 
             return true;
         }
 
+        public bool UpdateEmployeePassword(int employeeId, string newPassword)
+        {
+            Employee employee = _employees.FirstOrDefault(e => e.GetId() == employeeId);
+            if (employee == null)
+                return false;
+
+            Employee updatedEmployee = new Employee(employeeId, employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), newPassword, employee.GetEmail(), employee.RoleId());
+
+            _employees.Remove(employee);
+            _employees.Add(updatedEmployee);
+
+            return true;
+        }
         public bool DeleteEmployee(int userId)
         {
             Employee employee = null;
@@ -113,6 +125,12 @@ namespace Unit_Testing.FakeRepo
         public List<Employee> GetAllEmployees()
         {
             return _employees;
+        }
+        public List<Employee> SearchEmployeesByName(string name)
+        {
+            return _employees
+                .Where(e => $"{e.GetFirstName()} {e.GetLastName()}".IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0)
+                .ToList();
         }
     }
 }

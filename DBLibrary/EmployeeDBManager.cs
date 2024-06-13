@@ -30,7 +30,7 @@ namespace DBLibrary
                     insertUserCommand.Parameters.AddWithValue("@FirstName", firstName);
                     insertUserCommand.Parameters.AddWithValue("@LastName", lastName);
                     insertUserCommand.Parameters.AddWithValue("@Username", username);
-                    insertUserCommand.Parameters.AddWithValue("@Password", hashedPassword); // Use hashed password
+                    insertUserCommand.Parameters.AddWithValue("@Password", hashedPassword); 
                     insertUserCommand.Parameters.AddWithValue("@Email", email);
                     int userId = Convert.ToInt32(insertUserCommand.ExecuteScalar());
 
@@ -171,6 +171,51 @@ namespace DBLibrary
             }
 
             return null;
+        
+        }
+        public List<Employee> SearchEmployeesByName(string name)
+        {
+            List<Employee> employees = new List<Employee>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                {
+                    conn.Open();
+                    string query = @"
+                SELECT e.user_id, u.first_name, u.last_name, u.username, u.password, u.email, r.roleId
+                FROM Employee e
+                INNER JOIN [User] u ON e.user_id = u.id
+                INNER JOIN Roles r ON e.roleId = r.roleId
+                WHERE CONCAT(u.first_name, ' ', u.last_name) LIKE '%' + @name + '%'";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@name", name);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("user_id"));
+                                string firstName = reader.GetString(reader.GetOrdinal("first_name"));
+                                string lastName = reader.GetString(reader.GetOrdinal("last_name"));
+                                string username = reader.GetString(reader.GetOrdinal("username"));
+                                string password = reader.GetString(reader.GetOrdinal("password"));
+                                string email = reader.GetString(reader.GetOrdinal("email"));
+                                int roleId = reader.GetInt32(reader.GetOrdinal("roleId"));
+
+                                employees.Add(new Employee(id, firstName, lastName, username, password, email, roleId));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error searching employees by name: " + ex.Message);
+            }
+
+            return employees;
         }
 
 
@@ -185,26 +230,22 @@ namespace DBLibrary
                              FROM [User] u 
                              INNER JOIN Employee e ON u.id = e.user_id 
                              INNER JOIN Roles r ON e.roleId = r.roleId 
-                             WHERE u.username = @Username";
+                             WHERE u.username = @Username and u.password = @Password";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            string hashedPassword = reader.GetString(reader.GetOrdinal("password"));
+                            int id = reader.GetInt32(reader.GetOrdinal("id"));
+                            string firstName = reader.GetString(reader.GetOrdinal("first_name"));
+                            string lastName = reader.GetString(reader.GetOrdinal("last_name"));
+                            string email = reader.GetString(reader.GetOrdinal("email"));
+                            int roleId = reader.GetInt32(reader.GetOrdinal("roleId"));
+                            return new Employee(id, firstName, lastName, username, password, email, roleId);
 
-                            if (VerifyPassword(password, hashedPassword))
-                            {
-                                int id = reader.GetInt32(reader.GetOrdinal("id"));
-                                string firstName = reader.GetString(reader.GetOrdinal("first_name"));
-                                string lastName = reader.GetString(reader.GetOrdinal("last_name"));
-                                string email = reader.GetString(reader.GetOrdinal("email"));
-                                int roleId = reader.GetInt32(reader.GetOrdinal("roleId"));
-
-                                return new Employee(id, firstName, lastName, username, hashedPassword, email, roleId);
-                            }
                         }
                     }
                 }
@@ -214,43 +255,6 @@ namespace DBLibrary
                 Console.WriteLine("Error verifying employee credentials: " + ex.Message);
             }
             return null;
-        }
-
-
-        public string GetEmployeeRole(string username, string password)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
-                {
-                    conn.Open();
-
-                    string query = @"SELECT r.role 
-                                     FROM Employee e 
-                                     INNER JOIN [User] u ON e.user_id = u.id 
-                                     INNER JOIN Roles r ON e.roleId = r.roleId 
-                                     WHERE u.username = @username AND u.password = @password";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password);
-
-                    object result = cmd.ExecuteScalar();
-                    if (result != null)
-                    {
-                        return result.ToString();
-                    }
-                    else
-                    {
-                        Console.WriteLine("No role found for the employee.");
-                        return null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error fetching employee role: " + ex.Message);
-                return null;
-            }
         }
 
         public bool DeleteEmployee(int userId)
@@ -284,20 +288,19 @@ namespace DBLibrary
             }
         }
 
-        public bool UpdateEmployeeInfo(int userId, string firstName, string lastName, string username, string hashedPassword, string email, int roleId)
+        public bool UpdateEmployeeInfo(int userId, string firstName, string lastName, string username, string email, int roleId)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(GetConnectionString()))
                 {
                     conn.Open();
-                    string updateUserInfoQuery = "UPDATE [User] SET first_name = @FirstName, last_name = @LastName, username = @Username, password = @Password, email = @Email WHERE id = @UserId";
+                    string updateUserInfoQuery = "UPDATE [User] SET first_name = @FirstName, last_name = @LastName, username = @Username, email = @Email WHERE id = @UserId";
 
                     SqlCommand sqlCommand = new SqlCommand(updateUserInfoQuery, conn);
                     sqlCommand.Parameters.AddWithValue("@FirstName", firstName);
                     sqlCommand.Parameters.AddWithValue("@LastName", lastName);
                     sqlCommand.Parameters.AddWithValue("@Username", username);
-                    sqlCommand.Parameters.AddWithValue("@Password", hashedPassword);
                     sqlCommand.Parameters.AddWithValue("@Email", email);
                     sqlCommand.Parameters.AddWithValue("@UserId", userId);
                     int affectedRows = sqlCommand.ExecuteNonQuery();
@@ -330,6 +333,30 @@ namespace DBLibrary
             catch (Exception ex)
             {
                 Console.WriteLine("Error updating employee info: " + ex.Message);
+                return false;
+            }
+        }
+        public bool UpdateEmployeePassword(int userId, string newHashedPassword)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                {
+                    conn.Open();
+
+                    string updatePasswordQuery = "UPDATE [User] SET password = @Password WHERE id = @UserId";
+                    using (SqlCommand cmd = new SqlCommand(updatePasswordQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Password", newHashedPassword);
+                        cmd.Parameters.AddWithValue("@UserId", userId);
+                        int affectedRows = cmd.ExecuteNonQuery();
+                        return affectedRows > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error updating employee password: " + ex.Message);
                 return false;
             }
         }

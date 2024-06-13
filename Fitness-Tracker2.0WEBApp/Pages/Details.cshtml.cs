@@ -5,7 +5,6 @@ using NameLibrary;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using ManagerLibrary.ConcreteStrategyClasses;
 using ManagerLibrary.Strategy;
 using ManagerLibrary.Exceptions;
 using System.ComponentModel.DataAnnotations;
@@ -31,6 +30,8 @@ namespace Fitness_Tracker2._0WEBApp.Pages
         public int RatingCount { get; set; }
         public double[] RatingPercentages { get; private set; }
 
+        public string SelectedStrategy { get; set; }
+
         [BindProperty]
         [Required(ErrorMessage = "Workout ID is required.")]
         public int Id { get; set; }
@@ -45,7 +46,8 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             _customerManager = customerManager;
             _ratingManager = ratingManager;
             _ratingClient = ratingClient;
-            RatingPercentages = new double[5]; // Initialize the array to hold percentages for ratings 1 through 5.
+            RatingPercentages = new double[5];
+            SelectedStrategy = "Average";
         }
 
         public IActionResult OnGet(int id)
@@ -55,11 +57,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 return Page();
             }
 
-            _ratingClient.SetRatingStrategy(new AverageRating());
-            double[] ratings = _ratingClient.GetWorkoutRating(Id);
-            CalculatedRating = ratings[0];
-
-            RecalculateProperties(id, customerId);
+            SetRatingStrategyAndRecalculateProperties(id, customerId, SelectedStrategy);
             return Page();
         }
 
@@ -70,11 +68,8 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 return Page();
             }
 
-            _ratingClient.SetRatingStrategy(new AverageRating());
-            double[] ratings = _ratingClient.GetWorkoutRating(Id);
-            CalculatedRating = ratings[0]; 
-
-            RecalculateProperties(Id, customerId);
+            SelectedStrategy = "Average";
+            SetRatingStrategyAndRecalculateProperties(Id, customerId, SelectedStrategy);
             return Page();
         }
 
@@ -85,10 +80,8 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 return Page();
             }
 
-            _ratingClient.SetRatingStrategy(new PercantageRating());
-            RatingPercentages = _ratingClient.GetWorkoutRating(Id);
-
-            RecalculateProperties(Id, customerId);
+            SelectedStrategy = "Percentage";
+            SetRatingStrategyAndRecalculateProperties(Id, customerId, SelectedStrategy);
             return Page();
         }
 
@@ -108,7 +101,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             bool addedSuccessfully = _customerManager.AddWorkoutToFavourites(customerId, Id);
             SuccessMessage = addedSuccessfully ? "Workout added to favorites successfully!" : "Workout is already in your favorites.";
 
-            RecalculateProperties(Id, customerId);
+            SetRatingStrategyAndRecalculateProperties(Id, customerId, SelectedStrategy);
             return Page();
         }
 
@@ -134,7 +127,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 
             TotalCaloriesBurned = Workout.CalculateCaloriesBurnedForTheWholeWorkout(customer);
 
-            RecalculateProperties(Id, customerId);
+            SetRatingStrategyAndRecalculateProperties(Id, customerId, SelectedStrategy);
             return Page();
         }
 
@@ -162,7 +155,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 _ratingManager.AddRating(new Rating(Workout, customer, RatingValue));
                 SuccessMessage = "Rating added successfully!";
 
-                RecalculateProperties(Id, customerId);
+                SetRatingStrategyAndRecalculateProperties(Id, customerId, SelectedStrategy);
             }
             catch (RatingAlreadyExistsException ex)
             {
@@ -204,10 +197,36 @@ namespace Fitness_Tracker2._0WEBApp.Pages
             }
         }
 
+        private void SetRatingStrategyAndRecalculateProperties(int workoutId, int customerId, string strategy)
+        {
+            if (strategy == "Percentage")
+            {
+                _ratingClient.SetPercentageRatingStrategy();
+                RatingPercentages = _ratingClient.GetWorkoutRating(workoutId);
+            }
+            else if (strategy == "Average")
+            {
+                _ratingClient.SetAverageRatingStrategy();
+                double[] ratings = _ratingClient.GetWorkoutRating(workoutId);
+                CalculatedRating = ratings[0];
+            }
+
+            RecalculateProperties(workoutId, customerId);
+        }
+
         private void RecalculateProperties(int workoutId, int customerId)
         {
             RatingCount = _ratingManager.GetRatingCount(workoutId);
-            HasAlreadyRated = _ratingManager.GetRatingsByWorkoutId(workoutId).Any(r => r.GetCustomer().GetId() == customerId);
+            HasAlreadyRated = false;
+            var ratings = _ratingManager.GetRatingsByWorkoutId(workoutId);
+            foreach (var rating in ratings)
+            {
+                if (rating.GetCustomer().GetId() == customerId)
+                {
+                    HasAlreadyRated = true;
+                    break;
+                }
+            }
         }
     }
 }

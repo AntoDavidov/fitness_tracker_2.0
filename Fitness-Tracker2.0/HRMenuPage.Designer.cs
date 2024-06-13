@@ -30,12 +30,15 @@
         {
             panel1 = new Panel();
             label1 = new Label();
-            pictureBox1 = new PictureBox();
+            pctbLogOut = new PictureBox();
             panel2 = new Panel();
             rdbDeleteEmployee = new RadioButton();
             rdbEditEmployee = new RadioButton();
             rdbAddEmployee = new RadioButton();
             panel3 = new Panel();
+            panel10 = new Panel();
+            txtbSearchName = new TextBox();
+            btnSearch = new Button();
             lstbEmployees = new ListBox();
             label6 = new Label();
             label5 = new Label();
@@ -56,8 +59,9 @@
             txtbLastName = new TextBox();
             txtbFirstName = new TextBox();
             btnConfirm = new Button();
+            btnClear = new Button();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pctbLogOut).BeginInit();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
@@ -66,7 +70,7 @@
             // 
             panel1.BackColor = Color.Red;
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(pictureBox1);
+            panel1.Controls.Add(pctbLogOut);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -84,15 +88,16 @@
             label1.TabIndex = 1;
             label1.Text = "MENU";
             // 
-            // pictureBox1
+            // pctbLogOut
             // 
-            pictureBox1.Image = Properties.Resources.Fitness_Tracker__9_;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(83, 63);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            pctbLogOut.Image = Properties.Resources.Fitness_Tracker__9_;
+            pctbLogOut.Location = new Point(0, 0);
+            pctbLogOut.Name = "pctbLogOut";
+            pctbLogOut.Size = new Size(83, 63);
+            pctbLogOut.SizeMode = PictureBoxSizeMode.StretchImage;
+            pctbLogOut.TabIndex = 0;
+            pctbLogOut.TabStop = false;
+            pctbLogOut.Click += pctbLogOut_Click;
             // 
             // panel2
             // 
@@ -154,6 +159,10 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
+            panel3.Controls.Add(btnClear);
+            panel3.Controls.Add(panel10);
+            panel3.Controls.Add(txtbSearchName);
+            panel3.Controls.Add(btnSearch);
             panel3.Controls.Add(lstbEmployees);
             panel3.Controls.Add(label6);
             panel3.Controls.Add(label5);
@@ -180,6 +189,37 @@
             panel3.Size = new Size(901, 427);
             panel3.TabIndex = 2;
             // 
+            // panel10
+            // 
+            panel10.BackColor = Color.Red;
+            panel10.Location = new Point(471, 34);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(220, 1);
+            panel10.TabIndex = 23;
+            // 
+            // txtbSearchName
+            // 
+            txtbSearchName.BorderStyle = BorderStyle.None;
+            txtbSearchName.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            txtbSearchName.ForeColor = Color.Red;
+            txtbSearchName.Location = new Point(471, 7);
+            txtbSearchName.Name = "txtbSearchName";
+            txtbSearchName.Size = new Size(220, 21);
+            txtbSearchName.TabIndex = 36;
+            // 
+            // btnSearch
+            // 
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            btnSearch.ForeColor = Color.Red;
+            btnSearch.Location = new Point(697, 7);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(192, 33);
+            btnSearch.TabIndex = 35;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
+            // 
             // lstbEmployees
             // 
             lstbEmployees.BackColor = Color.White;
@@ -188,9 +228,9 @@
             lstbEmployees.ForeColor = Color.Red;
             lstbEmployees.FormattingEnabled = true;
             lstbEmployees.ItemHeight = 29;
-            lstbEmployees.Location = new Point(392, 17);
+            lstbEmployees.Location = new Point(392, 46);
             lstbEmployees.Name = "lstbEmployees";
-            lstbEmployees.Size = new Size(497, 321);
+            lstbEmployees.Size = new Size(497, 292);
             lstbEmployees.TabIndex = 34;
             // 
             // label6
@@ -302,7 +342,7 @@
             // panel9
             // 
             panel9.BackColor = Color.Red;
-            panel9.Location = new Point(131, 54);
+            panel9.Location = new Point(131, 48);
             panel9.Name = "panel9";
             panel9.Size = new Size(200, 1);
             panel9.TabIndex = 22;
@@ -382,6 +422,19 @@
             btnConfirm.UseVisualStyleBackColor = true;
             btnConfirm.Click += btnConfirm_Click;
             // 
+            // btnClear
+            // 
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            btnClear.ForeColor = Color.Red;
+            btnClear.Location = new Point(357, 5);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(84, 36);
+            btnClear.TabIndex = 37;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
+            // 
             // HRMenuPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -394,7 +447,7 @@
             Text = "HRMenuPage";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pctbLogOut).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
@@ -406,7 +459,7 @@
 
         private Panel panel1;
         private Label label1;
-        private PictureBox pictureBox1;
+        private PictureBox pctbLogOut;
         private Panel panel2;
         private Panel panel3;
         private RadioButton rdbAddEmployee;
@@ -433,5 +486,9 @@
         private TextBox txtbFirstName;
         private ListBox lstbEmployees;
         private Button button4;
+        private Panel panel10;
+        private TextBox txtbSearchName;
+        private Button btnSearch;
+        private Button btnClear;
     }
 }

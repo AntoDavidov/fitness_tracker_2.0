@@ -15,8 +15,8 @@ namespace Unit_Testing.FakeRepo
         {
             _customers = new List<Customer>
             {
-                new Customer(1, "John", "Smith", "1customer1", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "1customer1@example.com", 70, 1, 20),
-                new Customer(2, "Jane", "Smith", "2customer2", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "2customer2@example.com", 65, 2, 23)
+                new Customer(1, "John", "Smith", "1customer1", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "1customer1@example.com", 70, Level.Beginner, 20),
+                new Customer(2, "Jane", "Smith", "2customer2", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "2customer2@example.com", 65, Level.Intermediate, 23)
             };
 
             _customerFavouriteWorkouts = new Dictionary<int, List<int>>
@@ -26,7 +26,7 @@ namespace Unit_Testing.FakeRepo
             };
         }
 
-        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, int level, int age)
+        public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, Level level, int age)
         {
             foreach (var customer in _customers)
             {
@@ -51,6 +51,16 @@ namespace Unit_Testing.FakeRepo
                 }
             }
             return null;
+        }
+        public List<Workouts> GetFavoriteWorkoutsByPage(int customerId, int pageIndex, int pageSize)
+        {
+            var favoriteWorkoutIds = _customerFavouriteWorkouts.ContainsKey(customerId) ? _customerFavouriteWorkouts[customerId] : new List<int>();
+            var paginatedWorkoutIds = favoriteWorkoutIds.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return GetWorkoutsByIds(paginatedWorkoutIds);
+        }
+        public int GetTotalFavoriteWorkouts(int customerId)
+        {
+            return _customerFavouriteWorkouts.ContainsKey(customerId) ? _customerFavouriteWorkouts[customerId].Count : 0;
         }
 
         public bool AddWorkoutToFavourites(int customerId, int workoutId)
@@ -153,7 +163,7 @@ namespace Unit_Testing.FakeRepo
 
             return new List<int>();
         }
-        public Dictionary<int, List<int>> GetCustomerFavoriteWorkouts()
+        public Dictionary<int, List<int>> GetAllCustomerFavoriteWorkouts()
         {
             return _customerFavouriteWorkouts;
         }

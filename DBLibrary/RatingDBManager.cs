@@ -140,5 +140,6 @@ namespace DBLibrary
                 throw new ConnectionExceptionSQL("Error checking rating existence!");
             }
         }
+        
     }
 }

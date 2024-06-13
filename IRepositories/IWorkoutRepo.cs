@@ -15,6 +15,12 @@ namespace IRepositories
         Workouts? GetWorkoutById(int workoutId);
         bool ExerciseAlreadyExistsInWorkout(int workoutId, int exerciseId);
         List<Workouts>? GetAllWorkouts();
+        public List<Workouts> GetWorkoutsByPage(int pageIndex, int pageSize);
+        public List<Workouts> GetFilteredWorkouts(int? level, bool includeLevel, int pageIndex, int pageSize);
+        public int GetFilteredWorkoutsCount(int? level, bool includeLevel);
+
+        public int GetTotalWorkoutsCount();
+        List<Workouts> GetTopRatedWorkouts(int topN);
         List<int> GetWorkoutIdsContainingExercise(int exerciseId);
         void DeleteWorkout(int workoutId);
         List<Exercise>? GetExercisesForWorkout(int workoutId);

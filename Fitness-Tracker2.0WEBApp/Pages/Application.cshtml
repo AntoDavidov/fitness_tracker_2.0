@@ -2,7 +2,20 @@
 @model Fitness_Tracker2._0WEBApp.Pages.ApplicationModel
 @{
 }
+@section Styles{
+    <link rel="stylesheet" href="~/css/DetailsPageStyle.css" asp-append-version="true" />
+}
 <h1>Workouts</h1>
+
+<form method="get" class="search-form">
+    <label for="searchLevel">Search Workouts by Level:</label>
+    <select id="searchLevel" name="searchLevel">
+        <option value="All">All Levels</option>
+        <option value="UserLevel">My Level</option>
+        <option value="OtherLevels">Other Levels</option>
+    </select>
+    <button type="submit" class="search-button">Search</button>
+</form>
 
 <div class="workouts-container">
     @foreach (var workout in Model.Workouts)

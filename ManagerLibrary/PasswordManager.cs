@@ -24,5 +24,9 @@ namespace ManagerLibrary
             }
 
         }
+        public bool VerifyPassword(string plainPassword, string hashedPassword)
+        {
+            return plainPassword == hashedPassword;
+        }
     }
 }

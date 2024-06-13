@@ -1,5 +1,6 @@
 ﻿using ExerciseLibrary;
 using IRepositories;
+using NameLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,48 @@ namespace Unit_Testing.FakeRepo
         {
             _workouts.Add(workout);
             return true;
+        }
+        public List<Workouts> GetFilteredWorkouts(int? level, bool includeLevel, int pageIndex, int pageSize)
+        {
+
+            IEnumerable<Workouts> filteredWorkouts;
+
+            if (includeLevel)
+            {
+                filteredWorkouts = _workouts.Where(w => (int)w.GetWorkoutLevel() == level);
+            }
+            else
+            {
+                filteredWorkouts = _workouts.Where(w => (int)w.GetWorkoutLevel() != level);
+            }
+
+            return filteredWorkouts.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int GetFilteredWorkoutsCount(int? level, bool includeLevel)
+        {
+
+            if (includeLevel)
+            {
+                return _workouts.Count(w => (int)w.GetWorkoutLevel() == level);
+            }
+            else
+            {
+                return _workouts.Count(w => (int)w.GetWorkoutLevel() != level);
+            }
+        }
+
+        public List<Workouts> GetWorkoutsByPage(int pageIndex, int pageSize)
+        {
+            return _workouts.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        }
+        public int GetTotalWorkoutsCount()
+        {
+            return _workouts.Count;
+        }
+        public List<Workouts> GetTopRatedWorkouts(int n)
+        {
+            return _workouts;
         }
 
         public void DeleteWorkout(int workoutId)

@@ -12,6 +12,7 @@ namespace Fitness_Tracker2._0
         private readonly EmployeeManager _employeeManager;
         private readonly ExerciseManager _exerciseManager;
         private readonly WorkoutManager _workoutManager;
+        private readonly PasswordManager _passwordManager;
 
         public HRMenuPage(EmployeeManager employeeManager, ExerciseManager exerciseManager, WorkoutManager workoutManager)
         {
@@ -25,6 +26,8 @@ namespace Fitness_Tracker2._0
             lstbEmployees.SelectedIndexChanged += lstbEmployees_SelectedIndexChanged;
             rdbAddEmployee.CheckedChanged += rdbAddEmployee_CheckedChanged;
             rdbEditEmployee.CheckedChanged += rdbEditEmployee_CheckedChanged;
+            rdbDeleteEmployee.CheckedChanged += rdbDeleteEmployee_CheckedChanged;
+            _passwordManager = new PasswordManager();
         }
 
         private void PopulateComboBox()
@@ -50,11 +53,7 @@ namespace Fitness_Tracker2._0
         private void PopulateListBox()
         {
             lstbEmployees.Items.Clear();
-            List<Employee> employees = _employeeManager.GetEmployees();
-            foreach (Employee employee in employees)
-            {
-                lstbEmployees.Items.Add($"{employee.GetId()}: {employee.GetFirstName()} {employee.GetLastName()} ({employee.GetUsername()})");
-            }
+
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -73,7 +72,7 @@ namespace Fitness_Tracker2._0
             }
             else if (rdbEditEmployee.Checked)
             {
-                UpdateEmployee(firstName, lastName, username, password, email, roleId);
+                UpdateEmployee(firstName, lastName, username, email, roleId);
                 ResetInputs();
             }
             else if (rdbDeleteEmployee.Checked)
@@ -102,7 +101,7 @@ namespace Fitness_Tracker2._0
             }
         }
 
-        private void UpdateEmployee(string firstName, string lastName, string username, string password, string email, int roleId)
+        private void UpdateEmployee(string firstName, string lastName, string username, string email, int roleId)
         {
             if (lstbEmployees.SelectedIndex >= 0)
             {
@@ -113,7 +112,16 @@ namespace Fitness_Tracker2._0
 
                     if (int.TryParse(parts[0], out int id))
                     {
-                        Employee updatedEmployee = new Employee(id, firstName, lastName, username, password, email, roleId);
+                        Employee existingEmployee = _employeeManager.GetEmployeeById(id);
+
+                        if (!string.IsNullOrEmpty(txtbPassword.Text))
+                        {
+                            string newPassword = txtbPassword.Text;
+                            _employeeManager.ChangeEmployeePassword(existingEmployee.GetId(), existingEmployee.GetPassword(), newPassword);
+                            MessageBox.Show("Password updated successfully!");
+                        }
+
+                        Employee updatedEmployee = new Employee(id, firstName, lastName, username, existingEmployee.GetPassword(), email, roleId);
                         _employeeManager.UpdateEmployeeInfo(updatedEmployee);
                         MessageBox.Show("Employee updated successfully!");
                         PopulateListBox();
@@ -131,12 +139,17 @@ namespace Fitness_Tracker2._0
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                catch (InvalidOldPasswordException ex)
+                {
+                    MessageBox.Show("The old password is incorrect.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
                 MessageBox.Show("Please select an employee to edit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void DeleteEmployee()
         {
@@ -191,9 +204,9 @@ namespace Fitness_Tracker2._0
                             txtbFirstName.Text = existingEmployee.GetFirstName();
                             txtbLastName.Text = existingEmployee.GetLastName();
                             txtbUsername.Text = existingEmployee.GetUsername();
-                            txtbPassword.Text = existingEmployee.GetPassword(); // Be careful with storing passwords in plain text
+                            txtbPassword.Text = ""; // Don't show the hashed password
                             txtbEmail.Text = existingEmployee.GetEmail();
-                            cmbRole.SelectedIndex = existingEmployee.RoleId() - 1; // Adjust roleId to match combo box index
+                            cmbRole.SelectedIndex = existingEmployee.RoleId() - 1;
                         }
                         else
                         {
@@ -212,10 +225,13 @@ namespace Fitness_Tracker2._0
             }
         }
 
+
         private void rdbAddEmployee_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbAddEmployee.Checked)
             {
+                ResetInputs();
+                lstbEmployees.ClearSelected();
                 txtbPassword.ReadOnly = false;
             }
         }
@@ -224,8 +240,57 @@ namespace Fitness_Tracker2._0
         {
             if (rdbEditEmployee.Checked)
             {
+                ResetInputs();
+                lstbEmployees.ClearSelected();
+                txtbPassword.ReadOnly = false;
+            }
+        }
+
+        private void rdbDeleteEmployee_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbDeleteEmployee.Checked)
+            {
+                ResetInputs();
+                lstbEmployees.ClearSelected();
                 txtbPassword.ReadOnly = true;
             }
+        }
+
+        private void pctbLogOut_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            frmLoginPage frmLoginPage = new frmLoginPage(_employeeManager, _exerciseManager, _workoutManager);
+            frmLoginPage.Show();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchName = txtbSearchName.Text.Trim();
+            if (string.IsNullOrEmpty(searchName))
+            {
+                MessageBox.Show("Please enter a name to search.");
+                return;
+            }
+
+            List<Employee> employees = _employeeManager.SearchEmployeeByName(searchName);
+            if (employees.Count > 0)
+            {
+                lstbEmployees.Items.Clear();
+                foreach (Employee employee in employees)
+                {
+                    lstbEmployees.Items.Add($"{employee.GetId()}: {employee.GetFirstName()} {employee.GetLastName()} ({employee.GetUsername()})");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No employees found with the given name.");
+            }
+            txtbSearchName.Text = "";
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lstbEmployees.Items.Clear();
         }
     }
 }

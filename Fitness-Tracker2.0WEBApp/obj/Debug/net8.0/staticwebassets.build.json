@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "iTwzhkEeR43Q/dNZv9phsI5G36O5aX2b0Zk/v8+2dNc=",
+  "Hash": "cP+5WAJcTBtyH1xpFT92EnAPOLkwhqdlfjYbBK8ulKo=",
   "Source": "Fitness-Tracker2.0WEBApp",
   "BasePath": "_content/Fitness-Tracker2.0WEBApp",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\DetailsPageStyle.css"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\favoriteWorkoutsStyle.css",
+      "SourceId": "Fitness-Tracker2.0WEBApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\",
+      "BasePath": "_content/Fitness-Tracker2.0WEBApp",
+      "RelativePath": "css/favoriteWorkoutsStyle.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\favoriteWorkoutsStyle.css"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\indexStyle.css",

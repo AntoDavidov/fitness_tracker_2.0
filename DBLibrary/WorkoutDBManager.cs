@@ -130,6 +130,202 @@ namespace DBLibrary
 
             return workout;
         }
+        public List<Workouts> GetWorkoutsByPage(int pageIndex, int pageSize)
+        {
+            List<Workouts> workouts = new List<Workouts>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = @"SELECT * FROM Workout
+                                     ORDER BY id
+                                     OFFSET @Offset ROWS
+                                     FETCH NEXT @PageSize ROWS ONLY";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Offset", (pageIndex - 1) * pageSize);
+                        cmd.Parameters.AddWithValue("@PageSize", pageSize);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("id"));
+                                string name = reader.GetString(reader.GetOrdinal("Name"));
+                                string description = reader.GetString(reader.GetOrdinal("Description"));
+                                string workoutLevel = reader.GetString(reader.GetOrdinal("workout_level"));
+
+                                // Create a new Workout object and add it to the list
+                                Workouts workout = new Workouts(id, name, description, workoutLevel);
+                                workouts.Add(workout);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return workouts;
+        }
+
+        public int GetTotalWorkoutsCount()
+        {
+            int count = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = "SELECT COUNT(*) FROM Workout";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        count = (int)cmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return count;
+        }
+        public List<Workouts> GetFilteredWorkouts(int? level, bool includeLevel, int pageIndex, int pageSize)
+        {
+            List<Workouts> workouts = new List<Workouts>();
+            int offset = (pageIndex - 1) * pageSize;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = @"
+                SELECT w.Id, w.Name, w.Description, w.workout_level
+                FROM Workout w
+                WHERE (@Level IS NULL 
+                       OR (@IncludeLevel = 1 AND w.workout_level = @Level)
+                       OR (@IncludeLevel = 0 AND w.workout_level <> @Level))
+                ORDER BY w.Id
+                OFFSET @Offset ROWS
+                FETCH NEXT @PageSize ROWS ONLY";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Level", level.HasValue ? (object)level.Value : DBNull.Value);
+                        cmd.Parameters.AddWithValue("@IncludeLevel", includeLevel ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@Offset", offset);
+                        cmd.Parameters.AddWithValue("@PageSize", pageSize);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("Id"));
+                                string name = reader.GetString(reader.GetOrdinal("Name"));
+                                string description = reader.GetString(reader.GetOrdinal("Description"));
+                                string workoutLevel = reader.GetString(reader.GetOrdinal("workout_level"));
+
+                                Workouts workout = new Workouts(id, name, description, workoutLevel);
+                                workouts.Add(workout);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return workouts;
+        }
+
+
+        public int GetFilteredWorkoutsCount(int? level, bool includeLevel)
+        {
+            int count = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = @"
+                SELECT COUNT(*)
+                FROM Workout w
+                WHERE (@Level IS NULL 
+                       OR (@IncludeLevel = 1 AND w.workout_level = @Level)
+                       OR (@IncludeLevel = 0 AND w.workout_level <> @Level))";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Level", level.HasValue ? (object)level.Value : DBNull.Value);
+                        cmd.Parameters.AddWithValue("@IncludeLevel", includeLevel ? 1 : 0);
+
+                        count = (int)cmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return count;
+        }
+
+        public List<Workouts> GetTopRatedWorkouts(int topN)
+        {
+            var topRatedWorkouts = new List<Workouts>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+                {
+                    conn.Open();
+
+                    string query = @"SELECT TOP (@TopN) WorkoutId, AVG(RatingValue) as AvgRating 
+                                     FROM Rating 
+                                     GROUP BY WorkoutId 
+                                     ORDER BY AvgRating DESC";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@TopN", topN);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int workoutId = reader.GetInt32(reader.GetOrdinal("WorkoutId"));
+                                Workouts workout = GetWorkoutById(workoutId);
+                                topRatedWorkouts.Add(workout);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+            }
+
+            return topRatedWorkouts;
+        }
+
         public Workouts? GetWorkout(Workouts workout)
         {
             using (SqlConnection connection = new SqlConnection(GetConnectionString()))

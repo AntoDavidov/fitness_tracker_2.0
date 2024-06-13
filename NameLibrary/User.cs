@@ -35,6 +35,14 @@ namespace NameLibrary
             this.password = password;
             this.email = email;
         }
+        public User(int id, string firstName, string lastName, string username, string email)
+        {
+            this.id = id;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.username = username;
+            this.email = email;
+        }
 
         public User()
         {

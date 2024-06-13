@@ -32,5 +32,7 @@ namespace ManagerLibrary
         {
             return _ratingRepo.GetRatingCount(workoutId);
         }
+        
+
     }
 }

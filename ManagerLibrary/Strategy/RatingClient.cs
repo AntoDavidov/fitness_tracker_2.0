@@ -16,9 +16,14 @@ namespace ManagerLibrary.Strategy
             _ratingCalculator = ratingCalculator;
         }
 
-        public void SetRatingStrategy(ICalculateRating ratingStrategy)
+        public void SetAverageRatingStrategy()
         {
-            _ratingCalculator.SetRatingStrategy(ratingStrategy);
+            _ratingCalculator.SetRatingStrategy(new AverageRating());
+        }
+
+        public void SetPercentageRatingStrategy()
+        {
+            _ratingCalculator.SetRatingStrategy(new PercantageRating());
         }
 
         public double[] GetWorkoutRating(int workoutId)
@@ -26,5 +31,6 @@ namespace ManagerLibrary.Strategy
             var ratings = _ratingManager.GetRatingsByWorkoutId(workoutId);
             return _ratingCalculator.Calculate(ratings, workoutId);
         }
+
     }
 }

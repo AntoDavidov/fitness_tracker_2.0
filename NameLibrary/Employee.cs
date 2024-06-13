@@ -18,10 +18,14 @@ namespace NameLibrary
             : base(id, firstName, lastName, username, password, email)
         {
             this.roleId = roleId;
-        }
-
+        } 
         public Employee(string firstName, string lastName, string username, string password, string email, int roleId)
             : base(firstName, lastName, username, password, email)
+        {
+            this.roleId = roleId;
+        }
+        public Employee(int id, string firstName, string lastName, string username, string email, int roleId)
+            : base(id, firstName, lastName, username, email)
         {
             this.roleId = roleId;
         }

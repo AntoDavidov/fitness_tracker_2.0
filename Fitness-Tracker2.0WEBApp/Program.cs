@@ -28,7 +28,7 @@ builder.Services.AddScoped<RatingCalculator>();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(30);
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -39,7 +39,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.LoginPath = new PathString("/Login");
         options.AccessDeniedPath = new PathString("/Error");
-        options.ExpireTimeSpan = TimeSpan.FromSeconds(30);
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
     });
 
 var app = builder.Build();
