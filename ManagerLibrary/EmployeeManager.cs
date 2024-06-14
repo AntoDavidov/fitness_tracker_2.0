@@ -35,14 +35,6 @@ namespace ManagerLibrary
             cachedEmployees = null;
         }
 
-        public List<Employee> GetEmployees()
-        {
-            if (cachedEmployees == null)
-            {
-                cachedEmployees = _employeeRepository.GetAllEmployees();
-            }
-            return cachedEmployees;
-        }
         public List<Employee> SearchEmployeeByName(string fullname)
         {
            return _employeeRepository.SearchEmployeesByName(fullname);

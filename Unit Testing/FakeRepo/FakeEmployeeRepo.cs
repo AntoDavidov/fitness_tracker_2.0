@@ -1,7 +1,6 @@
 ﻿using IRepositories;
 using NameLibrary;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Unit_Testing.FakeRepo
 {
@@ -20,16 +19,38 @@ namespace Unit_Testing.FakeRepo
 
         public Employee VerifyEmployeeCredentials(string username, string password)
         {
-            return _employees.FirstOrDefault(e => e.GetUsername() == username && e.GetPassword() == password);
+            foreach (var e in _employees)
+            {
+                if (e.GetUsername() == username && e.GetPassword() == password)
+                {
+                    return e;
+                }
+            }
+            return null;
         }
 
         public Employee GetEmployeeByUsername(string username)
         {
-            return _employees.FirstOrDefault(e => e.GetUsername() == username);
+            foreach (var e in _employees)
+            {
+                if (e.GetUsername() == username)
+                {
+                    return e;
+                }
+            }
+            return null;
         }
+
         public Employee GetEmployeeById(int id)
         {
-            return _employees.FirstOrDefault(e => e.GetId() == id);
+            foreach (var e in _employees)
+            {
+                if (e.GetId() == id)
+                {
+                    return e;
+                }
+            }
+            return null;
         }
 
         public string GetEmployeeRole(string username, string password)
@@ -92,7 +113,16 @@ namespace Unit_Testing.FakeRepo
 
         public bool UpdateEmployeePassword(int employeeId, string newPassword)
         {
-            Employee employee = _employees.FirstOrDefault(e => e.GetId() == employeeId);
+            Employee employee = null;
+            foreach (var e in _employees)
+            {
+                if (e.GetId() == employeeId)
+                {
+                    employee = e;
+                    break;
+                }
+            }
+
             if (employee == null)
                 return false;
 
@@ -103,6 +133,7 @@ namespace Unit_Testing.FakeRepo
 
             return true;
         }
+
         public bool DeleteEmployee(int userId)
         {
             Employee employee = null;
@@ -126,11 +157,18 @@ namespace Unit_Testing.FakeRepo
         {
             return _employees;
         }
+
         public List<Employee> SearchEmployeesByName(string name)
         {
-            return _employees
-                .Where(e => $"{e.GetFirstName()} {e.GetLastName()}".IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
+            var result = new List<Employee>();
+            foreach (var e in _employees)
+            {
+                if (($"{e.GetFirstName()} {e.GetLastName()}").IndexOf(name, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    result.Add(e);
+                }
+            }
+            return result;
         }
     }
 }

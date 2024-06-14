@@ -191,5 +191,63 @@ namespace Unit_Testing.Tests
             Assert.AreEqual("Updated", result.GetFirstName());
             Assert.AreEqual("updated@example.com", result.GetEmail());
         }
+        [TestMethod]
+        public void ChangeEmployeePassword_ShouldReturnTrue_WhenPasswordIsChanged()
+        {
+            // Arrange
+            var employeeId = 1;
+            var oldPassword = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";
+            var newPassword = "newPassword";
+
+            // Act
+            var result = _employeeManager.ChangeEmployeePassword(employeeId, oldPassword, newPassword);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOldPasswordException))]
+        public void ChangeEmployeePassword_ShouldThrowException_WhenOldPasswordIsInvalid()
+        {
+            // Arrange
+            var employeeId = 1;
+            var oldPassword = "wrongPassword";
+            var newPassword = "newPassword";
+
+            // Act
+            _employeeManager.ChangeEmployeePassword(employeeId, oldPassword, newPassword);
+
+            // Assert
+            // Expecting InvalidOldPasswordException
+        }
+        [TestMethod]
+        public void SearchEmployeeByName_ShouldReturnEmployees_WhenNameMatches()
+        {
+            // Arrange
+            var name = "Doe";
+
+            // Act
+            var result = _employeeManager.SearchEmployeeByName(name);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Count > 0);
+        }
+
+        [TestMethod]
+        public void SearchEmployeeByName_ShouldReturnEmptyList_WhenNoNameMatches()
+        {
+            // Arrange
+            var name = "NonExistingName";
+
+            // Act
+            var result = _employeeManager.SearchEmployeeByName(name);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count);
+        }
+
     }
 }

@@ -28,16 +28,6 @@ namespace ManagerLibrary
         {
             return _workoutRepo.GetTopRatedWorkouts(TopN);
         }
-        //remove
-        public List<Workouts> GetWorkoutsByPage(int pageIndex, int pageSize)
-        {
-            return _workoutRepo.GetWorkoutsByPage(pageIndex, pageSize);
-        }
-        //remove
-        public int GetTotalWorkoutsCount()
-        {
-            return _workoutRepo.GetTotalWorkoutsCount();
-        }
         public List<Workouts> GetFilteredWorkouts(int? level, bool includeLevel, int pageIndex, int pageSize)
         {
             return _workoutRepo.GetFilteredWorkouts(level, includeLevel, pageIndex, pageSize);
@@ -68,10 +58,6 @@ namespace ManagerLibrary
             return _workoutRepo.ExerciseAlreadyExistsInWorkout(workouts.GetId(), exercise.GetId());
         }
 
-        public List<Workouts> GetWorkouts()
-        {
-            return _workoutRepo.GetAllWorkouts();
-        }
         public void DeleteWorkout(Workouts workouts)
         {
             _workoutRepo.DeleteWorkout(workouts.GetId());

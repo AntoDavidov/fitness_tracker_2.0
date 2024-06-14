@@ -117,7 +117,6 @@ namespace Unit_Testing.Tests
             var customerId = _fakeCustomerRepository.GetCustomerIdByEmail("customer1@example.com");
             var workoutId = 1;
 
-            // Add workout to favourites first time
             _customerManager.AddWorkoutToFavourites(customerId, workoutId);
 
             // Act
@@ -163,5 +162,118 @@ namespace Unit_Testing.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Count); 
         }
+        [TestMethod]
+        public void RemoveWorkoutFromFavourites_ShouldReturnTrue_WhenWorkoutIsRemoved()
+        {
+            // Arrange
+            var customerId = _fakeCustomerRepository.GetCustomerIdByEmail("1customer1@example.com");
+            var workoutId = 1;
+
+            // Act
+            var result = _customerManager.RemoveWorkoutFromFavourites(customerId, workoutId);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void RemoveWorkoutFromFavourites_ShouldReturnFalse_WhenWorkoutIsNotInFavourites()
+        {
+            // Arrange
+            var customerId = _fakeCustomerRepository.GetCustomerIdByEmail("1customer1@example.com");
+            var workoutId = 99; 
+
+            // Act
+            var result = _customerManager.RemoveWorkoutFromFavourites(customerId, workoutId);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+        [TestMethod]
+        public void GetCustomerById_ShouldReturnCustomer_WhenIdExists()
+        {
+            // Arrange
+            var customerId = 1;
+
+            // Act
+            var result = _customerManager.GetCustomerById(customerId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(customerId, result.GetId());
+        }
+        [TestMethod]
+        public void GetCustomerById_ShouldReturnNull_WhenIdDoesNotExist()
+        {
+            // Arrange
+            var customerId = 99; 
+
+            // Act
+            var result = _customerManager.GetCustomerById(customerId);
+
+            // Assert
+            Assert.IsNull(result);
+        }
+        [TestMethod]
+        public void GetFavoriteWorkoutsByPage_ShouldReturnPagedWorkouts_WhenCustomerIdExists()
+        {
+            // Arrange
+            var customerId = _fakeCustomerRepository.GetCustomerIdByEmail("1customer1@example.com");
+            var pageIndex = 1;
+            var pageSize = 2;
+
+            // Act
+            var result = _customerManager.GetFavoriteWorkoutsByPage(customerId, pageIndex, pageSize);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count); 
+        }
+        [TestMethod]
+        public void GetFavoriteWorkoutsByPage_ShouldReturnEmptyList_WhenCustomerIdDoesNotExist()
+        {
+            // Arrange
+            var customerId = 99; 
+            var pageIndex = 1;
+            var pageSize = 2;
+
+            // Act
+            var result = _customerManager.GetFavoriteWorkoutsByPage(customerId, pageIndex, pageSize);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count);
+        }
+        [TestMethod]
+        public void GetTotalFavoriteWorkoutsCount_ShouldReturnCount_WhenCustomerIdExists()
+        {
+            // Arrange
+            var customerId = _fakeCustomerRepository.GetCustomerIdByEmail("1customer1@example.com");
+
+            // Act
+            var result = _customerManager.GetTotalFavoriteWorkoutsCount(customerId);
+
+            // Assert
+            Assert.AreEqual(3, result); 
+        }
+        [TestMethod]
+        public void GetFavoriteWorkouts_ShouldReturnFavoriteWorkouts_WhenCustomerIdExists()
+        {
+            // Arrange
+            var customerId = _fakeCustomerRepository.GetCustomerIdByEmail("1customer1@example.com");
+
+            // Act
+            var result = _customerManager.GetFavoriteWorkouts(customerId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count); 
+        }
+
+
+
+
+
+
+
     }
 }

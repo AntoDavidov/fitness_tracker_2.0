@@ -30,47 +30,14 @@ namespace ManagerLibrary
 
             cachedExercises = null; 
         }
-        //remove
-        public List<Exercise> GetExerciseList()
-        {
-            if (cachedExercises == null)
-            {
-                cachedExercises = new List<Exercise>();
-                cachedExercises.AddRange(_exerciseRepository.GetStrengthExercises());
-                cachedExercises.AddRange(_exerciseRepository.GetCardioExercises());
-            }
 
-            return cachedExercises;
-        }
         public List<Exercise> SearchExercisesByName(string name)
         {
             return _exerciseRepository.SearchExercisesByName(name);
         }
-
-        public List<Strength> GetOnlyStrengthExercises()
-        {
-            return _exerciseRepository.GetStrengthExercises();
-        }
         public List<Exercise> SearchExercisesByTypeAndName(string exerciseType, string exerciseName)
         {
             return _exerciseRepository.SearchExercisesByNameAndType(exerciseType, exerciseName);
-        }
-
-
-        public List<Cardio> GetOnlyCardioExercises()
-        {
-            return _exerciseRepository.GetCardioExercises();
-        }
-        //remove
-        public Strength? GetStrengthExerciseById(int strengthId)
-        {
-            return _exerciseRepository.GetStrengthExerciseById(strengthId);
-        }
-
-        //remove
-        public Cardio? GetCardioExerciseById(int cardioId)
-        {
-            return _exerciseRepository.GetCardioExerciseById(cardioId);
         }
 
         public Exercise? GetExerciseById(int exerciseId)

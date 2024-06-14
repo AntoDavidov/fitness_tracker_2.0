@@ -1,152 +1,120 @@
 ﻿using ExerciseLibrary;
 using ExerciseLibrary.Rating;
-using IRepositories;
 using ManagerLibrary;
-using ManagerLibrary.ConcreteStrategyClasses;
+using ManagerLibrary.Exceptions;
 using ManagerLibrary.Strategy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NameLibrary;
-using System;
 using System.Collections.Generic;
 using Unit_Testing.FakeRepo;
 
 namespace Unit_Testing.Tests
 {
-    //[TestClass]
-    //public class RatingManagerTests
-    //{
-    //    private IRatingRepo _fakeRatingRepo;
-    //    private RatingManager _ratingManager;
-    //    private RatingClient _ratingClient;
+    [TestClass]
+    public class RatingManagerTest
+    {
+        private FakeRatingRepo _fakeRatingRepo;
+        private RatingManager _ratingManager;
+        private RatingClient _ratingClient;
+        private RatingCalculator _ratingCalculator;
 
-    //    [TestInitialize]
-    //    public void Setup()
-    //    {
-    //        _fakeRatingRepo = new FakeRatingRepo();
-    //        _ratingManager = new RatingManager(_fakeRatingRepo);
-    //        _ratingClient = new RatingClient(_ratingManager);
-    //    }
+        [TestInitialize]
+        public void Setup()
+        {
+            _fakeRatingRepo = new FakeRatingRepo();
+            _ratingManager = new RatingManager(_fakeRatingRepo);
+            _ratingCalculator = new RatingCalculator();
+            _ratingClient = new RatingClient(_ratingManager, _ratingCalculator);
+        }
 
-    //    [TestMethod]
-    //    public void AddRating_ShouldAddRating()
-    //    {
-    //        // Arrange
-    //        Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
-    //        Customer customer = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
-    //        Rating rating = new Rating(workout, customer, 5);
+        [TestMethod]
+        public void AddRating_ShouldAddRating_WhenRatingDoesNotExist()
+        {
+            // Arrange
+            var workout = new Workouts(4, "Workout 4", "Description for Workout 4", Level.Beginner);
+            var customer = new Customer(3, "Sam", "Smith", "samsmith", "password", "samsmith@example.com", 75, Level.Beginner, 30);
+            var rating = new Rating(workout, customer, 5);
 
-    //        // Act
-    //        _ratingManager.AddRating(rating);
+            // Act
+            _ratingManager.AddRating(rating);
+            var ratings = _fakeRatingRepo.GetRatingsByWorkoutId(workout.GetId());
 
-    //        // Assert
-    //        var ratings = _fakeRatingRepo.GetRatingsByWorkoutId(workout.GetId());
-    //        Assert.AreEqual(1, ratings.Count);
-    //        Assert.AreEqual(5, ratings[0].GetRatingValue());
-    //    }
+            // Assert
+            Assert.AreEqual(1, ratings.Count);
+            Assert.AreEqual(5, ratings[0].GetRatingValue());
+        }
 
-    //    [TestMethod]
-    //    [ExpectedException(typeof(InvalidOperationException))]
-    //    public void AddRating_ShouldThrowException_WhenRatingAlreadyExists()
-    //    {
-    //        // Arrange
-    //        Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
-    //        Customer customer = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
-    //        Rating rating = new Rating(workout, customer, 4);
+        [TestMethod]
+        [ExpectedException(typeof(RatingAlreadyExistsException))]
+        public void AddRating_ShouldThrowException_WhenRatingAlreadyExists()
+        {
+            // Arrange
+            var workout = new Workouts(1, "Workout 1", "Description for Workout 1", Level.Beginner);
+            var customer = new Customer(1, "John", "Doe", "johndoe", "password", "johndoe@example.com", 70, Level.Beginner, 25);
+            var rating = new Rating(workout, customer, 5);
 
-    //        // Act
-    //        _ratingManager.AddRating(rating);
+            // Act
+            _ratingManager.AddRating(rating);
 
-    //        // Adding the same rating again should throw an exception
-    //        _ratingManager.AddRating(rating);
-    //    }
+            // Assert is handled by the ExpectedException attribute
+        }
 
-    //    [TestMethod]
-    //    public void AddRating_ShouldIncreaseRatingCount()
-    //    {
-    //        // Arrange
-    //        Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
-    //        Customer customer = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
-    //        Rating rating = new Rating(workout, customer, 5);
+        [TestMethod]
+        public void GetRatingsByWorkoutId_ShouldReturnRatings_ForGivenWorkoutId()
+        {
+            // Arrange
+            var workoutId = 1;
 
-    //        // Act
-    //        _ratingManager.AddRating(rating);
-    //        int count = _ratingManager.GetRatingCount(workout.GetId());
+            // Act
+            var ratings = _ratingManager.GetRatingsByWorkoutId(workoutId);
 
-    //        // Assert
-    //        Assert.AreEqual(1, count);
-    //    }
+            // Assert
+            Assert.AreEqual(2, ratings.Count);
+        }
 
-    //    [TestMethod]
-    //    public void GetRatingCount_ShouldReturnCorrectCount()
-    //    {
-    //        // Arrange
-    //        Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
-    //        Customer customer1 = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
-    //        Customer customer2 = new Customer(2, "Jane", "Doe", "jane", "password", "jane@example.com", 65, 2, 30);
-    //        Rating rating1 = new Rating(workout, customer1, 4);
-    //        Rating rating2 = new Rating(workout, customer2, 5);
+        [TestMethod]
+        public void GetRatingCount_ShouldReturnCorrectCount_ForGivenWorkoutId()
+        {
+            // Arrange
+            var workoutId = 1;
 
-    //        // Act
-    //        _ratingManager.AddRating(rating1);
-    //        _ratingManager.AddRating(rating2);
-    //        int count = _ratingManager.GetRatingCount(workout.GetId());
+            // Act
+            var count = _ratingManager.GetRatingCount(workoutId);
 
-    //        // Assert
-    //        Assert.AreEqual(2, count);
-    //    }
+            // Assert
+            Assert.AreEqual(2, count);
+        }
 
-    //    [TestMethod]
-    //    public void GetRatingCount_ShouldReturnZeroForNoRatings()
-    //    {
-    //        // Arrange
-    //        Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
+        [TestMethod]
+        public void RatingClient_ShouldReturnAverageRating_ForGivenWorkoutId()
+        {
+            // Arrange
+            var workoutId = 1;
 
-    //        // Act
-    //        int count = _ratingManager.GetRatingCount(workout.GetId());
+            // Act
+            _ratingClient.SetAverageRatingStrategy();
+            var rating = _ratingClient.GetWorkoutRating(workoutId);
 
-    //        // Assert
-    //        Assert.AreEqual(0, count);
-    //    }
+            // Assert
+            Assert.AreEqual(4.5, rating[0], 0.1); // Expected average rating is 4.5
+        }
 
-    //    [TestMethod]
-    //    public void CalculateAverageRating_ShouldReturnCorrectAverage()
-    //    {
-    //        // Arrange
-    //        Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
-    //        Customer customer1 = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
-    //        Customer customer2 = new Customer(2, "Jane", "Doe", "jane", "password", "jane@example.com", 65, 2, 30);
-    //        _ratingManager.AddRating(new Rating(workout, customer1, 5));
-    //        _ratingManager.AddRating(new Rating(workout, customer2, 3));
+        [TestMethod]
+        public void RatingClient_ShouldReturnPercentageRating_ForGivenWorkoutId()
+        {
+            // Arrange
+            var workoutId = 1;
 
-    //        .SetRatingStrategy(new AverageRating());
+            // Act
+            _ratingClient.SetPercentageRatingStrategy();
+            var ratingPercentages = _ratingClient.GetWorkoutRating(workoutId);
 
-    //        // Act
-    //        double averageRating = _ratingManager.GetCalculatedRating(workout.GetId());
-
-    //        // Assert
-    //        Assert.AreEqual(4.0, averageRating);
-    //    }
-
-    //    [TestMethod]
-    //    public void CalculatePercentageRating_ShouldReturnCorrectPercentage()
-    //    {
-    //        // Arrange
-    //        Workouts workout = new Workouts(1, "Workout 1", "Description 1", "Beginner");
-    //        Customer customer1 = new Customer(1, "John", "Doe", "john", "password", "john@example.com", 70, 1, 25);
-    //        Customer customer2 = new Customer(2, "Jane", "Doe", "jane", "password", "jane@example.com", 65, 2, 30);
-    //        Customer customer3 = new Customer(3, "Bob", "Smith", "bob", "password", "bob@example.com", 80, 3, 35);
-    //        _ratingManager.AddRating(new Rating(workout, customer1, 5));
-    //        _ratingManager.AddRating(new Rating(workout, customer2, 3));
-    //        _ratingManager.AddRating(new Rating(workout, customer3, 4));
-
-    //        RatingClient rating = new RatingClient();
-    //        rating.SetRatingStrategy(new PercantageRating());
-
-    //        // Act
-    //        double percentageRating = _ratingManager.(workout.GetId());
-
-    //        // Assert
-    //        Assert.AreEqual(66.67, percentageRating, 0.01);
-    //    }
-    //}
+            // Assert
+            Assert.AreEqual(0, ratingPercentages[0], 0.1);  // Percentage of 1-star ratings
+            Assert.AreEqual(0, ratingPercentages[1], 0.1);  // Percentage of 2-star ratings
+            Assert.AreEqual(0, ratingPercentages[2], 0.1);  // Percentage of 3-star ratings
+            Assert.AreEqual(50, ratingPercentages[3], 0.1); // Percentage of 4-star ratings
+            Assert.AreEqual(50, ratingPercentages[4], 0.1); // Percentage of 5-star ratings
+        }
+    }
 }

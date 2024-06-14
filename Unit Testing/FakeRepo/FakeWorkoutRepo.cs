@@ -3,9 +3,6 @@ using IRepositories;
 using NameLibrary;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Unit_Testing.FakeRepo
 {
@@ -17,7 +14,25 @@ namespace Unit_Testing.FakeRepo
 
         public FakeWorkoutRepo()
         {
+            _workouts = new List<Workouts>
+            {
+                new Workouts(1, "Workout 1", "Description for Workout 1", Level.Beginner),
+                new Workouts(2, "Workout 2", "Description for Workout 2", Level.Intermediate),
+                new Workouts(3, "Workout 3", "Description for Workout 3", Level.Advanced),
+                new Workouts(4, "Workout 4", "Description for Workout 4", Level.Intermediate),
+                new Workouts(5, "Workout 5", "Description for Workout 5", Level.Advanced),
+            };
 
+            _workoutExercises = new List<(int WorkoutId, int ExerciseId)>
+            {
+                (1, 1), (1, 2),
+                (2, 2), (2, 3),
+                (3, 4), (3, 5),
+                (4, 1), (4, 3),
+                (5, 4), (5, 5)
+            };
+
+            _exerciseRepo = new FakeExerciseRepo();
         }
 
         public void AddExerciseToWorkout(int workoutId, int exerciseId)
@@ -30,56 +45,87 @@ namespace Unit_Testing.FakeRepo
             _workouts.Add(workout);
             return true;
         }
+
         public List<Workouts> GetFilteredWorkouts(int? level, bool includeLevel, int pageIndex, int pageSize)
         {
-
-            IEnumerable<Workouts> filteredWorkouts;
-
-            if (includeLevel)
+            List<Workouts> filteredWorkouts = new List<Workouts>();
+            foreach (var workout in _workouts)
             {
-                filteredWorkouts = _workouts.Where(w => (int)w.GetWorkoutLevel() == level);
-            }
-            else
-            {
-                filteredWorkouts = _workouts.Where(w => (int)w.GetWorkoutLevel() != level);
+                if (includeLevel && workout.GetWorkoutLevel() == (Level)level)
+                {
+                    filteredWorkouts.Add(workout);
+                }
+                else if (!includeLevel && workout.GetWorkoutLevel() != (Level)level)
+                {
+                    filteredWorkouts.Add(workout);
+                }
             }
 
-            return filteredWorkouts.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            List<Workouts> paginatedWorkouts = new List<Workouts>();
+            int skipCount = (pageIndex - 1) * pageSize;
+            for (int i = skipCount; i < skipCount + pageSize && i < filteredWorkouts.Count; i++)
+            {
+                paginatedWorkouts.Add(filteredWorkouts[i]);
+            }
+
+            return paginatedWorkouts;
         }
 
         public int GetFilteredWorkoutsCount(int? level, bool includeLevel)
         {
-
-            if (includeLevel)
+            int count = 0;
+            foreach (var workout in _workouts)
             {
-                return _workouts.Count(w => (int)w.GetWorkoutLevel() == level);
+                if (includeLevel && workout.GetWorkoutLevel() == (Level)level)
+                {
+                    count++;
+                }
+                else if (!includeLevel && workout.GetWorkoutLevel() != (Level)level)
+                {
+                    count++;
+                }
             }
-            else
-            {
-                return _workouts.Count(w => (int)w.GetWorkoutLevel() != level);
-            }
+            return count;
         }
 
         public List<Workouts> GetWorkoutsByPage(int pageIndex, int pageSize)
         {
-            return _workouts.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            List<Workouts> paginatedWorkouts = new List<Workouts>();
+            int skipCount = (pageIndex - 1) * pageSize;
+            for (int i = skipCount; i < skipCount + pageSize && i < _workouts.Count; i++)
+            {
+                paginatedWorkouts.Add(_workouts[i]);
+            }
+            return paginatedWorkouts;
         }
 
         public List<Workouts> SearchWorkouts(string name, int? level = null)
         {
-            return _workouts
-                .Where(w => w.GetName().Contains(name, StringComparison.OrdinalIgnoreCase) &&
-                            (!level.HasValue || w.GetWorkoutLevel().Equals((Level)level.Value)))
-                .ToList();
+            List<Workouts> matchingWorkouts = new List<Workouts>();
+            foreach (var workout in _workouts)
+            {
+                if (workout.GetName().IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0 &&
+                    (!level.HasValue || workout.GetWorkoutLevel().Equals((Level)level.Value)))
+                {
+                    matchingWorkouts.Add(workout);
+                }
+            }
+            return matchingWorkouts;
         }
 
         public int GetTotalWorkoutsCount()
         {
             return _workouts.Count;
         }
+
         public List<Workouts> GetTopRatedWorkouts(int n)
         {
-            return _workouts;
+            List<Workouts> topRatedWorkouts = new List<Workouts>();
+            for (int i = 0; i < n && i < _workouts.Count; i++)
+            {
+                topRatedWorkouts.Add(_workouts[i]);
+            }
+            return topRatedWorkouts;
         }
 
         public void DeleteWorkout(int workoutId)
@@ -178,18 +224,17 @@ namespace Unit_Testing.FakeRepo
             }
             return false;
         }
+
         public void RemoveExerciseFromWorkout(int workoutId, int exerciseId)
         {
-            for(int i = 0; i < _workoutExercises.Count; i++)
+            for (int i = 0; i < _workoutExercises.Count; i++)
             {
                 if (_workoutExercises[i].WorkoutId == workoutId && _workoutExercises[i].ExerciseId == exerciseId)
                 {
                     _workoutExercises.RemoveAt(i);
                     break;
                 }
-
             }
-            
         }
     }
 }

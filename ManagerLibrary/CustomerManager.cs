@@ -59,7 +59,6 @@ namespace ManagerLibrary
         {
             return _customerRepository.GetCustomerById(id);
         }
-
         public List<Customer> GetAllCustomers()
         {
             return _customerRepository.GetAllCustomers();
@@ -72,12 +71,6 @@ namespace ManagerLibrary
         {
             return _customerRepository.GetTotalFavoriteWorkouts(userId);
         }
-
-
-        //public Dictionary<int, List<int>> GetAllCustomerFavoriteWorkouts()
-        //{
-        //    return _customerRepository.GetAllCustomerFavoriteWorkouts();
-        //}
         public List<Workouts> GetFavoriteWorkouts(int customerId)
         {
             return _customerRepository.GetFavoriteWorkouts(customerId);

@@ -2,20 +2,27 @@
 using IRepositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Unit_Testing.FakeRepo
 {
     public class FakeExerciseRepo : IExerciseRepo
     {
-        private readonly List<Strength> _strengthExercises = new();
-        private readonly List<Cardio> _cardioExercises = new();
-        private readonly List<Exercise> _exercises = new(); 
-        //private readonly List<Workouts> _workouts = new();
-        //private readonly List<(int WorkoutId, int ExerciseId)> _workoutExercises = new();
+        private readonly List<Exercise> _exercises;
 
+        public FakeExerciseRepo() 
+        {
+            _exercises = new List<Exercise>
+            {
+                new Strength(1, "Push Up", "A basic push-up exercise", MuscleGroup.Chest, 10, 3, 0),
+                new Strength(2, "Bench Press", "Bench press with barbell", MuscleGroup.Chest, 8, 4, 100),
+                new Strength(3, "Squat", "Barbell squat", MuscleGroup.Legs, 12, 3, 150),
+                new Strength(4, "Deadlift", "Deadlift with barbell", MuscleGroup.Back, 5, 5, 200),
+                new Strength(5, "Bicep Curl", "Dumbbell bicep curls", MuscleGroup.Bicep, 15, 3, 20),
+                new Cardio(6, "Running", "Running on treadmill", TimeSpan.FromMinutes(3)),
+                new Cardio(7, "Cycling", "Stationary bike cycling", TimeSpan.FromMinutes(5)),
+            };
+        
+        }
         public bool AddStrengthExercise(Strength strength)
         {
             _exercises.Add(strength);
@@ -44,22 +51,29 @@ namespace Unit_Testing.FakeRepo
         {
             foreach (var exercise in _exercises)
             {
-                if (exercise is Cardio cardio)
+                if (exercise is Cardio cardio && cardio.GetId() == exerciseId)
                 {
-                    if (cardio.GetId() == exerciseId)
-                    {
-                        return cardio;
-                    }
+                    return cardio;
                 }
-                
             }
-
             return null;
         }
+
+        public Strength? GetStrengthExerciseById(int exerciseId)
+        {
+            foreach (var exercise in _exercises)
+            {
+                if (exercise is Strength strength && strength.GetId() == exerciseId)
+                {
+                    return strength;
+                }
+            }
+            return null;
+        }
+
         public List<Exercise> SearchExercisesByName(string name)
         {
             List<Exercise> matchingExercises = new List<Exercise>();
-
             foreach (var exercise in _exercises)
             {
                 if (exercise.GetName().IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0)
@@ -67,42 +81,33 @@ namespace Unit_Testing.FakeRepo
                     matchingExercises.Add(exercise);
                 }
             }
-
             return matchingExercises;
         }
+
         public List<Exercise> SearchExercisesByNameAndType(string exerciseType, string exerciseName)
         {
-            return _exercises.Where(e =>
-                (string.IsNullOrEmpty(exerciseType) ||
-                 (exerciseType == "Strength" && e is Strength) ||
-                 (exerciseType == "Cardio" && e is Cardio)) &&
-                (string.IsNullOrEmpty(exerciseName) ||
-                 e.GetName().Contains(exerciseName, StringComparison.OrdinalIgnoreCase)))
-            .ToList();
-        }
-        public Strength? GetStrengthExerciseById(int exerciseId)
-        {
-            foreach (var exercise in _strengthExercises)
+            List<Exercise> matchingExercises = new List<Exercise>();
+            foreach (var exercise in _exercises)
             {
-                if (exercise is Strength strength)
+                if ((string.IsNullOrEmpty(exerciseType) ||
+                    (exerciseType == "Strength" && exercise is Strength) ||
+                    (exerciseType == "Cardio" && exercise is Cardio)) &&
+                    (string.IsNullOrEmpty(exerciseName) ||
+                    exercise.GetName().Contains(exerciseName, StringComparison.OrdinalIgnoreCase)))
                 {
-                    if (strength.GetId() == exerciseId)
-                    {
-                        return strength;
-                    }
+                    matchingExercises.Add(exercise);
                 }
             }
-
-            return null;
+            return matchingExercises;
         }
 
         public void DeleteStrengthExercise(Strength strengthExercise)
         {
-            for (int i = 0; i < _strengthExercises.Count; i++)
+            for (int i = 0; i < _exercises.Count; i++)
             {
-                if (_strengthExercises[i].GetId() == strengthExercise.GetId())
+                if (_exercises[i] is Strength strength && strength.GetId() == strengthExercise.GetId())
                 {
-                    _strengthExercises.RemoveAt(i);
+                    _exercises.RemoveAt(i);
                     break;
                 }
             }
@@ -110,11 +115,11 @@ namespace Unit_Testing.FakeRepo
 
         public void DeleteCardioExercise(Cardio cardioExercise)
         {
-            for (int i = 0; i < _cardioExercises.Count; i++)
+            for (int i = 0; i < _exercises.Count; i++)
             {
-                if (_cardioExercises[i].GetId() == cardioExercise.GetId())
+                if (_exercises[i] is Cardio cardio && cardio.GetId() == cardioExercise.GetId())
                 {
-                    _cardioExercises.RemoveAt(i);
+                    _exercises.RemoveAt(i);
                     break;
                 }
             }
@@ -122,12 +127,28 @@ namespace Unit_Testing.FakeRepo
 
         public List<Cardio>? GetCardioExercises()
         {
-            return _cardioExercises;
+            List<Cardio> cardioExercises = new List<Cardio>();
+            foreach (var exercise in _exercises)
+            {
+                if (exercise is Cardio cardio)
+                {
+                    cardioExercises.Add(cardio);
+                }
+            }
+            return cardioExercises;
         }
 
         public List<Strength>? GetStrengthExercises()
         {
-            return _strengthExercises;
+            List<Strength> strengthExercises = new List<Strength>();
+            foreach (var exercise in _exercises)
+            {
+                if (exercise is Strength strength)
+                {
+                    strengthExercises.Add(strength);
+                }
+            }
+            return strengthExercises;
         }
     }
 }
