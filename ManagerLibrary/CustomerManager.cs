@@ -45,6 +45,11 @@ namespace ManagerLibrary
         {
             return _customerRepository.AddWorkoutToFavourites(customerId, workoutId);
         }
+        public bool RemoveWorkoutFromFavourites(int customerId, int workoutId)
+        {
+            return _customerRepository.RemoveWorkoutFromFavourites(customerId, workoutId);
+        }
+
 
         public int GetCustomerIdByEmail(string email)
         {

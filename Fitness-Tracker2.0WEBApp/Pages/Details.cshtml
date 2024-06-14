@@ -58,10 +58,20 @@
 
         <div class="details-right">
             <div class="details-actions">
-                <form method="post" asp-page-handler="AddToFavorites" class="details-form">
-                    <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
-                    <button type="submit" class="details-button">Add to Favorites</button>
-                </form>
+                @if (Model.HasAddedToFavorites)
+                {
+                    <form method="post" asp-page-handler="RemoveFromFavorites" class="details-form">
+                        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                        <button type="submit" class="details-button">Remove from favorites</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-page-handler="AddToFavorites" class="details-form">
+                        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                        <button type="submit" class="details-button">Add to Favorites</button>
+                    </form>
+                }
 
                 <form method="post" asp-page-handler="CalculateCalories" class="details-form">
                     <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />

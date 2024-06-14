@@ -121,10 +121,27 @@ namespace DBLibrary
                 {
                     throw new Exception($"Unable to add a workout to favorites: {ex}");
                 }
-                finally
+            }
+        }
+        public bool RemoveWorkoutFromFavourites(int customerId, int workoutId)
+        {
+            using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+            {
+                try
                 {
-                    if (conn.State != ConnectionState.Closed)
-                        conn.Close();
+                    conn.Open();
+
+                    string deleteQuery = "DELETE FROM CustomerWorkout WHERE CustomerId = @CustomerId AND WorkoutId = @WorkoutId";
+                    SqlCommand deleteCommand = new SqlCommand(deleteQuery, conn);
+                    deleteCommand.Parameters.AddWithValue("@CustomerId", customerId);
+                    deleteCommand.Parameters.AddWithValue("@WorkoutId", workoutId);
+                    int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Unable to remove the workout from favorites: {ex}");
                 }
             }
         }

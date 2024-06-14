@@ -27,7 +27,12 @@ namespace Fitness_Tracker2._0.UserControls
             string name = txtbName.Text;
             string description = rchtxtbDescription.Text;
 
-            if (tabControl1.SelectedTab == tabPage1)
+            if(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(description))
+            {
+                MessageBox.Show("Input the name and description of the exercise.");
+            }
+
+            else if (tabControl1.SelectedTab == tabPage1)
             {
                 if (ValidateStrengthInputs(out MuscleGroup muscleGroup, out int reps, out int sets, out double weight))
                 {

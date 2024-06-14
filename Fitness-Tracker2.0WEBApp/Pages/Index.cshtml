@@ -17,16 +17,7 @@
         <h2 class="index-subtitle">Hello, @User.Identity.Name</h2>
 
         <h3 class="index-subtitle">Your Progress</h3>
-        <p class="index-text">Workouts Completed: @Model.WorkoutsCompleted</p>
         <p class="index-text">Favorite Workouts: @Model.FavoriteWorkoutsCount</p>
-
-        <h3 class="index-subtitle">Recent Activity</h3>
-        <ul class="index-list">
-            @foreach (var activity in Model.RecentActivities)
-            {
-                <li class="index-list-item">@activity</li>
-            }
-        </ul>
     }
     else
     {
@@ -36,25 +27,24 @@
         <a asp-page="/Login" class="index-btn">Log In</a>
     }
 
-    <h3 class="index-subtitle">Featured Workouts</h3>
+    @* <h3 class="index-subtitle">Featured Workouts</h3>
     <div class="index-featured-workouts">
-        @* @foreach (var workout in Model.FeaturedWorkouts)
+        @foreach (var workout in Model.FeaturedWorkouts)
         {
         <div class="index-featured-workout">
         <h4 class="index-featured-workout-title">@workout.GetName()</h4>
         <p>@workout.GetDescription()</p>
         <a asp-page="/Details" asp-route-id="@workout.GetId()" class="index-btn index-featured-workout-btn">View Details</a>
         </div>
-        } *@
-    </div>
+        }
+    </div> *@
 
     <h3 class="index-subtitle">Motivational Quote of the Day</h3>
     <p class="index-text">@Model.MotivationalQuote</p>
 
     <h3 class="index-subtitle">Quick Links</h3>
     <ul class="index-list">
-        <li class="index-list-item"><a asp-page="/Discover">Discover Workouts</a></li>
+        <li class="index-list-item"><a asp-page="/Application">Discover Workouts</a></li>
         <li class="index-list-item"><a asp-page="/FavoriteWorkouts">My Favorites</a></li>
-        <li class="index-list-item"><a asp-page="/StartWorkout">Start a New Workout</a></li>
     </ul>
 </div>

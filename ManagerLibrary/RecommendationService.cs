@@ -40,12 +40,13 @@ namespace ManagerLibrary
                 }
             }
 
-            
-            return _customerRepo.GetWorkoutsByIds(recommendedWorkoutIds);
+
+            var recommendedWorkouts = _customerRepo.GetWorkoutsByIds(recommendedWorkoutIds);
+            return recommendedWorkouts.Take(5).ToList();
         }
         private List<Workouts> GetTopRatedWorkouts()
         {
-            return _workoutManager.GetTopRatedWorkouts(4);
+            return _workoutManager.GetTopRatedWorkouts(5);
         }
         
     }

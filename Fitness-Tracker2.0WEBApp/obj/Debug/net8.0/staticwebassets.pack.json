@@ -41,6 +41,10 @@
       "PackagePath": "staticwebassets\\css\\mainStyle.css"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\recommendations.css",
+      "PackagePath": "staticwebassets\\css\\recommendations.css"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\signup.css",
       "PackagePath": "staticwebassets\\css\\signup.css"
     },

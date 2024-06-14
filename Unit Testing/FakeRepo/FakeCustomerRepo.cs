@@ -58,6 +58,22 @@ namespace Unit_Testing.FakeRepo
             var paginatedWorkoutIds = favoriteWorkoutIds.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return GetWorkoutsByIds(paginatedWorkoutIds);
         }
+        public bool RemoveWorkoutFromFavourites(int customerId, int workoutId)
+        {
+            var customer = _customers.FirstOrDefault(c => c.GetId() == customerId);
+            if (customer == null)
+            {
+                return false;
+            }
+
+            var favoriteWorkoutIds = _customerFavouriteWorkouts.ContainsKey(customerId) ? _customerFavouriteWorkouts[customerId] : new List<int>();
+            if (favoriteWorkoutIds == null)
+            {
+                return false;
+            }
+
+            return _customerFavouriteWorkouts.TryGetValue(customerId, out var workoutIds) && workoutIds.Remove(workoutId);
+        }
         public int GetTotalFavoriteWorkouts(int customerId)
         {
             return _customerFavouriteWorkouts.ContainsKey(customerId) ? _customerFavouriteWorkouts[customerId].Count : 0;

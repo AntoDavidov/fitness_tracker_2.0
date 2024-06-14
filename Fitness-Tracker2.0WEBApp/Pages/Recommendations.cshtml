@@ -1,20 +1,22 @@
 ﻿@page
 @model Fitness_Tracker2._0WEBApp.Pages.RecommendationsModel
-
-<h2>Recommended Workouts for You</h2>
-
-@if (Model.RecommendedWorkouts != null && Model.RecommendedWorkouts.Count > 0)
-{
-    <ul>
-        @foreach (var workout in Model.RecommendedWorkouts)
-        {
-            <li>@workout.GetName() - @workout.GetDescription()</li>
-        }
-    </ul>
+@{
+    ViewData["Title"] = "Recommended Workouts for You";
 }
-else
-{
-    <p>No recommendations available at this time.</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/recommendations.css" asp-append-version="true" />
 }
 
-<a asp-page="/Application">Back to list</a>
+<h1>Recommended Workouts for You</h1>
+
+<ul class="recommendation-list">
+    @foreach (var workout in Model.RecommendedWorkouts)
+    {
+        <li class="recommendation-item">
+            <span class="workout-title">@workout.GetName() - @workout.GetDescription()</span>
+            <a class="recommendation-details-btn" asp-page="./Details" asp-route-id="@workout.GetId()">Details</a>
+        </li>
+    }
+</ul>
+
+<a class="back-to-list" asp-page="./Index">Back to list</a>

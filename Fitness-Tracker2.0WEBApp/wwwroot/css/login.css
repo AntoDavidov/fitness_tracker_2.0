@@ -1,35 +1,84 @@
-﻿body {
-    font-family: Arial, sans-serif; /* Use a modern sans-serif font */
-    margin: 0; /* Remove default margin */
-    padding: 0;
+﻿.login-custom-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
-fieldset {
-    font-style: italic;
+.login-custom-form-group {
+    margin-bottom: 15px;
 }
 
-.form-control:hover {
-    border-color: #ff0000;
+.login-custom-form-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
 }
 
-.form-control:focus {
-    border-color: #ff0000; /* Change the border color to red when focused */
-    box-shadow: none; /* Remove the box shadow */
+.login-custom-form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #333;
+    color: #fff;
+    transition: border-color 0.3s;
 }
 
-.btn-primary {
+    .login-custom-form-control:hover {
+        border-color: #ff0000;
+    }
+
+    .login-custom-form-control:focus {
+        border-color: #ff0000;
+        box-shadow: none;
+        background-color: #444;
+    }
+
+.login-custom-btn-primary {
     background-color: #ff0000;
     border-color: #ff0000;
     color: #fff;
-    position: relative;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
-    margin-top: 10px; /* Add margin to the top */
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 5px;
 }
 
-    .btn-primary:hover {
+    .login-custom-btn-primary:hover {
         background-color: #cc0000;
         border-color: #cc0000;
         transition: background-color 0.3s, transform 0.2s;
     }
+
+.login-custom-form-check {
+    margin-bottom: 15px;
+}
+
+.login-custom-form-check-input {
+    margin-right: 10px;
+}
+
+.login-custom-form-check-label {
+    font-weight: normal;
+    color: #fff;
+}
+
+.login-custom-text-center {
+    text-align: center;
+    color: #fff;
+}
+
+.login-custom-alert {
+    margin-top: 15px;
+    color: #fff;
+    background-color: #ff0000;
+    padding: 10px;
+    border-radius: 5px;
+}

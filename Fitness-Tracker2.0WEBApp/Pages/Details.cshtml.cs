@@ -26,6 +26,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
         public string ErrorMessage { get; set; }
         public string SuccessMessage { get; set; }
         public bool HasAlreadyRated { get; private set; }
+        public bool HasAddedToFavorites { get; private set; }
         public double CalculatedRating { get; set; }
         public int RatingCount { get; set; }
         public double[] RatingPercentages { get; private set; }
@@ -100,6 +101,25 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 
             bool addedSuccessfully = _customerManager.AddWorkoutToFavourites(customerId, Id);
             SuccessMessage = addedSuccessfully ? "Workout added to favorites successfully!" : "Workout is already in your favorites.";
+
+            SetRatingStrategyAndRecalculateProperties(Id, customerId, SelectedStrategy);
+            return Page();
+        }
+        public IActionResult OnPostRemoveFromFavorites()
+        {
+            if (!ModelState.IsValid)
+            {
+                ErrorMessage = "Invalid input.";
+                return Page();
+            }
+
+            if (!TryInitialize(Id, out var customerId))
+            {
+                return Page();
+            }
+
+            bool removedSuccessfully = _customerManager.RemoveWorkoutFromFavourites(customerId, Id);
+            SuccessMessage = removedSuccessfully ? "Workout removed from favorites successfully!" : "Workout was not found in your favorites.";
 
             SetRatingStrategyAndRecalculateProperties(Id, customerId, SelectedStrategy);
             return Page();
@@ -179,6 +199,17 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 if (customerId == -1)
                 {
                     throw new UserNotFoundException(User.FindFirstValue(ClaimTypes.Email));
+                }
+
+                HasAddedToFavorites = false;
+                var favoriteWorkouts = _customerManager.GetFavoriteWorkouts(customerId);
+                foreach (var favoriteWorkout in favoriteWorkouts)
+                {
+                    if (favoriteWorkout.GetId() == workoutId)
+                    {
+                        HasAddedToFavorites = true;
+                        break;
+                    }
                 }
 
                 return true;

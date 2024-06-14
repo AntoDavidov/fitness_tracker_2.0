@@ -30,6 +30,7 @@
         {
             tabControl1 = new TabControl();
             AllWorkouts = new TabPage();
+            btnClear = new Button();
             panel6 = new Panel();
             label1 = new Label();
             cmbSearchLevel = new ComboBox();
@@ -51,7 +52,6 @@
             btnCreateWorkout = new Button();
             rchtxtbDescription = new RichTextBox();
             txtName = new TextBox();
-            btnClear = new Button();
             tabControl1.SuspendLayout();
             AllWorkouts.SuspendLayout();
             CreationOfWorkouts.SuspendLayout();
@@ -89,6 +89,20 @@
             AllWorkouts.Size = new Size(1008, 502);
             AllWorkouts.TabIndex = 0;
             AllWorkouts.Text = "All Workouts";
+            // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.White;
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
+            btnClear.ForeColor = Color.Red;
+            btnClear.Location = new Point(410, 37);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(73, 34);
+            btnClear.TabIndex = 50;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // panel6
             // 
@@ -327,19 +341,6 @@
             txtName.Name = "txtName";
             txtName.Size = new Size(170, 21);
             txtName.TabIndex = 0;
-            // 
-            // btnClear
-            // 
-            btnClear.BackColor = Color.White;
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            btnClear.ForeColor = Color.Red;
-            btnClear.Location = new Point(410, 37);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(73, 34);
-            btnClear.TabIndex = 50;
-            btnClear.Text = "Clear";
-            btnClear.UseVisualStyleBackColor = false;
             // 
             // UC_SuggestionsPage
             // 

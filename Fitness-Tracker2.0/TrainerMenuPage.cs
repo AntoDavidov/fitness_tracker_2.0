@@ -42,11 +42,11 @@ namespace Fitness_Tracker2._0
             AddUserControl(ucStrengthPage);
         }
 
-        private void btnCardio_Click(object sender, EventArgs e)
-        {
-            ucCardioPage ucCardioPage = new ucCardioPage(_exerciseManager);
-            AddUserControl(ucCardioPage);
-        }
+        //private void btnCardio_Click(object sender, EventArgs e)
+        //{
+        //    ucCardioPage ucCardioPage = new ucCardioPage(_exerciseManager);
+        //    AddUserControl(ucCardioPage);
+        //}
 
         private void btnSuggestions_Click(object sender, EventArgs e)
         {
@@ -54,11 +54,11 @@ namespace Fitness_Tracker2._0
             AddUserControl(ucSuggestionsPage);
         }
 
-        private void btnProfile_Click(object sender, EventArgs e)
-        {
-            ucProfilePage ucProfilePage = new ucProfilePage(_employee, _employeeManager);
-            AddUserControl(ucProfilePage);
-        }
+        //private void btnProfile_Click(object sender, EventArgs e)
+        //{
+        //    ucProfilePage ucProfilePage = new ucProfilePage(_employee, _employeeManager);
+        //    AddUserControl(ucProfilePage);
+        //}
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

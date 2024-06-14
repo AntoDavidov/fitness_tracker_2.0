@@ -34,7 +34,6 @@
             panel2 = new Panel();
             btnSuggestions = new Button();
             btnStrength = new Button();
-            btnProfile = new Button();
             panelContainer = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -79,7 +78,6 @@
             panel2.BackColor = Color.White;
             panel2.Controls.Add(btnSuggestions);
             panel2.Controls.Add(btnStrength);
-            panel2.Controls.Add(btnProfile);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 67);
             panel2.Name = "panel2";
@@ -92,9 +90,9 @@
             btnSuggestions.FlatStyle = FlatStyle.Flat;
             btnSuggestions.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
             btnSuggestions.ForeColor = Color.Red;
-            btnSuggestions.Location = new Point(260, 3);
+            btnSuggestions.Location = new Point(494, 3);
             btnSuggestions.Name = "btnSuggestions";
-            btnSuggestions.Size = new Size(483, 65);
+            btnSuggestions.Size = new Size(498, 65);
             btnSuggestions.TabIndex = 2;
             btnSuggestions.Text = "Workouts";
             btnSuggestions.UseVisualStyleBackColor = false;
@@ -108,25 +106,11 @@
             btnStrength.ForeColor = Color.Red;
             btnStrength.Location = new Point(3, 3);
             btnStrength.Name = "btnStrength";
-            btnStrength.Size = new Size(251, 65);
+            btnStrength.Size = new Size(485, 65);
             btnStrength.TabIndex = 0;
             btnStrength.Text = "Exercises";
             btnStrength.UseVisualStyleBackColor = false;
             btnStrength.Click += btnStrength_Click;
-            // 
-            // btnProfile
-            // 
-            btnProfile.BackColor = Color.White;
-            btnProfile.FlatStyle = FlatStyle.Flat;
-            btnProfile.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            btnProfile.ForeColor = Color.Red;
-            btnProfile.Location = new Point(749, 3);
-            btnProfile.Name = "btnProfile";
-            btnProfile.Size = new Size(246, 65);
-            btnProfile.TabIndex = 3;
-            btnProfile.Text = "Profile";
-            btnProfile.UseVisualStyleBackColor = false;
-            btnProfile.Click += btnProfile_Click;
             // 
             // panelContainer
             // 
@@ -161,7 +145,6 @@
         private Panel panel2;
         private Panel panelContainer;
         private Button btnStrength;
-        private Button btnProfile;
         private PictureBox pictureBox1;
     }
 }

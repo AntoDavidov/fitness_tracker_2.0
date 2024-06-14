@@ -9,6 +9,7 @@ namespace IRepositories
         public bool AddCustomerToDB(string firstName, string lastName, string username, string password, string email, double weight, Level level, int age);
         Customer VerifyCustomerCredentials(string email, string password);
         bool AddWorkoutToFavourites(int customerId, int workoutId);
+        bool RemoveWorkoutFromFavourites(int customerId, int workoutId);
         int GetCustomerIdByEmail(string email);
         List<Customer> GetAllCustomers();
         public Customer GetCustomerById(int customerId);

@@ -69,7 +69,7 @@ namespace Fitness_Tracker2._0.UserControls
         {
             string name = txtName.Text;
             string description = rchtxtbDescription.Text;
-            Level level = (Level)cmbSearchLevel.SelectedIndex;
+            Level level = (Level)cmbLevel.SelectedIndex + 1;
 
 
             Workouts newWorkout = new Workouts(name, description, level);
@@ -171,7 +171,9 @@ namespace Fitness_Tracker2._0.UserControls
             }
         }
 
-
-
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lstbWorkout.Items.Clear();
+        }
     }
 }
