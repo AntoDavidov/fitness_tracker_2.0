@@ -268,9 +268,9 @@ namespace DBLibrary
                                 int id = reader.GetInt32(reader.GetOrdinal("Id"));
                                 string name = reader.GetString(reader.GetOrdinal("Name"));
                                 string description = reader.GetString(reader.GetOrdinal("Description"));
-                                string level = reader.GetString(reader.GetOrdinal("workout_level"));
+                                Level workoutLevel = (Level)reader.GetInt32(reader.GetOrdinal("workout_level"));
 
-                                Workouts workout = new Workouts(id, name, description, level);
+                                Workouts workout = new Workouts(id, name, description, workoutLevel);
                                 favoriteWorkouts.Add(workout);
                             }
                         }
@@ -316,7 +316,7 @@ namespace DBLibrary
                                 int id = reader.GetInt32(reader.GetOrdinal("id"));
                                 string name = reader.GetString(reader.GetOrdinal("Name"));
                                 string description = reader.GetString(reader.GetOrdinal("Description"));
-                                string workoutLevel = reader.GetString(reader.GetOrdinal("workout_level"));
+                                Level workoutLevel = (Level)reader.GetInt32(reader.GetOrdinal("workout_level"));
 
                                 // Create a new Workout object and add it to the list
                                 Workouts workout = new Workouts(id, name, description, workoutLevel);
@@ -411,7 +411,8 @@ namespace DBLibrary
                             int id = reader.GetInt32(0);
                             string name = reader.GetString(1);
                             string description = reader.GetString(2);
-                            string workoutLevel = reader.GetString(3);
+                            Level workoutLevel = (Level)reader.GetInt32(3);
+
                             result.Add(new Workouts(id, name, description, workoutLevel));
                         }
                     }

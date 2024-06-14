@@ -208,6 +208,7 @@ namespace DBLibrary
                 {
                     connection.Open();
 
+                    workoutDBManager = new WorkoutDBManager();
                     List<int> workoutIds = workoutDBManager.GetWorkoutIdsContainingExercise(strengthExercise.GetId());
                     foreach (int workoutId in workoutIds)
                     {
@@ -235,6 +236,70 @@ namespace DBLibrary
                 }
             }
         }
+        public List<Exercise> SearchExercisesByNameAndType(string exerciseType, string exerciseName)
+        {
+            List<Exercise> exercises = new List<Exercise>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = @"
+                        SELECT e.id, e.name, e.description, 
+                               se.muscle, se.repetitions, se.sets, se.weight, 
+                               ce.duration
+                        FROM Exercise e
+                        LEFT JOIN StrengthExercise se ON e.id = se.exercise_id
+                        LEFT JOIN CardioExercise ce ON e.id = ce.exercise_id
+                        WHERE (@ExerciseType IS NULL 
+                               OR (@ExerciseType = 'Strength' AND se.exercise_id IS NOT NULL)
+                               OR (@ExerciseType = 'Cardio' AND ce.exercise_id IS NOT NULL))
+                          AND (@ExerciseName IS NULL 
+                               OR e.name LIKE '%' + @ExerciseName + '%')
+                        ORDER BY e.id;";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@ExerciseType", (object)exerciseType ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@ExerciseName", (object)exerciseName ?? DBNull.Value);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("id"));
+                                string name = reader.GetString(reader.GetOrdinal("name"));
+                                string description = reader.GetString(reader.GetOrdinal("description"));
+
+                                if (exerciseType == "Strength" && !reader.IsDBNull(reader.GetOrdinal("muscle")))
+                                {
+                                    string muscle = reader.GetString(reader.GetOrdinal("muscle"));
+                                    int repetitions = reader.GetInt32(reader.GetOrdinal("repetitions"));
+                                    int sets = reader.GetInt32(reader.GetOrdinal("sets"));
+                                    double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("weight")));
+
+                                    exercises.Add(new Strength(id, name, description, (MuscleGroup)Enum.Parse(typeof(MuscleGroup), muscle), repetitions, sets, weight));
+                                }
+                                else if (exerciseType == "Cardio" && !reader.IsDBNull(reader.GetOrdinal("duration")))
+                                {
+                                    TimeSpan duration = reader.GetTimeSpan(reader.GetOrdinal("duration"));
+
+                                    exercises.Add(new Cardio(id, name, description, duration));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return exercises;
+        }
 
         public void DeleteCardioExercise(Cardio cardioExercise)
         {
@@ -242,6 +307,7 @@ namespace DBLibrary
             try
             {
                 connection.Open();
+                workoutDBManager = new WorkoutDBManager();
                 List<int> workoutIds = workoutDBManager.GetWorkoutIdsContainingExercise(cardioExercise.GetId());
                 foreach (int workoutId in workoutIds)
                 {
@@ -309,7 +375,64 @@ namespace DBLibrary
 
             return cardioExercises;
         }
+        public List<Exercise> SearchExercisesByName(string name)
+        {
+            List<Exercise> exercises = new List<Exercise>();
 
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = @"
+                        SELECT e.id, e.name, e.description, c.duration, s.muscle, s.repetitions, s.sets, s.weight 
+                        FROM Exercise e
+                        LEFT JOIN CardioExercise c ON e.id = c.exercise_id
+                        LEFT JOIN StrengthExercise s ON e.id = s.exercise_id
+                        WHERE e.name LIKE @Name";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", "%" + name + "%");
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("id"));
+                                string exerciseName = reader.GetString(reader.GetOrdinal("name"));
+                                string description = reader.GetString(reader.GetOrdinal("description"));
+
+                                if (!reader.IsDBNull(reader.GetOrdinal("duration")))
+                                {
+                                    TimeSpan duration = reader.GetTimeSpan(reader.GetOrdinal("duration"));
+                                    Cardio cardioExercise = new Cardio(id, exerciseName, description, duration);
+                                    exercises.Add(cardioExercise);
+                                }
+                                else
+                                {
+                                    string muscleGroupString = reader.GetString(reader.GetOrdinal("muscle"));
+                                    MuscleGroup muscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), muscleGroupString);
+                                    int repetitions = reader.GetInt32(reader.GetOrdinal("repetitions"));
+                                    int sets = reader.GetInt32(reader.GetOrdinal("sets"));
+                                    double weight = Convert.ToDouble(reader.GetDecimal(reader.GetOrdinal("weight")));
+
+                                    Strength strengthExercise = new Strength(id, exerciseName, description, muscleGroup, repetitions, sets, weight);
+                                    exercises.Add(strengthExercise);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return exercises;
+        }
         public List<Strength>? GetStrengthExercises()
         {
             List<Strength> strengthExercises = new List<Strength>();

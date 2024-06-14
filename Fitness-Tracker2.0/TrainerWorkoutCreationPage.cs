@@ -41,21 +41,7 @@ namespace Fitness_Tracker2._0
 
         private void PopulateExercisesListBox()
         {
-            lstbExercises.Items.Clear();
-            if (cmbFilter.SelectedIndex == 0)
-            {
-                foreach (Strength strengthExercise in exerciseManager.GetOnlyStrengthExercises())
-                {
-                    lstbExercises.Items.Add(strengthExercise.ToString());
-                }
-            }
-            else if (cmbFilter.SelectedIndex == 1)
-            {
-                foreach (Cardio cardioExercise in exerciseManager.GetOnlyCardioExercises())
-                {
-                    lstbExercises.Items.Add(cardioExercise.ToString());
-                }
-            }
+            
         }
 
         private void PopulateWorkoutExercisesListBox()
@@ -82,7 +68,6 @@ namespace Fitness_Tracker2._0
             }
         }
 
-        // Handle mouse down event for the available exercises list box
         private void lstbExercises_MouseDown(object sender, MouseEventArgs e)
         {
             if (lstbExercises.SelectedItem != null)
@@ -92,7 +77,6 @@ namespace Fitness_Tracker2._0
             }
         }
 
-        // Handle drag enter event for the workout exercises list box
         private void lstbCurrentWorkoutExercises_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.Text))
@@ -129,7 +113,7 @@ namespace Fitness_Tracker2._0
 
         private void lstbExercises_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // You can handle selection change event if needed
+
         }
 
         private void cmbFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -144,7 +128,7 @@ namespace Fitness_Tracker2._0
 
         private void btnRemoveExercise_Click(object sender, EventArgs e)
         {
-            if(lstbCurrentWorkoutExercises.SelectedItem == null)
+            if (lstbCurrentWorkoutExercises.SelectedItem == null)
             {
                 MessageBox.Show("Please select an exercise to remove.", "No Exercise Selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -160,6 +144,40 @@ namespace Fitness_Tracker2._0
                 workoutManager.RemoveExerciseFromWorkout(currentWorkout, exercise);
                 PopulateWorkoutExercisesListBox();
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchName = textBox1.Text;
+            string exerciseType = null;
+
+            if(cmbFilter.SelectedIndex == -1) 
+            {
+                MessageBox.Show("Please select a type of exercise to search from.");
+            }
+            else if (cmbFilter.SelectedIndex == 0)
+            {
+                exerciseType = "Strength";
+            }
+            else if (cmbFilter.SelectedIndex == 1)
+            {
+                exerciseType = "Cardio";
+            }
+
+            List<Exercise> exercises = exerciseManager.SearchExercisesByTypeAndName(exerciseType, searchName);
+
+            lstbExercises.Items.Clear();
+            foreach (Exercise exercise in exercises)
+            {
+                lstbExercises.Items.Add($"{exercise.GetId()}: {exercise.GetName()}");
+            }
+
+            textBox1.Text = "";
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lstbExercises.Items.Clear ();
         }
     }
 

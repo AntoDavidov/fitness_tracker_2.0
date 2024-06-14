@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IRepositories;
+using NameLibrary;
+using System.Reflection.PortableExecutable;
 
 namespace DBLibrary
 {
@@ -96,7 +98,7 @@ namespace DBLibrary
                             int id = workoutReader.GetInt32(workoutReader.GetOrdinal("id"));
                             string name = workoutReader.GetString(workoutReader.GetOrdinal("Name"));
                             string description = workoutReader.GetString(workoutReader.GetOrdinal("Description"));
-                            string workoutLevel = workoutReader.GetString(workoutReader.GetOrdinal("workout_level"));
+                            Level workoutLevel = (Level)workoutReader.GetInt32(workoutReader.GetOrdinal("workout_level"));
 
                             // Initialize the workout object
                             workout = new Workouts(id, name, description, workoutLevel);
@@ -157,7 +159,7 @@ namespace DBLibrary
                                 int id = reader.GetInt32(reader.GetOrdinal("id"));
                                 string name = reader.GetString(reader.GetOrdinal("Name"));
                                 string description = reader.GetString(reader.GetOrdinal("Description"));
-                                string workoutLevel = reader.GetString(reader.GetOrdinal("workout_level"));
+                                Level workoutLevel = (Level)reader.GetInt32(reader.GetOrdinal("workout_level"));
 
                                 // Create a new Workout object and add it to the list
                                 Workouts workout = new Workouts(id, name, description, workoutLevel);
@@ -235,9 +237,54 @@ namespace DBLibrary
                                 int id = reader.GetInt32(reader.GetOrdinal("Id"));
                                 string name = reader.GetString(reader.GetOrdinal("Name"));
                                 string description = reader.GetString(reader.GetOrdinal("Description"));
-                                string workoutLevel = reader.GetString(reader.GetOrdinal("workout_level"));
+                                Level workoutLevel = (Level)reader.GetInt32(reader.GetOrdinal("workout_level"));
 
                                 Workouts workout = new Workouts(id, name, description, workoutLevel);
+                                workouts.Add(workout);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return workouts;
+        }
+        public List<Workouts> SearchWorkouts(string name, int? level)
+        {
+            List<Workouts> workouts = new List<Workouts>();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string query = @"
+                        SELECT id, Name, Description, workout_level 
+                        FROM Workout as w
+                        WHERE Name LIKE '%' + @Name + '%'
+                        AND (@Level IS NULL OR w.workout_level = @Level)
+                        ORDER BY id";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", name);
+                        cmd.Parameters.AddWithValue("@Level", level.HasValue ? (object)level.Value : DBNull.Value);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = reader.GetInt32(reader.GetOrdinal("id"));
+                                string workoutName = reader.GetString(reader.GetOrdinal("Name"));
+                                string description = reader.GetString(reader.GetOrdinal("Description"));
+                                Level workoutLevel = (Level)reader.GetInt32(reader.GetOrdinal("workout_level"));
+
+                                Workouts workout = new Workouts(id, workoutName, description, workoutLevel);
                                 workouts.Add(workout);
                             }
                         }
@@ -320,60 +367,14 @@ namespace DBLibrary
             }
             catch (Exception ex)
             {
-                // Handle exceptions
+                Console.WriteLine($"{ex.Message}");
             }
 
             return topRatedWorkouts;
         }
 
-        public Workouts? GetWorkout(Workouts workout)
-        {
-            using (SqlConnection connection = new SqlConnection(GetConnectionString()))
-            {
-                try
-                {
-                    using (SqlCommand command = connection.CreateCommand())
-                    {
-                        command.CommandText =
-                            "SELECT id, Name, Description, workout_level " +
-                            "FROM Workout " +
-                            "WHERE Name = @name " +
-                            "AND Description = @description " +
-                            "AND workout_level = @workout_level;";
-                        connection.Open();
-                        command.Parameters.AddWithValue("@name", workout.GetName());
-                        command.Parameters.AddWithValue("@description", workout.GetDescription());
-                        command.Parameters.AddWithValue("@workout_level", workout.GetWorkoutLevel());
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            Workouts retrievedWorkout = null;
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
-                                {
-                                    retrievedWorkout = new Workouts(
-                                        (int)reader["id"],
-                                        (string)reader["Name"],
-                                        (string)reader["Description"],
-                                        (string)reader["workout_level"]
-                                    );
-                                }
-                            }
-                            return retrievedWorkout;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Unable to load workout: {ex}");
-                }
-                finally
-                {
-                    if (connection.State != ConnectionState.Closed)
-                        connection.Close();
-                }
-            }
-        }
+
+       
         public bool ExerciseAlreadyExistsInWorkout(int workoutId, int exerciseId)
         {
             bool exists = false;
@@ -477,7 +478,7 @@ namespace DBLibrary
                                 int id = reader.GetInt32(reader.GetOrdinal("id"));
                                 string name = reader.GetString(reader.GetOrdinal("Name"));
                                 string description = reader.GetString(reader.GetOrdinal("Description"));
-                                string workoutLevel = reader.GetString(reader.GetOrdinal("workout_level"));
+                                Level workoutLevel = (Level)reader.GetInt32(reader.GetOrdinal("workout_level"));
 
                                 // Create a new Workout object and add it to the list
                                 Workouts workout = new Workouts(id, name, description, workoutLevel);

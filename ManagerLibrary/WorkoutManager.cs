@@ -43,6 +43,11 @@ namespace ManagerLibrary
             return _workoutRepo.GetFilteredWorkouts(level, includeLevel, pageIndex, pageSize);
         }
 
+        public List<Workouts> SearchWorkouts(string name, int? level = null)
+        {
+            return _workoutRepo.SearchWorkouts(name, level);
+        }
+
         public int GetFilteredWorkoutsCount(int? level, bool includeLevel)
         {
             return _workoutRepo.GetFilteredWorkoutsCount(level, includeLevel);

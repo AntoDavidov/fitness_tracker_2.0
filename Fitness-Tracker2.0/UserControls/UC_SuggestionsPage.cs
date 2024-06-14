@@ -1,5 +1,6 @@
 ﻿using ExerciseLibrary;
 using ManagerLibrary;
+using NameLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,10 +31,7 @@ namespace Fitness_Tracker2._0.UserControls
 
         private void PopulateListBox()
         {
-            foreach (Workouts workout in _workoutManager.GetWorkouts())
-            {
-                lstbWorkout.Items.Add(workout.ToString());
-            }
+            lstbWorkout.Items.Clear();
         }
 
         private void btnEditWorkout_Click(object sender, EventArgs e)
@@ -57,12 +55,21 @@ namespace Fitness_Tracker2._0.UserControls
             //    }
             //}
         }
+        private void lstbWorkout_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void txtbSeachName_TextChanged(object sender, EventArgs e)
+        {
+
+
+        }
 
         private void btnCreateWorkout_Click(object sender, EventArgs e)
         {
             string name = txtName.Text;
             string description = rchtxtbDescription.Text;
-            string level = cmbLevel.Text;
+            Level level = (Level)cmbSearchLevel.SelectedIndex;
 
 
             Workouts newWorkout = new Workouts(name, description, level);
@@ -72,9 +79,43 @@ namespace Fitness_Tracker2._0.UserControls
             rchtxtbDescription.Text = "";
         }
 
-        private void lstbWorkout_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchName = txtbSeachName.Text;
+            string levelText = cmbSearchLevel.Text;
+
+            int? level = null;
+            if (!string.IsNullOrEmpty(levelText))
+            {
+                if (Enum.TryParse(typeof(Level), levelText, out var result))
+                {
+                    level = (int)result;
+                }
+            }
+
+            List<Workouts> workouts = _workoutManager.SearchWorkouts(searchName, level);
+            if (string.IsNullOrEmpty(searchName))
+            {
+                MessageBox.Show("Please enter a name to search.");
+                return;
+            }
+
+            if (workouts.Count > 0)
+            {
+                lstbWorkout.Items.Clear();
+                foreach (Workouts workout in workouts)
+                {
+                    lstbWorkout.Items.Add($"{workout.GetId()}: {workout.GetName()}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No workouts found with the given name and level.");
+            }
+            txtbSeachName.Text = "";
+            cmbSearchLevel.SelectedIndex = -1; // Reset the ComboBox
         }
 
         private void btnEditWorkout_Click_1(object sender, EventArgs e)
@@ -85,27 +126,21 @@ namespace Fitness_Tracker2._0.UserControls
                 return;
             }
 
-            Workouts selectedWorkout = _workoutManager.GetWorkouts()[lstbWorkout.SelectedIndex];
+            string selectedWorkoutInfo = lstbWorkout.SelectedItem.ToString();
+            string[] parts = selectedWorkoutInfo.Split(":");
 
-            // Pass the selected workout to the _workoutCreationPage
-            _workoutCreationPage = new frmTrainerWorkoutCreationPage(selectedWorkout, _manager, _workoutManager);
-            _workoutCreationPage.Show();
-        }
-
-        private void txtbSeachName_TextChanged(object sender, EventArgs e)
-        {
-            string searchText = txtbSeachName.Text.ToLower();
-
-            lstbWorkout.Items.Clear();
-
-            foreach (Workouts workout in _workoutManager.GetWorkouts())
+            if (int.TryParse(parts[0], out int id))
             {
-                if (workout.GetName().ToLower().StartsWith(searchText))
-                {
-                    lstbWorkout.Items.Add(workout.ToString());
-                }
-            }
+                Workouts selectedWorkout = _workoutManager.GetWorkoutById(id);
 
+                // Pass the selected workout to the _workoutCreationPage
+                _workoutCreationPage = new frmTrainerWorkoutCreationPage(selectedWorkout, _manager, _workoutManager);
+                _workoutCreationPage.Show();
+            }
+            else
+            {
+                MessageBox.Show("Invalid workout ID format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDeleteWorkout_Click(object sender, EventArgs e)
@@ -116,15 +151,27 @@ namespace Fitness_Tracker2._0.UserControls
                 return;
             }
 
-            Workouts selectedWorkout = _workoutManager.GetWorkouts()[lstbWorkout.SelectedIndex];
+            string selectedWorkoutInfo = lstbWorkout.SelectedItem.ToString();
+            string[] parts = selectedWorkoutInfo.Split(":");
 
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this workout?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            if (int.TryParse(parts[0], out int id))
             {
-                _workoutManager.DeleteWorkout(selectedWorkout);
-                lstbWorkout.Items.RemoveAt(lstbWorkout.SelectedIndex);
+                Workouts selectedWorkout = _workoutManager.GetWorkoutById(id);
 
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this workout?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    _workoutManager.DeleteWorkout(selectedWorkout);
+                    lstbWorkout.Items.RemoveAt(lstbWorkout.SelectedIndex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid workout ID format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
     }
 }

@@ -56,7 +56,30 @@ namespace Unit_Testing.FakeRepo
 
             return null;
         }
+        public List<Exercise> SearchExercisesByName(string name)
+        {
+            List<Exercise> matchingExercises = new List<Exercise>();
 
+            foreach (var exercise in _exercises)
+            {
+                if (exercise.GetName().IndexOf(name, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    matchingExercises.Add(exercise);
+                }
+            }
+
+            return matchingExercises;
+        }
+        public List<Exercise> SearchExercisesByNameAndType(string exerciseType, string exerciseName)
+        {
+            return _exercises.Where(e =>
+                (string.IsNullOrEmpty(exerciseType) ||
+                 (exerciseType == "Strength" && e is Strength) ||
+                 (exerciseType == "Cardio" && e is Cardio)) &&
+                (string.IsNullOrEmpty(exerciseName) ||
+                 e.GetName().Contains(exerciseName, StringComparison.OrdinalIgnoreCase)))
+            .ToList();
+        }
         public Strength? GetStrengthExerciseById(int exerciseId)
         {
             foreach (var exercise in _strengthExercises)

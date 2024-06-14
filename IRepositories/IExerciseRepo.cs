@@ -17,6 +17,8 @@ namespace IRepositories
         Strength? GetStrengthExerciseById(int exerciseId);
         void DeleteStrengthExercise(Strength strengthExercise);
         void DeleteCardioExercise(Cardio cardioExercise);
+        public List<Exercise> SearchExercisesByName(string name);
+        List<Exercise> SearchExercisesByNameAndType(string exerciseType, string exerciseName);
         List<Cardio>? GetCardioExercises();
         List<Strength>? GetStrengthExercises();
     }

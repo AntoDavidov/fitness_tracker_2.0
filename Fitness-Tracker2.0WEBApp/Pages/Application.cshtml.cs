@@ -29,7 +29,7 @@ namespace Fitness_Tracker2._0WEBApp.Pages
 
         public void OnGet(int pageIndex = 1, string searchLevel = "All")
         {
-            const int pageSize = 8; // Display 8 workouts per page
+            const int pageSize = 8;
             var customerId = _customerManager.GetCustomerIdByEmail(User.FindFirstValue(ClaimTypes.Email));
             var user = _customerManager.GetCustomerById(customerId);
             int userLevel = (int)user.GetLevel();

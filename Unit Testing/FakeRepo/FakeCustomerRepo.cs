@@ -124,7 +124,7 @@ namespace Unit_Testing.FakeRepo
         private Workouts GetWorkoutById(int workoutId)
         {
             // Simulate fetching a workout by ID
-            return new Workouts(workoutId, $"Workout {workoutId}", $"Description for workout {workoutId}", Level.Intermediate.ToString());
+            return new Workouts(workoutId, $"Workout {workoutId}", $"Description for workout {workoutId}", Level.Intermediate);
         }
         public void MarkExerciseAsCompleted(int customerId, int workoutId, int exerciseId)
         {
@@ -173,11 +173,11 @@ namespace Unit_Testing.FakeRepo
             // Fake implementation to return workouts by IDs
             var workouts = new List<Workouts>
             {
-                new Workouts(1, "Workout 1", "Description 1", "Beginner"),
-                new Workouts(2, "Workout 2", "Description 2", "Intermediate"),
-                new Workouts(3, "Workout 3", "Description 3", "Advanced"),
-                new Workouts(5, "Workout 5", "Description 5", "Beginner"),
-                new Workouts(6, "Workout 6", "Description 6", "Intermediate")
+                new Workouts(1, "Workout 1", "Description 1", Level.Beginner),
+                new Workouts(2, "Workout 2", "Description 2", Level.Advanced),
+                new Workouts(3, "Workout 3", "Description 3", Level.Intermediate),
+                new Workouts(5, "Workout 5", "Description 5", Level.Advanced),
+                new Workouts(6, "Workout 6", "Description 6", Level.Beginner)
             };
 
             var result = new List<Workouts>();

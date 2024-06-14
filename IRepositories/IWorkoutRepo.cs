@@ -11,14 +11,13 @@ namespace IRepositories
     {
         bool AddWorkoutWithoutExercises(Workouts workout);
         void AddExerciseToWorkout(int workoutId, int exerciseId);
-        Workouts? GetWorkout(Workouts workout);
         Workouts? GetWorkoutById(int workoutId);
         bool ExerciseAlreadyExistsInWorkout(int workoutId, int exerciseId);
         List<Workouts>? GetAllWorkouts();
         public List<Workouts> GetWorkoutsByPage(int pageIndex, int pageSize);
         public List<Workouts> GetFilteredWorkouts(int? level, bool includeLevel, int pageIndex, int pageSize);
+        public List<Workouts> SearchWorkouts(string name, int? level = null);
         public int GetFilteredWorkoutsCount(int? level, bool includeLevel);
-
         public int GetTotalWorkoutsCount();
         List<Workouts> GetTopRatedWorkouts(int topN);
         List<int> GetWorkoutIdsContainingExercise(int exerciseId);

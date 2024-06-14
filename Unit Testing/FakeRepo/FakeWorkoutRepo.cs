@@ -64,6 +64,15 @@ namespace Unit_Testing.FakeRepo
         {
             return _workouts.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
+
+        public List<Workouts> SearchWorkouts(string name, int? level = null)
+        {
+            return _workouts
+                .Where(w => w.GetName().Contains(name, StringComparison.OrdinalIgnoreCase) &&
+                            (!level.HasValue || w.GetWorkoutLevel().Equals((Level)level.Value)))
+                .ToList();
+        }
+
         public int GetTotalWorkoutsCount()
         {
             return _workouts.Count;
