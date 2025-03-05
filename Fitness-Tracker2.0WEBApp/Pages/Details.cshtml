@@ -1,0 +1,35 @@
+﻿@page
+@model Fitness_Tracker2._0WEBApp.Pages.DetailsModel
+@{
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/DetailsPageStyle.css" asp-append-version="true" />
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+else
+{
+    <h1>@Model.Workout.GetName()</h1>
+    <p>@Model.Workout.GetDescription()</p>
+    <p>Level: @Model.Workout.GetWorkoutLevel()</p>
+
+    <h2>Exercises</h2>
+    <ul>
+        @foreach (var exercise in Model.Workout.GetExercises())
+        {
+            <li>@exercise.ToString()</li>
+        }
+    </ul>
+
+    <form method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" asp-page-handler="AddToFavorites">Add to Favorites</button>
+    </form>
+}
+
+<a href="/Application">Back to list</a>

@@ -1,0 +1,35 @@
+﻿body {
+    font-family: Arial, sans-serif; /* Use a modern sans-serif font */
+    margin: 0; /* Remove default margin */
+    padding: 0;
+}
+
+fieldset {
+    font-style: italic;
+}
+
+.form-control:hover {
+    border-color: #ff0000;
+}
+
+.form-control:focus {
+    border-color: #ff0000; /* Change the border color to red when focused */
+    box-shadow: none; /* Remove the box shadow */
+}
+
+.btn-primary {
+    background-color: #ff0000;
+    border-color: #ff0000;
+    color: #fff;
+    position: relative;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px; /* Add margin to the top */
+}
+
+    .btn-primary:hover {
+        background-color: #cc0000;
+        border-color: #cc0000;
+        transition: background-color 0.3s, transform 0.2s;
+    }
