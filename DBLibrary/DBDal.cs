@@ -11,35 +11,40 @@ namespace DBLibrary
 {
     public class DBDal
     {
-        protected string connectionString = "Server=mssqlstud.fhict.local;Database=dbi530206_fitnestrak;User Id=dbi530206_fitnestrak;Password=1234;";
+        private string connectionString = "Server=mssqlstud.fhict.local;Database=dbi530206_fitnestrak;User Id=dbi530206_fitnestrak;Password=1234;";
 
         // Method to verify a password against a hashed password
-        protected bool VerifyPassword(string password, string hashedPassword)
+        public bool VerifyPassword(string password, string hashedPassword)
         {
             return password.Equals(hashedPassword);
         }
 
-        public bool EmailAlreadyExists(string email)
+        //public bool EmailAlreadyExists(string email)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+
+        //            string query = "SELECT COUNT(*) FROM [User] WHERE email = @Email";
+        //            SqlCommand cmd = new SqlCommand(query, conn);
+        //            cmd.Parameters.AddWithValue("@Email", email);
+
+        //            int count = Convert.ToInt32(cmd.ExecuteScalar());
+        //            return count > 0;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error checking if email exists: " + ex.Message);
+        //        return false;
+        //    }
+            
+        //}
+        public string GetConnectionString()
         {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    string query = "SELECT COUNT(*) FROM [User] WHERE email = @Email";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Email", email);
-
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-                    return count > 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error checking if email exists: " + ex.Message);
-                return false;
-            }
+            return connectionString;
         }
     }
 }

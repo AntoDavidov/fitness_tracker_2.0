@@ -1,0 +1,17 @@
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Release\net8.0\DBLibrary.deps.json
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Release\net8.0\DBLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Release\net8.0\DBLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Release\net8.0\ExerciseLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Release\net8.0\NameLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Release\net8.0\ExerciseLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Release\net8.0\NameLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.AssemblyInfo.cs
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.csproj.Up2Date
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\refint\DBLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\DBLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Release\net8.0\ref\DBLibrary.dll

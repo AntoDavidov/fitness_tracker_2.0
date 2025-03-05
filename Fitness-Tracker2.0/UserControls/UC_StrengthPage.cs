@@ -14,11 +14,11 @@ namespace Fitness_Tracker2._0.UserControls
 {
     public partial class UC_StrengthPage : UserControl
     {
-        private ExerciseManager exerciseManager;
-        public UC_StrengthPage()
+        private ExerciseManager _exerciseManager;
+        public UC_StrengthPage(ExerciseManager exerciseManager)
         {
             InitializeComponent();
-            exerciseManager = new ExerciseManager();
+            _exerciseManager = exerciseManager;
             PopulateExerciseListbox();
         }
 
@@ -26,67 +26,154 @@ namespace Fitness_Tracker2._0.UserControls
         {
             string name = txtbName.Text;
             string description = rchtxtbDescription.Text;
-            MuscleGroup muscleGroup;
-            int reps = Convert.ToInt32(nmudReps.Value);
-            int sets = Convert.ToInt32(nmudSets.Value);
-            double weight = Convert.ToDouble(nmudWeight.Value);
 
-            if (Enum.TryParse(cmbMuscle.Text, out muscleGroup))
+            if(string.IsNullOrEmpty(name) && string.IsNullOrEmpty(description))
             {
-                Strength newStrength = new Strength(name, description, muscleGroup, reps, sets, weight);
-                exerciseManager.AddStrengthExercise(newStrength);
-                MessageBox.Show("Exercise created successfully!");
-                PopulateExerciseListbox();
+                MessageBox.Show("Input the name and description of the exercise.");
             }
-            else
+
+            else if (tabControl1.SelectedTab == tabPage1)
             {
-                MessageBox.Show("Invalid muscle group selected!");
+                if (ValidateStrengthInputs(out MuscleGroup muscleGroup, out int reps, out int sets, out double weight))
+                {
+                    AddStrengthExercise(name, description, muscleGroup, reps, sets, weight);
+                }
+            }
+            else if (tabControl1.SelectedTab == tabPage2)
+            {
+                if (ValidateCardioInputs(out int hours, out int minutes, out int seconds))
+                {
+                    AddCardioExercise(name, description, hours, minutes, seconds);
+                }
             }
         }
+        private bool ValidateStrengthInputs(out MuscleGroup muscleGroup, out int reps, out int sets, out double weight)
+        {
+            muscleGroup = default;
+            reps = Convert.ToInt32(nmudReps.Value);
+            sets = Convert.ToInt32(nmudSets.Value);
+            weight = Convert.ToDouble(nmudWeight.Value);
+
+            if (!Enum.TryParse(cmbMuscle.Text, out muscleGroup))
+            {
+                MessageBox.Show("Invalid muscle group selected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (reps == 0 && sets == 0 && weight == 0)
+            {
+                MessageBox.Show("At least one of Reps, Sets, or Weight must be inputted with a number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidateCardioInputs(out int hours, out int minutes, out int seconds)
+        {
+            hours = Convert.ToInt32(nudHours.Value);
+            minutes = Convert.ToInt32(nudMinutes.Value);
+            seconds = Convert.ToInt32(nudSeconds.Value);
+
+            if (hours == 0 && minutes == 0 && seconds == 0)
+            {
+                MessageBox.Show("At least one of Hours, Minutes, or Seconds must be inputted with a number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void AddStrengthExercise(string name, string description, MuscleGroup muscleGroup, int reps, int sets, double weight)
+        {
+            Exercise newStrength = new Strength(name, description, muscleGroup, reps, sets, weight);
+            _exerciseManager.AddExercise(newStrength);
+            MessageBox.Show("Strength exercise created successfully!");
+            PopulateExerciseListbox();
+        }
+
+        private void AddCardioExercise(string name, string description, int hours, int minutes, int seconds)
+        {
+            TimeSpan duration = new TimeSpan(hours, minutes, seconds);
+            Exercise newCardio = new Cardio(name, description, duration);
+            _exerciseManager.AddExercise(newCardio);
+            MessageBox.Show("Cardio exercise created successfully!");
+            PopulateExerciseListbox();
+        }
+
         private void PopulateExerciseListbox()
         {
             lstbExercises.Items.Clear();
-            foreach (Strength strengthExercise in exerciseManager.GetOnlyStrengthExercises())
-            {
-                lstbExercises.Items.Add(strengthExercise.ToString());
-            }
+
         }
 
         private void btnDeleteExercise_Click(object sender, EventArgs e)
         {
             if (lstbExercises.SelectedIndex == -1)
             {
-                MessageBox.Show("Please select a strenght exercise to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select an exercise to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            Strength selectedStrength = exerciseManager.GetOnlyStrengthExercises()[lstbExercises.SelectedIndex];
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this exercise? The selected exercise is going to be removed from" +
-                "every workout that is associated with!", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                exerciseManager.DeleteStrengthExercise(selectedStrength);
-                lstbExercises.Items.Remove(lstbExercises.SelectedIndex);
-                PopulateExerciseListbox();
-            }
-        }
+            string selectedExerciseInfo = lstbExercises.SelectedItem.ToString();
+            string[] parts = selectedExerciseInfo.Split(':');
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            string searchingString = txtbSearch.Text.ToLower();
-            lstbExercises.Items.Clear();
-            foreach (Strength strength in exerciseManager.GetOnlyStrengthExercises())
+            if (int.TryParse(parts[0], out int id))
             {
-                if (strength.GetName().ToLower().StartsWith(searchingString))
+                Exercise selectedExercise = _exerciseManager.GetExerciseById(id);
+                if (selectedExercise != null)
                 {
-                    lstbExercises.Items.Add(strength.ToString());
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete this exercise? The selected exercise will be removed from every workout that is associated with it.", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        _exerciseManager.DeleteExercise(selectedExercise);
+                        PopulateExerciseListbox();
+                        MessageBox.Show("Exercise deleted successfully!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Exercise not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else
+            {
+                MessageBox.Show("Invalid exercise ID format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void UC_StrengthPage_Load(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchName = txtbSearch.Text.ToLower();
+            List<Exercise> exercises = _exerciseManager.SearchExercisesByName(searchName);
+            if (string.IsNullOrEmpty(searchName))
+            {
+                MessageBox.Show("Please enter a name to search.");
+                return;
+            }
+            if (exercises.Count > 0)
+            {
+                lstbExercises.Items.Clear();
+                foreach (Exercise ex in exercises)
+                {
+                    lstbExercises.Items.Add($"{ex.GetId()}: {ex.GetName()}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No exercises found with the given name.");
+            }
+            txtbSearch.Text = "";
+        }
+
+        private void rchtxtbDescription_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lstbExercises.Items.Clear();
         }
     }
 }

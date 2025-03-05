@@ -1,0 +1,45 @@
+﻿body {
+    font-family: Arial, sans-serif; /* Use a modern sans-serif font */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.customContainer {
+    display: flex;  /*Use flexbox for layout*/ 
+    justify-content: space-between;  /*Space items evenly along the main axis*/ 
+    align-items: center;  /*Center items along the cross axis*/ 
+    height: 100vh;  /*Set the container height to the viewport height*/ 
+}
+
+.text {
+    flex: 1;  /*Allow text to grow to fill remaining space*/ 
+    text-align: left;  /*Align text to the left*/ 
+    margin-right: 20px;  /*Add margin to separate from logo */
+}
+
+.logo img {
+    max-width: 100%; /* Ensure the logo doesn't exceed its container */
+}
+
+.buttonSubmit button {
+    padding: 15px 30px; /* Adjust button padding */
+    font-size: 16px; /* Increase font size */
+    background-color: #007bff;  /*Set button background color*/ 
+    color: white;  /*Set button text color*/ 
+    border: none;  /*Remove button border*/ 
+    border-radius: 5px;  /*Apply border radius*/ 
+    cursor: pointer;  /*Change cursor to pointer on hover*/ 
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+    .buttonSubmit button:hover {
+        background-color: #0056b3;  /*Darken button background color on hover*/ 
+    }
+
+.customContainer {
+    background-color: #f8f9fa; /* Set background color */
+}
+
+.text {
+    color: #343a40; /* Set text color */
+}

@@ -1,96 +1,125 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DBLibrary;
+﻿using ManagerLibrary.Exceptions;
 using NameLibrary;
+using IRepositories;
+using System;
+using System.Collections.Generic;
 
 namespace ManagerLibrary
 {
-    public class EmployeeManager : PasswordManager
+    public class EmployeeManager
     {
-        private EmployeeDBManager employeeDBManager;
+        private readonly IEmployeeRepo _employeeRepository;
         private List<Employee> cachedEmployees;
+        private PasswordManager passwordManager;
 
-        public EmployeeManager()
+        public EmployeeManager(IEmployeeRepo employeeRepository)
         {
-            employeeDBManager = new EmployeeDBManager();
+            _employeeRepository = employeeRepository;
+            passwordManager = new PasswordManager();
             cachedEmployees = null;
         }
 
         public void AddEmployee(Employee employee)
         {
-            string passwordHashed = HashPassword(employee.GetPassword());
-            employeeDBManager.AddEmployeeToDB(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), passwordHashed, employee.GetEmail(), employee.Role());
-            cachedEmployees = null;
-        }
-        public List<Employee> GetEmployees()
-        {
-            // Lazy loading and caching employees
             if (cachedEmployees == null)
             {
-                cachedEmployees = employeeDBManager.GetAllEmployeesFromDB();
+                cachedEmployees = _employeeRepository.GetAllEmployees();
             }
-            return cachedEmployees;
+
+            CheckForDuplicateUsername(employee);
+            CheckForDuplicateEmail(employee);
+
+            string passwordHashed = passwordManager.HashPassword(employee.GetPassword());
+            _employeeRepository.AddEmployee(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), passwordHashed, employee.GetEmail(), employee.RoleId());
+
+            cachedEmployees = null;
         }
 
-        public bool VerifyUserCredentials(string email, string password)
+        public List<Employee> SearchEmployeeByName(string fullname)
         {
-            try
-            {
-                return employeeDBManager.VerifyUserCredentials(email, password);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error verifying employee credentials: " + ex.Message);
-                return false;
-            }
+           return _employeeRepository.SearchEmployeesByName(fullname);
         }
-        public bool VerifyEmployeeCredentials(string email, string password)
+
+        public Employee VerifyEmployeeCredentials(string username, string password)
         {
-            string hashedPassword = HashPassword(password);
-            try
-            {
-                return employeeDBManager.VerifyEmployeeCredentials(email, hashedPassword);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error verifying employee credentials: " + ex.Message);
-                return false;
-            }
-        }
-        public string GetEmployeeRole(string username, string password)
-        {
-            string hashedPassword = HashPassword(password);
-            return employeeDBManager.GetEmployeeRole(username, hashedPassword);
+            string hashedPassword = passwordManager.HashPassword(password);
+            return _employeeRepository.VerifyEmployeeCredentials(username, hashedPassword);
         }
 
         public bool UpdateEmployeeInfo(Employee employee)
         {
-            string hashedPassword = HashPassword(employee.GetPassword());
-            try
+            if (cachedEmployees == null)
             {
-                return employeeDBManager.UpdateEmployeeInfo(employee.GetFirstName(), employee.GetLastName(), employee.GetUsername(), hashedPassword, employee.GetEmail(), employee.Role());
+                cachedEmployees = _employeeRepository.GetAllEmployees();
             }
-            catch (Exception ex)
+
+            CheckForDuplicateUsername(employee);
+            CheckForDuplicateEmail(employee);
+
+            bool result = _employeeRepository.UpdateEmployeeInfo(
+                employee.GetId(),
+                employee.GetFirstName(),
+                employee.GetLastName(),
+                employee.GetUsername(),
+                employee.GetEmail(),
+                employee.RoleId()
+            );
+
+            if (result)
             {
-                Console.WriteLine("Error updating employee information: " + ex.Message);
-                return false;
+                cachedEmployees = _employeeRepository.GetAllEmployees();
             }
+            return result;
         }
+
         public Employee GetEmployeeByUsername(string username)
         {
-            return employeeDBManager.GetEmployeeByUsername(username);
+            return _employeeRepository.GetEmployeeByUsername(username);
+        }
+        public Employee GetEmployeeById(int id)
+        {
+            return _employeeRepository.GetEmployeeById(id);
         }
 
         public void DeleteEmployee(int id)
         {
-            employeeDBManager.DeleteEmployee(id);
+            _employeeRepository.DeleteEmployee(id);
             cachedEmployees = null;
         }
 
-        //public Employee GetEmployeeByUsernameAndPassword(string username, string password)
-        //{
-        //    return GetEmployees().FirstOrDefault(emp => emp.GetFirstName() == username && emp.GetPassword() == password);
-        //}
+        private void CheckForDuplicateUsername(Employee employee)
+        {
+            foreach (var e in cachedEmployees)
+            {
+                if (e.GetUsername() == employee.GetUsername() && e.GetId() != employee.GetId())
+                {
+                    throw new DuplicateUsernameException();
+                }
+            }
+        }
+
+        private void CheckForDuplicateEmail(Employee employee)
+        {
+            foreach (var e in cachedEmployees)
+            {
+                if (e.GetEmail() == employee.GetEmail() && e.GetId() != employee.GetId())
+                {
+                    throw new DuplicateEmailException();
+                }
+            }
+        }
+
+        public bool ChangeEmployeePassword(int employeeId, string oldPassword, string newPassword)
+        {
+            var employee = GetEmployeeById(employeeId);
+
+            if (!passwordManager.VerifyPassword(oldPassword, employee.GetPassword()))
+            {
+                throw new InvalidOldPasswordException();
+            }
+
+            string newHashedPassword = passwordManager.HashPassword(newPassword);
+            return _employeeRepository.UpdateEmployeePassword(employeeId, newHashedPassword);
+        }
     }
 }

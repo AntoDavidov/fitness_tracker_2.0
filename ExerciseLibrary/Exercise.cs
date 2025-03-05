@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NameLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,6 @@ namespace ExerciseLibrary
         {
             return $"{id}: {name}:";
         }
-        public abstract int CalculateCaloriesBurned(double userWeight);
+        public abstract int CalculateCaloriesBurned(Customer customer);
     }
 }

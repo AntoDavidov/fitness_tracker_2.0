@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NameLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -9,7 +10,7 @@ namespace ManagerLibrary
 {
     public class PasswordManager
     {
-        protected string HashPassword(string password)
+        public string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -21,6 +22,11 @@ namespace ManagerLibrary
                 }
                 return builder.ToString();
             }
+
+        }
+        public bool VerifyPassword(string plainPassword, string hashedPassword)
+        {
+            return plainPassword == hashedPassword;
         }
     }
 }

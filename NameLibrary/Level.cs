@@ -8,7 +8,7 @@ namespace NameLibrary
 {
     public enum Level
     {
-        Beginner,
+        Beginner = 1,
         Advanced,
         Intermediate
     }

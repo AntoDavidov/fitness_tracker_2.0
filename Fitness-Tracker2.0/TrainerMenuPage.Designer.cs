@@ -32,10 +32,8 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             panel2 = new Panel();
-            btnCardio = new Button();
             btnSuggestions = new Button();
             btnStrength = new Button();
-            btnProfile = new Button();
             panelContainer = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -50,7 +48,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(897, 63);
+            panel1.Size = new Size(995, 67);
             panel1.TabIndex = 4;
             // 
             // pictureBox1
@@ -78,29 +76,13 @@
             // panel2
             // 
             panel2.BackColor = Color.White;
-            panel2.Controls.Add(btnCardio);
             panel2.Controls.Add(btnSuggestions);
             panel2.Controls.Add(btnStrength);
-            panel2.Controls.Add(btnProfile);
             panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 63);
+            panel2.Location = new Point(0, 67);
             panel2.Name = "panel2";
-            panel2.Size = new Size(897, 71);
+            panel2.Size = new Size(995, 71);
             panel2.TabIndex = 5;
-            // 
-            // btnCardio
-            // 
-            btnCardio.BackColor = Color.White;
-            btnCardio.FlatStyle = FlatStyle.Flat;
-            btnCardio.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            btnCardio.ForeColor = Color.Red;
-            btnCardio.Location = new Point(227, 3);
-            btnCardio.Name = "btnCardio";
-            btnCardio.Size = new Size(218, 65);
-            btnCardio.TabIndex = 1;
-            btnCardio.Text = "Cardio";
-            btnCardio.UseVisualStyleBackColor = false;
-            btnCardio.Click += btnCardio_Click;
             // 
             // btnSuggestions
             // 
@@ -108,9 +90,9 @@
             btnSuggestions.FlatStyle = FlatStyle.Flat;
             btnSuggestions.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
             btnSuggestions.ForeColor = Color.Red;
-            btnSuggestions.Location = new Point(451, 3);
+            btnSuggestions.Location = new Point(494, 3);
             btnSuggestions.Name = "btnSuggestions";
-            btnSuggestions.Size = new Size(218, 65);
+            btnSuggestions.Size = new Size(498, 65);
             btnSuggestions.TabIndex = 2;
             btnSuggestions.Text = "Workouts";
             btnSuggestions.UseVisualStyleBackColor = false;
@@ -124,39 +106,25 @@
             btnStrength.ForeColor = Color.Red;
             btnStrength.Location = new Point(3, 3);
             btnStrength.Name = "btnStrength";
-            btnStrength.Size = new Size(218, 65);
+            btnStrength.Size = new Size(485, 65);
             btnStrength.TabIndex = 0;
-            btnStrength.Text = "Strength";
+            btnStrength.Text = "Exercises";
             btnStrength.UseVisualStyleBackColor = false;
             btnStrength.Click += btnStrength_Click;
-            // 
-            // btnProfile
-            // 
-            btnProfile.BackColor = Color.White;
-            btnProfile.FlatStyle = FlatStyle.Flat;
-            btnProfile.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold);
-            btnProfile.ForeColor = Color.Red;
-            btnProfile.Location = new Point(675, 3);
-            btnProfile.Name = "btnProfile";
-            btnProfile.Size = new Size(218, 65);
-            btnProfile.TabIndex = 3;
-            btnProfile.Text = "Profile";
-            btnProfile.UseVisualStyleBackColor = false;
-            btnProfile.Click += btnProfile_Click;
             // 
             // panelContainer
             // 
             panelContainer.Dock = DockStyle.Fill;
-            panelContainer.Location = new Point(0, 134);
+            panelContainer.Location = new Point(0, 138);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(897, 430);
+            panelContainer.Size = new Size(995, 466);
             panelContainer.TabIndex = 6;
             // 
             // frmTrainerUCPage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(897, 564);
+            ClientSize = new Size(995, 604);
             Controls.Add(panelContainer);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -177,8 +145,6 @@
         private Panel panel2;
         private Panel panelContainer;
         private Button btnStrength;
-        private Button btnCardio;
-        private Button btnProfile;
         private PictureBox pictureBox1;
     }
 }

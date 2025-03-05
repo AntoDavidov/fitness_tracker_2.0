@@ -1,0 +1,17 @@
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\bin\Debug\net8.0\IRepositories.deps.json
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\bin\Debug\net8.0\IRepositories.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\bin\Debug\net8.0\IRepositories.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\bin\Debug\net8.0\ExerciseLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\bin\Debug\net8.0\NameLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\bin\Debug\net8.0\ExerciseLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\bin\Debug\net8.0\NameLibrary.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IRepositories.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IRepositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IRepositories.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IRepositories.AssemblyInfo.cs
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IRepositories.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IReposit.8DA2A21D.Up2Date
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IRepositories.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\refint\IRepositories.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\IRepositories.pdb
+C:\Users\User\Desktop\Fitness-Tracker2.0\IRepositories\obj\Debug\net8.0\ref\IRepositories.dll

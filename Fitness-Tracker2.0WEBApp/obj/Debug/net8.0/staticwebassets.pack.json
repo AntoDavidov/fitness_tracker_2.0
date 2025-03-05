@@ -17,6 +17,18 @@
       "PackagePath": "staticwebassets\\css\\SignUpLogIn.css"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\detailsForWorkoutPageStyle.css",
+      "PackagePath": "staticwebassets\\css\\detailsForWorkoutPageStyle.css"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\favoriteWorkoutsStyle.css",
+      "PackagePath": "staticwebassets\\css\\favoriteWorkoutsStyle.css"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\indexStyle.css",
+      "PackagePath": "staticwebassets\\css\\indexStyle.css"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\landing.css",
       "PackagePath": "staticwebassets\\css\\landing.css"
     },
@@ -27,6 +39,10 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\mainStyle.css",
       "PackagePath": "staticwebassets\\css\\mainStyle.css"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\recommendations.css",
+      "PackagePath": "staticwebassets\\css\\recommendations.css"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\css\\signup.css",
@@ -55,6 +71,10 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\img\\Fitness_tracker_img2.jpeg",
       "PackagePath": "staticwebassets\\img\\Fitness_tracker_img2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\js\\JavaScript.js",
+      "PackagePath": "staticwebassets\\js\\JavaScript.js"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\Fitness-Tracker2.0\\Fitness-Tracker2.0WEBApp\\wwwroot\\js\\site.js",

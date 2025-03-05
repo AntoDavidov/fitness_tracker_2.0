@@ -1,5 +1,6 @@
 ﻿@page
 @model Fitness_Tracker2._0WEBApp.Pages.SignUpModel
+@using NameLibrary
 @{
 }
 @if (Model.SignUpSuccessfull)
@@ -8,7 +9,10 @@
         Your account has been created successfully!
     </div>
 }
-<link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+@section Styles{
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+}
+
 <form class="signup-form" method="post">
     <div class="form-left">
         <div class="mb-3">
@@ -36,20 +40,22 @@
             <span asp-validation-for="SignupDTO.Email" class="text-danger"></span>
             <input asp-for="SignupDTO.Email" class="form-control">
         </div>
-         <div class="mb-3">
+        <div class="mb-3">
             <label for="level" class="form-label">Level</label>
-            <select class="form-select" id="level" name="SignupDTO.Level">
-                <option selected>Select your level</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
+            <span asp-validation-for="SignupDTO.Level" class="text-danger"></span>
+            <select asp-for="SignupDTO.Level" class="form-select" asp-items="Html.GetEnumSelectList<Level>()">
+                <option value="">Select your level</option>
             </select>
-            <input asp-for="SignupDTO.Level" type="hidden" />
         </div>
         <div class="mb-3">
             <label for="weight" class="form-label">Weight (kg)</label>
             <span asp-validation-for="SignupDTO.Weight" class="text-danger"></span>
-            <input asp-for="SignupDTO.Weight" class="form-control" type="text"> <!-- Change type to text -->
+            <input asp-for="SignupDTO.Weight" class="form-control" type="text">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <span asp-validation-for="SignupDTO.Age" class="text-danger"></span>
+            <input asp-for="SignupDTO.Age" class="form-control" type="text" />
         </div>
         <button type="submit" class="btn btn-red">Submit</button>
     </div>
@@ -61,4 +67,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

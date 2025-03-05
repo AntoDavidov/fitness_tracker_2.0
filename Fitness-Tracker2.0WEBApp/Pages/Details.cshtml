@@ -1,35 +1,139 @@
 ﻿@page
 @model Fitness_Tracker2._0WEBApp.Pages.DetailsModel
 @{
+    ViewData["Title"] = "Workout Details";
 }
+
 @section Styles {
-    <link rel="stylesheet" href="~/css/DetailsPageStyle.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/detailsForWorkoutPageStyle.css" asp-append-version="true" />
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
-    <div class="alert alert-danger">
+    <div class="details-alert details-alert-danger">
         @Model.ErrorMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="details-alert details-alert-success">
+        @Model.SuccessMessage
+    </div>
+}
+
+@if(Model.Workout != null)
+{
+    <div class="details-container">
+        <div class="details-left">
+            <h2 class="details-title">@Model.Workout.GetName()</h2>
+            <p class="details-description">@Model.Workout.GetDescription()</p>
+            <p class="details-level">Level: @Model.Workout.GetWorkoutLevel()</p>
+
+            <h3 class="details-exercises-title">Exercises</h3>
+            <ul class="details-exercises-list">
+                @foreach (var exercise in Model.Workout.GetExercises())
+                {
+                    <li>
+                        <strong>@exercise.GetName()</strong>: @exercise.GetDescription()
+                        @if (exercise is ExerciseLibrary.Strength strengthExercise)
+                        {
+                            <ul>
+                                <li>Reps: @strengthExercise.GetReps()</li>
+                                <li>Sets: @strengthExercise.GetSets()</li>
+                                <li>Weight: @strengthExercise.GetWeight() kg</li>
+                                <li>Muscle Group: @strengthExercise.GetMuscleGroup()</li>
+                            </ul>
+                        }
+                        @if (exercise is ExerciseLibrary.Cardio cardioExercise)
+                        {
+                            <ul>
+                                <li>Duration: @cardioExercise.GetDuration()</li>
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="details-right">
+            <div class="details-actions">
+                @if (Model.HasAddedToFavorites)
+                {
+                    <form method="post" asp-page-handler="RemoveFromFavorites" class="details-form">
+                        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                        <button type="submit" class="details-button">Remove from favorites</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-page-handler="AddToFavorites" class="details-form">
+                        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                        <button type="submit" class="details-button">Add to Favorites</button>
+                    </form>
+                }
+
+                <form method="post" asp-page-handler="CalculateCalories" class="details-form">
+                    <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                    <button type="submit" class="details-button">Calculate Calories</button>
+                </form>
+
+                <div class="details-rating-actions">
+                    <form method="post" asp-page-handler="SetAverageRating" class="details-form-inline">
+                        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                        <button type="submit" class="details-button">Show Average Rating</button>
+                    </form>
+
+                    <form method="post" asp-page-handler="SetPercentageRating" class="details-form-inline">
+                        <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                        <button type="submit" class="details-button">Show Percentage Rating</button>
+                    </form>
+                </div>
+            </div>
+
+            @if (Model.TotalCaloriesBurned > 0)
+            {
+                <p class="details-calories-result">Total Calories Burned: @Model.TotalCaloriesBurned</p>
+            }
+
+            @if (Model.SelectedStrategy == "Percentage")
+            {
+                <ul class="rating-distribution-list">
+                    <h3 class="details-rating-title">Rating Distribution</h3>
+
+                    <li>☆ 1: @Model.RatingPercentages[0].ToString("0.00")%</li>
+                    <li>☆ 2: @Model.RatingPercentages[1].ToString("0.00")%</li>
+                    <li>☆ 3: @Model.RatingPercentages[2].ToString("0.00")%</li>
+                    <li>☆ 4: @Model.RatingPercentages[3].ToString("0.00")%</li>
+                    <li>☆ 5: @Model.RatingPercentages[4].ToString("0.00")%</li>
+                </ul>
+            }
+            else
+            {
+                <p class="details-average-rating">Average Rating: @Model.CalculatedRating.ToString("0.00") (out of @Model.RatingCount Users)</p>
+            }
+
+            @if (!Model.HasAlreadyRated)
+            {
+                <h3 class="details-rating-title">Add Your Rating</h3>
+                <form method="post" asp-page-handler="AddRating" class="details-rating-form">
+                    <input type="hidden" asp-for="Id" value="@Model.Workout.GetId()" />
+                    <label for="rating" class="details-rating-label">Rating (1-5):</label>
+                    <input type="number" asp-for="RatingValue" min="1" max="5" class="details-rating-input" />
+                    <button type="submit" class="details-button">Submit Rating</button>
+                </form>
+            }
+            else
+            {
+                <p class="details-already-rated">You have already rated this workout.</p>
+            }
+
+            <a asp-page="/Application" class="details-back-link">Back to list</a>
+        </div>
     </div>
 }
 else
 {
-    <h1>@Model.Workout.GetName()</h1>
-    <p>@Model.Workout.GetDescription()</p>
-    <p>Level: @Model.Workout.GetWorkoutLevel()</p>
-
-    <h2>Exercises</h2>
-    <ul>
-        @foreach (var exercise in Model.Workout.GetExercises())
-        {
-            <li>@exercise.ToString()</li>
-        }
-    </ul>
-
-    <form method="post">
-        <input type="hidden" asp-for="Id" />
-        <button type="submit" asp-page-handler="AddToFavorites">Add to Favorites</button>
-    </form>
+    <h3>Workout details unavailable.</h3>
 }
 
-<a href="/Application">Back to list</a>

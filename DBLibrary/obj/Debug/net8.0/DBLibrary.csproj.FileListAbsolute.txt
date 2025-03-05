@@ -32,3 +32,5 @@ C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Debug\net8.0\DBLibrary.dl
 C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Debug\net8.0\refint\DBLibrary.dll
 C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Debug\net8.0\DBLibrary.pdb
 C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\obj\Debug\net8.0\ref\DBLibrary.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Debug\net8.0\IRepositories.dll
+C:\Users\User\Desktop\Fitness-Tracker2.0\DBLibrary\bin\Debug\net8.0\IRepositories.pdb

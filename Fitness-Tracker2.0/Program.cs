@@ -1,17 +1,28 @@
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Windows.Forms;
+using ManagerLibrary; 
+using Fitness_Tracker2._0.Configuration;
+using IRepositories;
+
 namespace Fitness_Tracker2._0
 {
-    internal static class Program
+    static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new frmLoginPage());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            var services = new ServiceCollection();
+            DependencyInjection.ConfigureServices(services, useFakeRepository: false); 
+            var serviceProvider = services.BuildServiceProvider();
+
+            var employeeManager = serviceProvider.GetService<EmployeeManager>();
+            var exerciseManager = serviceProvider.GetService<ExerciseManager>();
+            var workoutManager = serviceProvider.GetService<WorkoutManager>();
+            Application.Run(new frmLoginPage(employeeManager, exerciseManager, workoutManager));
         }
     }
 }

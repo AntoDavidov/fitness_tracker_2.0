@@ -10,62 +10,65 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace Fitness_Tracker2._0.UserControls
 {
     public partial class ucProfilePage : UserControl
     {
         private Employee loggedInEmployee;
+        private EmployeeManager employeeManager;
 
-
-        public ucProfilePage(Employee loggedInEmployee)
+        public ucProfilePage(Employee loggedInEmployee, EmployeeManager _employeeManager)
         {
             InitializeComponent();
             this.loggedInEmployee = loggedInEmployee;
-            PopulateTextBoxes();
+            this.employeeManager = _employeeManager;
+            //PopulateTextBoxes();
         }
 
-        private void PopulateTextBoxes()
-        {
-            // Populate the text boxes with the logged-in employee's information
-            txtbFirstName.Text = loggedInEmployee.GetFirstName();
-            txtbLastName.Text = loggedInEmployee.GetLastName();
-            txtbUsername.Text = loggedInEmployee.GetUsername();
-            txtbEmail.Text = loggedInEmployee.GetEmail();
-            cmbbRole.Text = loggedInEmployee.Role();
+        //private void PopulateTextBoxes()
+        //{
+        //    Populate the text boxes with the logged -in employee's information
+        //    txtbFirstName.Text = loggedInEmployee.GetFirstName();
+        //    txtbLastName.Text = loggedInEmployee.GetLastName();
+        //    txtbUsername.Text = loggedInEmployee.GetUsername();
+        //    txtbEmail.Text = loggedInEmployee.GetEmail();
+        //    cmbbRole.Text = loggedInEmployee.Role();
 
-            // You can populate other text boxes similarly if needed
-        }
+        //}
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (txtbPassword.Text != txtbConfirmPassword.Text)
-            {
-                MessageBox.Show("Passwords do not match. Please re-enter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtbPassword.Text = "";
-                txtbConfirmPassword.Text = "";
-                return;
-            }
+        //private void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    if (txtbPassword.Text != txtbConfirmPassword.Text)
+        //    {
+        //        MessageBox.Show("Passwords do not match. Please re-enter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        txtbPassword.Text = "";
+        //        txtbConfirmPassword.Text = "";
+        //        return;
+        //    }
 
-            loggedInEmployee.SetFirstName(txtbFirstName.Text);
-            loggedInEmployee.SetLastName(txtbLastName.Text);
-            loggedInEmployee.SetUsername(txtbUsername.Text);
-            loggedInEmployee.SetEmail(txtbEmail.Text);
-            loggedInEmployee.SetPassword(txtbPassword.Text);
+        //    var updatedEmployee = new Employee(
+        //        loggedInEmployee.GetId(),
+        //        txtbFirstName.Text,
+        //        txtbLastName.Text,
+        //        txtbUsername.Text,
+        //        txtbPassword.Text,
+        //        txtbEmail.Text,
+        //        cmbbRole.SelectedIndex + 1
+        //    );
 
-            EmployeeManager employeeManager = new EmployeeManager();
-            bool updateResult = employeeManager.UpdateEmployeeInfo(loggedInEmployee);
+        //    bool updateResult = employeeManager.UpdateEmployeeInfo(updatedEmployee);
 
-            if (updateResult)
-            {
-                MessageBox.Show("Profile updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                PopulateTextBoxes();
-            }
-            else
-            {
-                MessageBox.Show("Failed to update profile.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                PopulateTextBoxes();
-            }
-        }
+        //    if (updateResult)
+        //    {
+        //        MessageBox.Show("Profile updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        loggedInEmployee = updatedEmployee; //!! Updating the loggedInEmployeeInfo
+        //        PopulateTextBoxes();
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Failed to update profile.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        PopulateTextBoxes();
+        //    }
+        //}
     }
 }

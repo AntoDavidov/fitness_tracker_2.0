@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NameLibrary;
+using NameLibrary.DTOs;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -40,14 +41,14 @@ namespace Fitness_Tracker2._0WEBApp.Pages
                 return Page();
             }
 
-            Customer customer = _manager.VerifyLogin(Login);
+            Customer customer = _manager.VerifyCustomerCredentials(Login.Email, Login.Password);
 
             if (customer != null)
             {
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, customer.GetEmail()),
-                    new Claim(ClaimTypes.Name, customer.GetEmail()),  // Use the email as the name claim
+                    new Claim(ClaimTypes.Name, customer.GetUsername()),  
                     new Claim("Username", customer.GetUsername())
                 };
 

@@ -1,38 +1,79 @@
-﻿using DBLibrary;
+﻿using ManagerLibrary.Exceptions;
 using NameLibrary;
-using System;
+using IRepositories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ExerciseLibrary;
 
 namespace ManagerLibrary
 {
-    public class CustomerManager : PasswordManager
+    public class CustomerManager
     {
-        private CustomerDBManager customerDBManager;
-        public CustomerManager()
+        private readonly ICustomerRepo _customerRepository;
+        private PasswordManager passwordManager;
+
+        public CustomerManager(ICustomerRepo customerRepository)
         {
-            customerDBManager = new CustomerDBManager();
-        }
-        public Customer VerifyLogin(LoginDTO login)
-        {
-            string password = HashPassword(login.Password);
-            return customerDBManager.VerifyCustomerCredentials(login.Email, password);
+            _customerRepository = customerRepository;
+            passwordManager = new PasswordManager();
         }
 
-        public void AddCustomer(SignupDTO signup)
+        public void AddCustomer(string firstName, string lastName, string username, string password, string email, double weight, Level level, int age)
         {
-            string hashedPassword = HashPassword(signup.Password);
-            customerDBManager.AddCustomerToDB(signup.FirstName, signup.LastName,signup.UserName, hashedPassword, signup.Email, signup.Weight, signup.Level);
+            foreach (var existingCustomer in _customerRepository.GetAllCustomers())
+            {
+                if (existingCustomer.GetUsername() == username)
+                {
+                    throw new DuplicateUsernameException();
+                }
+                if (existingCustomer.GetEmail() == email)
+                {
+                    throw new DuplicateEmailException();
+                }
+            }
+
+            string passwordHashed = passwordManager.HashPassword(password);
+            _customerRepository.AddCustomerToDB(firstName, lastName, username, passwordHashed, email, weight, level, age);
         }
-        public int GetCustomerIdByEmail(string email)
+
+        public Customer VerifyCustomerCredentials(string email, string password)
         {
-            return customerDBManager.GetCustomerIdByEmail(email);
+            string hashedPassword = passwordManager.HashPassword(password);
+            return _customerRepository.VerifyCustomerCredentials(email, hashedPassword);
         }
+
         public bool AddWorkoutToFavourites(int customerId, int workoutId)
         {
-            return customerDBManager.AddWorkoutToFavorites(customerId, workoutId);
+            return _customerRepository.AddWorkoutToFavourites(customerId, workoutId);
+        }
+        public bool RemoveWorkoutFromFavourites(int customerId, int workoutId)
+        {
+            return _customerRepository.RemoveWorkoutFromFavourites(customerId, workoutId);
+        }
+
+
+        public int GetCustomerIdByEmail(string email)
+        {
+            return _customerRepository.GetCustomerIdByEmail(email);
+        }
+        public Customer GetCustomerById(int id)
+        {
+            return _customerRepository.GetCustomerById(id);
+        }
+        public List<Customer> GetAllCustomers()
+        {
+            return _customerRepository.GetAllCustomers();
+        }
+        public List<Workouts> GetFavoriteWorkoutsByPage(int userId, int pageIndex, int pageSize)
+        {
+            return _customerRepository.GetFavoriteWorkoutsByPage(userId, pageIndex, pageSize);
+        }
+        public int GetTotalFavoriteWorkoutsCount(int userId)
+        {
+            return _customerRepository.GetTotalFavoriteWorkouts(userId);
+        }
+        public List<Workouts> GetFavoriteWorkouts(int customerId)
+        {
+            return _customerRepository.GetFavoriteWorkouts(customerId);
         }
     }
 }

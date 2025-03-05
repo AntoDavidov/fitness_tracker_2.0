@@ -1,122 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DBLibrary;
 using ExerciseLibrary;
+using IRepositories;
 
 namespace ManagerLibrary
 {
     public class ExerciseManager
     {
-        private List<Strength> cachedStrengthExercises;
-        private List<Cardio> cachedCardioExercises;
-        private ExerciseDBManager exerciseDBManager;
+        private List<Exercise> cachedExercises;
+        private readonly IExerciseRepo _exerciseRepository;
 
-        public ExerciseManager()
+        public ExerciseManager(IExerciseRepo exerciseRepository)
         {
-            exerciseDBManager = new ExerciseDBManager();
-            cachedStrengthExercises = null;
-            cachedCardioExercises = null;
-        }
-        public void AddStrengthExercise(Strength strengthExercise)
-        {
-            exerciseDBManager.AddStrengthExerciseToDB(strengthExercise);
+            _exerciseRepository = exerciseRepository;
+            cachedExercises = null;
         }
 
-        public void AddCardioExercise(Cardio cardioExercise)
+        public void AddExercise(Exercise exercise)
         {
-            exerciseDBManager.AddCardioExerciseToDB(cardioExercise);
-        }
-        public List<Exercise> GetExerciseList()
-        {
-            List<Exercise> allExercises = new List<Exercise>();
-
-            // Fetch Strength exercises
-            if (cachedStrengthExercises == null)
+            if (exercise is Strength strengthExercise)
             {
-                cachedStrengthExercises = exerciseDBManager.GetStrengthExercises();
+                _exerciseRepository.AddStrengthExercise(strengthExercise);
+            }
+            else if (exercise is Cardio cardioExercise)
+            {
+                _exerciseRepository.AddCardioExercise(cardioExercise);
             }
 
-            // Fetch Cardio exercises
-            if (cachedCardioExercises == null)
-            {
-                cachedCardioExercises = exerciseDBManager.GetCardioExercises();
-            }
+            cachedExercises = null; 
+        }
 
-            // Combine Strength and Cardio exercises into a single list
-            allExercises.AddRange(cachedStrengthExercises);
-            allExercises.AddRange(cachedCardioExercises);
+        public List<Exercise> SearchExercisesByName(string name)
+        {
+            return _exerciseRepository.SearchExercisesByName(name);
+        }
+        public List<Exercise> SearchExercisesByTypeAndName(string exerciseType, string exerciseName)
+        {
+            return _exerciseRepository.SearchExercisesByNameAndType(exerciseType, exerciseName);
+        }
 
-            return allExercises;
-        }
-        public List<Strength> GetOnlyStrengthExercises()
-        {
-            return exerciseDBManager.GetStrengthExercises();
-        }
-        public List<Cardio> GetOnlyCardioExercises()
-        {
-            return exerciseDBManager.GetCardioExercises();
-        }
-        public bool AddWorkout(Workouts workout)
-        {
-            return exerciseDBManager.AddWorkoutToDB(workout);
-        }
-        public bool AddWorkoutWithoutExercises(Workouts workout)
-        {
-            return exerciseDBManager.AddWorkoutToDBWithoutExercises(workout);
-        }
-        public Strength? GetStrengthExerciseById(int strengthId)
-        {
-            return exerciseDBManager.GetStrengthExerciseById(strengthId);
-        }
-        public Cardio? GetCardioExerciseById(int cardioId)
-        {
-            return exerciseDBManager.GetCardioExerciseById(cardioId);
-        }
         public Exercise? GetExerciseById(int exerciseId)
         {
-            return exerciseDBManager.GetExerciseById(exerciseId);
-        }
-        public Workouts? FindWorkout(Workouts workout)
-        {
-            return exerciseDBManager.GetWorkout(workout);
-        }
-        public Workouts? GetWorkoutById(int workoutId)
-        {
-            return exerciseDBManager.GetWorkoutById(workoutId);
-        }
-        public void AddExerciseToWorkout(Workouts workout, Exercise exercise)
-        {
-            exerciseDBManager.AddExerciseToWorkout(workout.GetId(), exercise.GetId());
-        }
-        public List<Exercise> GetCurrentWorkoutExercises(Workouts workouts)
-        {
-            return exerciseDBManager.GetExercisesForWorkout(workouts.GetId());
-        }
-        public bool ExerciseExistsInWorkout(Workouts workouts, Exercise exercise)
-        {
-            return exerciseDBManager.ExerciseAlreadyExistsInWorkout(workouts.GetId(), exercise.GetId());
-        }
-        
-        public List<Workouts> GetWorkouts()
-        {
-            return exerciseDBManager.GetAllWorkoutsFromDB();
-        }
-        public void DeleteStrengthExercise(Strength strength)
-        {
-            exerciseDBManager.DeleteStrengthExercise(strength);
-        }
-        public void DeleteCardioExercise(Cardio cardio)
-        {
-            exerciseDBManager.DeleteCardioExercise(cardio);
-        }
-        public void DeleteWorkout(Workouts workouts)
-        {
-            exerciseDBManager.DeleteWorkout(workouts.GetId());
+            return _exerciseRepository.GetExerciseById(exerciseId);
         }
 
+        public void DeleteExercise(Exercise exercise)
+        {
+            if (exercise is Strength strengthExercise)
+            {
+                _exerciseRepository.DeleteStrengthExercise(strengthExercise);
+            }
+            else if (exercise is Cardio cardioExercise)
+            {
+                _exerciseRepository.DeleteCardioExercise(cardioExercise);
+            }
 
+            cachedExercises = null; 
+        }
     }
 }

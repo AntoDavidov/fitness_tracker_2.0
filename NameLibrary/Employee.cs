@@ -1,28 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NameLibrary
 {
     public class Employee : User
-    { 
-        private string role;
+    {
+        private int roleId;
 
-        public Employee(int id, string firstName, string lastName, string username, string password, string email, string role) : base(id, firstName, lastName, username, password, email)
+        private static readonly Dictionary<int, string> RoleLookup = new Dictionary<int, string>
         {
-            this.role = role;
+            { 1, "Trainer" },
+            { 2, "HR" },
+            { 3, "Nutritionist" }
+        };
+
+        public Employee(int id, string firstName, string lastName, string username, string password, string email, int roleId)
+            : base(id, firstName, lastName, username, password, email)
+        {
+            this.roleId = roleId;
+        } 
+        public Employee(string firstName, string lastName, string username, string password, string email, int roleId)
+            : base(firstName, lastName, username, password, email)
+        {
+            this.roleId = roleId;
         }
-        public Employee(string firstName, string lastName, string username, string password, string email, string role) : base(firstName, lastName, username, password, email)
+        public Employee(int id, string firstName, string lastName, string username, string email, int roleId)
+            : base(id, firstName, lastName, username, email)
         {
-            this.role = role;
+            this.roleId = roleId;
         }
-        public string Role() { return role; } 
-        public void SetRole(string role) { this.role = role; }
-        public override string ToString()   
+
+        public int RoleId()
         {
-            return base.ToString() + " Role: " + role;
+            return roleId;
+        }
+
+        public string Role()
+        {
+            return RoleLookup.ContainsKey(roleId) ? RoleLookup[roleId] : "Unknown";
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + " Role: " + Role();
         }
     }
 }
