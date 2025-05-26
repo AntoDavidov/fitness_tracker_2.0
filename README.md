@@ -31,10 +31,3 @@ Fitness Tracker 2.0 is a **C# desktop application** designed for personal traine
 - **Basic Workout Recommendation Algorithm** – Suggests workouts dynamically.  
 
 ---
-
-## Getting Started  
-
-### 💻 **For Trainers (Desktop App)**  
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/FitnessTracker2.0.git
